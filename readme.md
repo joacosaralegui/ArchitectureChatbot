@@ -16,8 +16,13 @@ https://rasa.com/docs/rasa/installation<br>
 `pip install -U rasa-x==0.33.0rc1 --extra-index-url https://pypi.rasa.com/simple
 
 # Development
-`.\venv\Scripts\activate` o `source env/bin/activate` para ejectutar el virtual env <br>
-`rasa x`
+```
+git pull
+`.\venv\Scripts\activate` o `source ./env/bin/activate` para ejectutar el virtual env <br>
+rasa train
+rasa shell
+deactivate ( o version windows ??)
+```
 
 # Git
 ```
