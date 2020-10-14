@@ -11,7 +11,6 @@ nlu:
     - Es imporante que el sistema pueda soportar la pérdida de uno o más servidores
     - Nos importa que el programa pueda resisistir una caída de corriente
     - Es muy prioritario que el sistema sea tolerante a fallos
-    - Es prioritario que el sistema tenga alta tolerancia a fallos
     
 - intent: maintainability
   examples: |

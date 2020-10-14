@@ -1,2 +1,6 @@
 chatbot/models
 chatbot/*.db*
+env/
+venv/
+chatbot/env
+chatbot/venv
