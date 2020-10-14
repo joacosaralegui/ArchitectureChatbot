@@ -18,3 +18,12 @@ https://rasa.com/docs/rasa/installation<br>
 # Development
 `.\venv\Scripts\activate` o `source env/bin/activate` para ejectutar el virtual env <br>
 `rasa x`
+
+# Git
+```
+git pull
+git status
+git add (lo del status)
+git commit -m "mensaje de commit" 
+git push 
+```
