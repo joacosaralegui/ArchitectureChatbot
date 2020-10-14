@@ -1,0 +1,39 @@
+version: "2.0"
+
+nlu:
+- intent: availability
+  examples: |
+    - Es relevante que el sistema debe estar disponible las 24 horas del día durante todo el año
+    - Es importante que el sistema esté disponible las 24 horas los 365 días del año
+
+- intent: fault_tolerance
+  examples: |
+    - Es imporante que el sistema pueda soportar la pérdida de uno o más servidores
+    - Nos importa que el programa pueda resisistir una caída de corriente
+    - Es muy prioritario que el sistema sea tolerante a fallos
+    - Es prioritario que el sistema tenga alta tolerancia a fallos
+    
+- intent: maintainability
+  examples: |
+    - Es clave que el sistema debe ser independiente del browser en el que corra.
+    - Es importante que los componentes del sistema puedan intercambiarse sin afectar el funcionamient del programa.
+   
+- intent: performance
+  examples: |
+    - Es importante que el sistema traiga resultados de búsqueda en un tiempo aceptable
+    - Es prioritario que el sistema realize la actualización del sitio rápido
+
+- intent: scalability
+  examples: |
+    - Es importante que el sistema sea escalable
+    - Es prioritario que el sistema pueda adaptarse a un crecimiento de visitas de manera sencilla
+   
+- intent: security
+  examples: |
+    - Es importante que el sistema traiga autorización de usuarios y almacenamiento seguro de contraseñas
+    - Es prioritario que el sistema proteja la integridad de la información del usuario
+    
+- intent: usability
+  examples: |
+    - Es importante que el sistema sea intuitivo y de fácil comprensión
+    - Es prioritario que el sistema pueda ser usado con facilidad

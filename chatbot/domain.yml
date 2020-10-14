@@ -1,0 +1,26 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- availability
+- fault_tolerance
+- maintainability
+- performance
+- scalability
+- security
+- usability
+responses:
+  utter_availability:
+  - text: Disponibilidad
+  utter_fault_tolerance:
+  - text: Tolerancia a fallos
+  utter_maintainability:
+  - text: Mantenibilidad
+  utter_performance:
+  - text: Performance
+  utter_scalability:
+  - text: Escalabilidad
+  utter_security:
+  - text: Seguridad
+  utter_usability:
+  - text: Usabilidad
