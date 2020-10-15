@@ -9,3 +9,27 @@ stories:
   steps:
   - intent: fault_tolerance
   - action: utter_fault_tolerance
+- story: story 2
+  steps:
+  - intent: fault_tolerance
+  - action: utter_fault_tolerance
+- story: story 3
+  steps:
+  - intent: maintainability
+  - action: utter_maintainability
+- story: story 4
+  steps:
+  - intent: performance
+  - action: utter_performance
+- story: story 5
+  steps:
+  - intent: scalability
+  - action: utter_scalability
+- story: story 6
+  steps:
+  - intent: security
+  - action: utter_security
+- story: story 7
+  steps:
+  - intent: usability
+  - action: utter_usability
