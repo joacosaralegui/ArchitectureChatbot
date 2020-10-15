@@ -3,8 +3,32 @@ version: "2.0"
 nlu:
 - intent: availability
   examples: |
-    - Es relevante que el sistema debe estar disponible las 24 horas del día durante todo el año
-    - Es importante que el sistema esté disponible las 24 horas los 365 días del año
+    - Es relevante que el sistema este disponible las 24 horas del día durante todo el año
+    - Es importante que el sistema este disponible las 24 horas los 365 días del año
+    - Es importante que el sistema este disponible el 99% del tiempo durante los primeros seis meses de funcionamiento.
+    - Es importante que el sistema este disponible a la mayor cantidad de accesos. 
+    - Es relevante que de 1000 accesos al sistema, el sistema esta disponible 999 veces. 
+    - El relevante que el sistema alcance el 95% de tiempo de actividad.
+    - Es importante que el sistema alcance un alto porcentaje de tiempo de actividad.
+    - Es importante que el sistema falle un porcentaje bajo de veces del tiempo que este disponible.
+    - Es relevante que el sistema falle un 2% del tiempo disponible en linea.
+    - Es importante que los recursos del sistema esten disponible en cualquier momento del dia.
+    - Es importante que el sistema proporcione un contacto las 24 horas del dia, los siete dias de la semana.
+    - Es relevante que el sistema proporcione un contacto todo el dia, cualquier dia de la semana.
+    - Es relevante que ante alguna falla, el sistema de un comunicado comprensible al usuario.
+    - Es importante que ante alguna falla, el sistema notifique al usuario claramente.
+    - Es importante que el sistema tenga un tiempo de inactividad como maximo un periodo chico por año.
+    - Es relevante que el sistema este inactivo un tiempo relativamente chico por año.
+    - Es importante que el sistema este disponible dentro de 24hs posteriores a un cambio.
+    - Es relevante que el sistema este disponible dentro de 24hs posteriores a una nueva instalacion.
+    - Es importante que el software del sistema pueda funcionar sin reiniciar el sistema por completo frente a una falla.
+    - Es relevante que se trate la falla de software del sistema independientemente. 
+    - Es importante que el hardware del sistema pueda funcionar sin una perdida completa de servicio, excepto que falle la fuente de energia primaria y de respaldo.
+    - Es importante que el hardware del sistema pueda funcionar sin perder el servicio por completo, excepto cuando fallen todos los suministros de energia.
+    - Es importante que el sistema responda sin perdidas a los cambios de procesamiento y entrada y salida.
+    - Es importante que el sistema permanezca inactivo y se vuelva a operar con un retraso minimo.
+    - Es relevante que el sistema permanezca caido y se recupere en el menos tiempo posible. 
+    - Es importante que el entorno de desarollo y mantenimiento este disponible para una gran cantidad de desarrolladores el mayor tiempo posible laboral.
 
 - intent: fault_tolerance
   examples: |
