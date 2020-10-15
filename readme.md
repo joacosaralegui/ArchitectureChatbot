@@ -18,7 +18,7 @@ https://rasa.com/docs/rasa/installation<br>
 # Development
 ```
 git pull
-`.\venv\Scripts\activate` o `source ./env/bin/activate` para ejectutar el virtual env <br>
+.\venv\Scripts\activate o source ./env/bin/activate
 rasa train
 rasa shell
 deactivate ( o version windows ??)
