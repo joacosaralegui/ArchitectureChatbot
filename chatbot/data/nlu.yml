@@ -73,8 +73,34 @@ nlu:
 
 - intent: scalability
   examples: |
-    - Es importante que el sistema sea escalable
-    - Es prioritario que el sistema pueda adaptarse a un crecimiento de visitas de manera sencilla
+    - El sistema debe soportar múltiples usuarios remotos.
+    - El producto debe ser capaz de soportar 1000 usuarios simultáneos.
+    - El prodcuto debe ser capaz de administrar los 1000 usuarios existentes. Se espera que este numero se multiplique por 5 dentro del año siguiente.
+    - El sistema debe poder manejar todas los pedidos de usuarios durante horas laborales.
+    - El sistema debe servir a 10 usuarios simultáneos entre 9am y 5pm.
+    - El sistema debe ser capaz de procesar el 100% de los estudiantes y sus clases por los próximos 10 años.
+    - Se espera que el sistema maneje el programa de curriculums y asignación de clases por un mínimo de cinco años.
+    - El producto debe ser capaz de manejar simultáneamente 1500 usuarios. 
+    - El número promedio de registros de partes recicladas por día sera de 50.000.
+    - El producto debera ser capaz de administrar 10.000 usuarios concurrentes a los dos años a partir del lanzamiento.
+    - El producto deberá ser capaz de manejar hasta 1.000 pedidos concurrentes. Este numero aumentará a 2.000 en el lanzamiento número 2.
+    - El producto deberá administrar 25.000 transacciones por hora a los dos años de lanzamiento. Esté valor aumentará a 50.000 luego de 1 año.
+    - Se espera que el producto opere por lo menos durante 5 años para cada instalación de cliente.
+    - El lenguaje del producto se debe acomodar a todos los países de mercados objetivo. 
+    - El server de streaming deberá soportar 50 conexiones de streaming simultáneas.
+    - El server deberá soportar un máximo de mil usuarios simultáneos.
+    - El sitio web deberá ser capaz de soportar 100.000 clientes.
+    - El producto deberá procesar un minimo de un millón de transacciones por año.
+    - El lapso de tiempo requerido para producir cualquier reporte mostrando información de las transacciones deberá estar basado en cuanta información se presenta  antes que en el total de información almacenada.
+    - El esfuerzo necesario para administrar el sistema de pago (medido en horas por mes del administrador del sistema) no deberiá incrementar con el incremento del número de empleados.
+    - El sistema de pago deberá ser escalable para soportar el crecimiento ilimitado del número de empleados.
+    - El repositorio de reglas de negocio debera escalar para manejar un número ilimitado de reglas adicionales.
+    - El sistema de reservación de viajes deberá escalar para acomodar su uso a un número ilimitado de agentes.
+    - El sistema de afirmaciones debera soportar todos los cambios surgidos de cualquier eveto catastrófico.
+    - El sistema de manejo de cuentas debera soportar un número ilimitado de clientes, cuentas y transacciones.
+    - El sistema de autorización de transacciones debera escalar para ajustarse a picos potencias del 1000% en pedidos de autorización durante picos de compras de vacaciones.
+    - El sistema debe ser escalable y no debe tener ninguna característica que pudiese perjudicar el uso en cualquier estación, aunque cambie el número de casos manejado.
+    - The System be scaleable and must not have any features which would preclude use in small or large police stations, with varying numbers of cases handled.
    
 - intent: security
   examples: |
