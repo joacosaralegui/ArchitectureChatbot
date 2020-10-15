@@ -32,9 +32,16 @@ nlu:
 
 - intent: fault_tolerance
   examples: |
-    - Es imporante que el sistema pueda soportar la pérdida de uno o más servidores
-    - Nos importa que el programa pueda resisistir una caída de corriente
-    - Es muy prioritario que el sistema sea tolerante a fallos
+    - El producto funcionará en modo offline siempre que la conexión a Internet no esté disponible
+    - El producto permitirá al usuario ver resultados de búsqueda descargados previamente.
+    - El producto conservará las preferencias del usuario en caso de falla.
+    - El sistema restaura las preferencias de usuario cuando el sistema vuelva a estar en línea.
+    - El sitio web seguirá funcionando si el servidor de transmisión deja de funcionar.
+    - El servidor de transmisión admitirá conexiones de transmisión simultáneas
+    - El producto debe ser robusto con tolerancia a fallos.
+    - El producto tendrá tolerancia a fallas mediante el uso de técnicas de recuperación, transacciones compensatorias y enrutamiento en caso de fallas.
+    - Si un subsistema falla deben existir procedimientos predefinidos para redefinir el entorno de tal manera que la operación pueda reiniciarse. 
+    - En caso de falla del hardware de la computadora en relación con el equipo de la estación de usuario, será posible transferir el control de una estación de usuario a otra mediante un sencillo procedimiento de reconfiguración del software.
     
 - intent: maintainability
   examples: |
