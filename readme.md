@@ -3,17 +3,21 @@
 https://rasa.com/docs/rasa/installation<br>
 
 ## MacOS y Ubuntu
-`virtualenv env -p python3`<br>
-`source env/bin/activate`<br>
-`pip install rasa==2.0.0rc1`<br>
-`pip install -U rasa-x==0.33.0rc1 --extra-index-url https://pypi.rasa.com/simple`<br>
+```
+virtualenv env -p python3
+source env/bin/activate
+pip install rasa==2.0.0rc1
+pip install -U rasa-x==0.33.0rc1 --extra-index-url https://pypi.rasa.com/simple
+```
 
 ## Windows
-`pip3 install -U pip` <br>
-`python3 -m venv ./venv`<br>
-`.\venv\Scripts\activate`<br>
-`pip install rasa==2.0.0rc1`<br>
-`pip install -U rasa-x==0.33.0rc1 --extra-index-url https://pypi.rasa.com/simple
+```
+pip3 install -U pip
+python3 -m venv ./venv
+.\venv\Scripts\activate
+pip install rasa==2.0.0rc1
+pip install -U rasa-x==0.33.0rc1 --extra-index-url https://pypi.rasa.com/simple
+```
 
 # Development
 ```
