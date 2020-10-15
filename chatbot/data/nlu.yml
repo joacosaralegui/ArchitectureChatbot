@@ -45,6 +45,16 @@ nlu:
   examples: |
     - Es importante que el sistema traiga resultados de búsqueda en un tiempo aceptable
     - Es prioritario que el sistema realize la actualización del sitio rápido
+    - El sistema actualizará la pantalla en cortos periodos de tiempo.
+    - El producto responderá rápidamente para mantener los datos actualizados en la pantalla.
+    - Se producirán resultados de búsqueda en un tiempo aceptable.
+    - Los resultados de la búsqueda se devolverán en un tiempo aceptable, luego de que el usuario haya introducido los criterios de búsqueda.
+    - Los miembros del personal deberán poder completar una serie de tareas de manera oportuna.
+    - El tiempo máximo de espera para que un usuario navegue de una pantalla a otra no será demasiado largo.
+    - El sistema permitirá que trabajen al mismo tiempo varios usuarios en simultáneo.
+    - Se permitirá que los clientes existentes inicien sesión en el sitio web con su dirección de correo electrónico y contraseña en un corto periodo.
+    - La interfaz del producto debe ser rápida.
+    - El producto sondeará el sistema en busca de mensajes cada segundo. 
 
 - intent: scalability
   examples: |
@@ -55,8 +65,28 @@ nlu:
   examples: |
     - Es importante que el sistema traiga autorización de usuarios y almacenamiento seguro de contraseñas
     - Es prioritario que el sistema proteja la integridad de la información del usuario
+    - Garantizar que solo los usuarios autorizados puedan acceder al sistema.
+    - El producto podrá distinguir entre usuarios autorizados y no autorizados en todos los intentos de acceso.
+    - Todo usuario del sistema deberá estar autenticado y autorizado.
+    - Verificación básica de la integridad de los datos para reducir la posibilidad de que se introduzcan datos incorrectos o no válidos.
+    - Todas las adiciones de nuevos usuarios y las modificaciones al acceso de los usuarios se registrarán en un Informe.
+    - Solo se ingresarán datos válidos en el sistema. 
+    - No se introducirán datos inválidos en el sistema.
+    - El producto estará libre de virus informáticos.
+    - Se evitará ataques maliciosos, incluida la denegación de servicio.
+    - Garantizar que los datos de la base de datos se correspondan con los datos introducidos por el usuario.
     
 - intent: usability
   examples: |
     - Es importante que el sistema sea intuitivo y de fácil comprensión
     - Es prioritario que el sistema pueda ser usado con facilidad
+    - El sistema será intuitivo y autoexplicativo.
+    - El producto debe ser fácil de aprender para un agente sin conocimiento.
+    - Instalación realizable por un agente no capacitado sin recurrir a instrucciones impresas por separado.
+    - Fácil uso, tanto por los administradores del programa, como por miembros del personal.
+    - Los usuarios se sentirán satisfechos usando el producto.
+    - Las personas sin formación y sin conocimientos de inglés podrán utilizar el producto.
+    - Todos los mensajes de error producidos por el sistema deben ser significativos, de modo que los usuarios que probablemente los vean puedan actuar en consecuencia.
+    - Se deberá poder mostrar varias entidades (casos, sospechosos) simultáneamente.
+    - La navegación debe diseñarse para ayudar a los usuarios a comprender dónde se encuentran, dónde han estado y adónde pueden ir a continuación.
+    - Se deberán proporcionar funciones de usuario final y administrador que sean fáciles de usar e intuitivas en todo momento.
