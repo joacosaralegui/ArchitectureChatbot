@@ -38,8 +38,16 @@ nlu:
     
 - intent: maintainability
   examples: |
-    - Es clave que el sistema debe ser independiente del browser en el que corra.
-    - Es importante que los componentes del sistema puedan intercambiarse sin afectar el funcionamient del programa.
+    - Los componentes del sistema deben poder intercambiarse sin afectar el funcionamiento del programa.
+    - El producto debe ser diseñado usando Patrones de Diseño y buenas prácticas de programación.
+    - Debe ser altamente configurable para uso con varios sistemas de bases de datos para los usuarios finales.
+    - El producto debe continuar operando mientras se actualiza o se añade un nuevo recurso. Debe continuar operando sin interrupciones. 
+    - Actualizaciones de mantenimiento deben ser oferecidas a los clientes una vez al año. Estas no deben tomar más de 5 minutos para ser instaladas.
+    - Debe operar en cualquier plataforma. Debe ser adaptable para cualquier tecnología nueva sin hacer cambios en su arquitectura.
+    - El sistema debe crer registros de todos los cambios, actualizaciones, o arreglos que se le realizan.
+    - El sistema debe ser fácil de actualizar.
+    - Las herramientas de software y aplicaciones pre-construidas que no tienen código fuente disponible deben venir con un completo diagnóstico y soporte al cliente.
+    - El sistema debe estar diseñado en módulos donde los errores puedan ser detectados y corregidos fácilmente. Esto facilita instalar actualizaciones y nuevas funcionalidades si así se requiere.
    
 - intent: performance
   examples: |
