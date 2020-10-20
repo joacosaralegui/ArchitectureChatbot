@@ -2,90 +2,57 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: happy path 1
+- story: basic test for availability
   steps:
   - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
+      el sistema debe ser estar siempre disponible
+    intent: availability
+  - action: action_availability
 
-- story: happy path 2
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
 
-- story: sad path 1
+- story: basic test for fault_tolerance
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
+      el sistema debe ser tolerante a fallos
+    intent: fault_tolerance
+  - action: utter_fault_tolerance
 
-- story: sad path 2
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
 
-- story: sad path 3
+- story: basic test for maintainability
   steps:
   - user: |
-      hi
-    intent: greet
-  - action: utter_greet
-  - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
+      el sistema debe ser fácil de mantener
+    intent: maintainability
+  - action: utter_maintainability
 
-- story: say goodbye
-  steps:
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
 
-- story: bot challenge
+- story: basic test for performance
   steps:
   - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot
+      el sistema debe ser rápido
+    intent: performance
+  - action: utter_performance
+
+
+- story: basic test for scalability
+  steps:
+  - user: |
+      el sistema debe poder escalar para soportar el doble de usuarios
+    intent: scalability
+  - action: utter_scalability
+
+
+- story: basic test for security
+  steps:
+  - user: |
+      el sistema debe ser fácil de usar
+    intent: security
+  - action: utter_security
+
+
+- story: basic test for usability
+  steps:
+  - user: |
+      el sistema debe ser fácil de usar
+    intent: usability
+  - action: utter_usability

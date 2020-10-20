@@ -25,3 +25,50 @@
 #         dispatcher.utter_message(text="Hello World!")
 #
 #         return []
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSet
+
+req_index = {
+    'availability':0,
+    'fault_tolerance':1,
+    'maintainability':2,
+    'performance':3,
+    'scalability':4,
+    'security':5,
+    'usability':6
+}
+
+class ActionAddRequirement(Action):
+
+    def name(self) -> Text:
+        return "action_add_requirement"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Update requirements vector
+        intent_name = tracker.latest_message['intent']['name']
+        requirements = tracker.get_slot('requirements')
+        requirements[req_index[intent_name]] += 1
+
+        # Dispatch message to validate
+        dispatcher.utter_message(text = intent_name)
+
+        # Set slot value
+        return [SlotSet("requirements", requirements)]
+       
+
+class ActionShowVector(Action):
+    def name(self) -> Text:
+        return "action_show_vector"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        requirements = tracker.get_slot('requirements')
+        dispatcher.utter_message(text = "Requirements: " + str(requirements))
+        return []

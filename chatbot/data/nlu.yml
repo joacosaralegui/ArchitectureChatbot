@@ -131,3 +131,9 @@ nlu:
     - Se deberá poder mostrar varias entidades (casos, sospechosos) simultáneamente.
     - La navegación debe diseñarse para ayudar a los usuarios a comprender dónde se encuentran, dónde han estado y adónde pueden ir a continuación.
     - Se deberán proporcionar funciones de usuario final y administrador que sean fáciles de usar e intuitivas en todo momento.
+
+- intent: see_vector
+  examples: |
+    - Mostrame los resultados
+    - Quiero ver los resultados
+    - Quiero ver el resultado

@@ -4,32 +4,46 @@ stories:
 - story: story 1
   steps:
   - intent: availability
-  - action: utter_availability
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [1,0,0,0,0,0,0]
 - story: story 2
   steps:
   - intent: fault_tolerance
-  - action: utter_fault_tolerance
-- story: story 2
-  steps:
-  - intent: fault_tolerance
-  - action: utter_fault_tolerance
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [0,1,0,0,0,0,0]
 - story: story 3
   steps:
   - intent: maintainability
-  - action: utter_maintainability
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [0,0,1,0,0,0,0]
 - story: story 4
   steps:
   - intent: performance
-  - action: utter_performance
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [0,0,0,1,0,0,0]
 - story: story 5
   steps:
   - intent: scalability
-  - action: utter_scalability
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [0,0,0,0,1,0,0]
 - story: story 6
   steps:
   - intent: security
-  - action: utter_security
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [0,0,0,0,0,1,0]
 - story: story 7
   steps:
   - intent: usability
-  - action: utter_usability
+  - action: action_add_requirement
+  - slot_was_set:
+      - requirements: [0,0,0,0,0,0,1]
+- story: story 8
+  steps:
+  - intent: see_vector
+  - action: action_show_vector

@@ -1,6 +1,9 @@
 chatbot/models
+chatbot/results
 chatbot/*.db*
 env/
 venv/
 chatbot/env
 chatbot/venv
+__pycache__
+chatbot/actions/__pycache__/

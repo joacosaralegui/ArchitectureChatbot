@@ -1,6 +1,9 @@
+version: "2.0"
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
 intents:
 - availability
 - fault_tolerance
@@ -9,6 +12,17 @@ intents:
 - scalability
 - security
 - usability
+- see_vector
+
+slots:
+  requirements:
+    type: list
+    initial_value: [0,0,0,0,0,0,0]
+  
+actions:
+  - action_add_requirement
+  - action_show_vector
+
 responses:
   utter_availability:
   - text: Availability
