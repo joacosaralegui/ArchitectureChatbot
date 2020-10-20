@@ -4,27 +4,18 @@ nlu:
 - intent: availability
   examples: |
     - Es relevante que el sistema este disponible las 24 horas del día durante todo el año
-    - Es importante que el sistema este disponible las 24 horas los 365 días del año
-    - El sistema debe estar disponible el 99% del tiempo durante los primeros seis meses de funcionamiento.
-    - El sistema debe estar disponible a la mayor cantidad de accesos. 
-    - De 1000 accesos al sistema, el sistema esta disponible 999 veces. 
-    - El tiempo de actividad alcanzado por el sistema debe ser del 95%.
+    - El sistema debe estar disponible a la mayor cantidad de accesos.
     - El tiempo de actividad alcanzado por el sistema debe ser de un porcentaje alto.
     - El sistema debe fallar un porcentaje bajo de veces del tiempo que este disponible.
     - El sistema debe fallar una baja cantidad de veces del tiempo disponible en linea.
     - Los recursos del sistema deben estar disponible en cualquier momento del dia.
-    - El sistema debe proporcionar un contacto las 24 horas del dia, los siete dias de la semana.
-    - El sistema debe proporcionar un contacto todo el dia, cualquier dia de la semana.
+    - El sistema debe proporcionar un contacto de soporte todo el dia, cualquier dia de la semana.
     - El sistema ante alguna falla, debe dar un comunicado comprensible al usuario.
-    - El sistema ante alguna falla, debe notificar al usuario claramente.
-    - El tiempo de inactividad del sistema debe ser como maximo un periodo chico por año.
-    - El sistema debe estar inactivo un tiempo relativamente chico por año.
-    - El sistema debe estar disponible dentro de 24hs posteriores a un cambio.
+    - El sistema debe estar inactivo un tiempo relativamente corto por año.
     - El sistema debe estar disponible dentro de 24hs posteriores a una nueva instalacion o cambio de version.
     - El software del sistema debe poder funcionar sin reiniciar el sistema por completo frente a una falla.
     - Debe ser posible que se trate una falla de software del sistema independientemente. 
     - El hardware del sistema debe poder funcionar sin una perdida completa de servicio, excepto que falle la fuente de energia primaria y de respaldo.
-    - El hardware del sistema debe poder funcionar sin perder el servicio por completo, excepto cuando fallen todos los suministros de energia.
     - El sistema debe responder sin perdidas a los cambios de procesamiento y entrada y salida.
     - Ante una inactividad el sistema debe volver a operar con un retraso minimo.
     - Ante una caida del sistema este debe recuperarse en el menos tiempo posible. 
@@ -42,20 +33,28 @@ nlu:
     - El producto tendrá tolerancia a fallas mediante el uso de técnicas de recuperación, transacciones compensatorias y enrutamiento en caso de fallas.
     - Si un subsistema falla deben existir procedimientos predefinidos para redefinir el entorno de tal manera que la operación pueda reiniciarse. 
     - En caso de falla del hardware de la computadora en relación con el equipo de la estación de usuario, será posible transferir el control de una estación de usuario a otra mediante un sencillo procedimiento de reconfiguración del software.
-    
+    - El sistema debe permitir al usuario ver logs de errores previos.
+    - El producto y sus bases de datos deben permanecer funcionando a pesar del ingreso de datos maliciosos.
+    - El sitio web debe seguir operando si la pasarela de pago no funciona.
+    - El producto debe evitar fallos estándar.
+
 - intent: maintainability
   examples: |
     - Los componentes del sistema deben poder intercambiarse sin afectar el funcionamiento del programa.
     - El producto debe ser diseñado usando Patrones de Diseño y buenas prácticas de programación.
     - Debe ser altamente configurable para uso con varios sistemas de bases de datos para los usuarios finales.
-    - El producto debe continuar operando mientras se actualiza o se añade un nuevo recurso. Debe continuar operando sin interrupciones. 
+    - El sistema debe continuar operando sin interrupciones durante las actualizaciones. 
     - Actualizaciones de mantenimiento deben ser oferecidas a los clientes una vez al año. Estas no deben tomar más de 5 minutos para ser instaladas.
     - Debe operar en cualquier plataforma. Debe ser adaptable para cualquier tecnología nueva sin hacer cambios en su arquitectura.
-    - El sistema debe crer registros de todos los cambios, actualizaciones, o arreglos que se le realizan.
+    - El sistema debe crear registros de todos los cambios, actualizaciones, o arreglos que se le realizan.
     - El sistema debe ser fácil de actualizar.
     - Las herramientas de software y aplicaciones pre-construidas que no tienen código fuente disponible deben venir con un completo diagnóstico y soporte al cliente.
     - El sistema debe estar diseñado en módulos donde los errores puedan ser detectados y corregidos fácilmente. Esto facilita instalar actualizaciones y nuevas funcionalidades si así se requiere.
-   
+    - El programa va a ser actualizado durante las horas de mantenimiento estipuladas.
+    - El producto debe funcionar en cualquier navegador web.
+    - Todos los cambios y actualizaciones al sistema deben ser actualizados en la documentación.
+    - Se lanzarán nuevas versiones del sistema en períodos de tiempo cortos
+
 - intent: performance
   examples: |
     - Es importante que el sistema traiga resultados de búsqueda en un tiempo aceptable
@@ -70,37 +69,28 @@ nlu:
     - Se permitirá que los clientes existentes inicien sesión en el sitio web con su dirección de correo electrónico y contraseña en un corto periodo.
     - La interfaz del producto debe ser rápida.
     - El producto sondeará el sistema en busca de mensajes cada segundo. 
+    - El sistema debe permitir un minimo de 6 usuarios para trabajar al mismo tiempo.
+    - El tiempo de respuesta de la interfaz del producto debe ser rápida.
+    - El producto debe proveer Multi-threading y Load Balancing.
 
 - intent: scalability
   examples: |
-    - El sistema debe soportar múltiples usuarios remotos.
-    - El producto debe ser capaz de soportar 1000 usuarios simultáneos.
-    - El prodcuto debe ser capaz de administrar los 1000 usuarios existentes. Se espera que este numero se multiplique por 5 dentro del año siguiente.
+    - El producto debe ser capaz de soportar 1000 usuarios simultáneos y remotos.
+    - El producto debe ser capaz de administrar los 1000 usuarios existentes.
     - El sistema debe poder manejar todas los pedidos de usuarios durante horas laborales.
-    - El sistema debe servir a 10 usuarios simultáneos entre 9am y 5pm.
-    - El sistema debe ser capaz de procesar el 100% de los estudiantes y sus clases por los próximos 10 años.
-    - Se espera que el sistema maneje el programa de curriculums y asignación de clases por un mínimo de cinco años.
-    - El producto debe ser capaz de manejar simultáneamente 1500 usuarios. 
-    - El número promedio de registros de partes recicladas por día sera de 50.000.
-    - El producto debera ser capaz de administrar 10.000 usuarios concurrentes a los dos años a partir del lanzamiento.
-    - El producto deberá ser capaz de manejar hasta 1.000 pedidos concurrentes. Este numero aumentará a 2.000 en el lanzamiento número 2.
-    - El producto deberá administrar 25.000 transacciones por hora a los dos años de lanzamiento. Esté valor aumentará a 50.000 luego de 1 año.
+    - El producto deberá ser capaz de manejar gran cantidad de pedidos concurrentes.
     - Se espera que el producto opere por lo menos durante 5 años para cada instalación de cliente.
     - El lenguaje del producto se debe acomodar a todos los países de mercados objetivo. 
     - El server de streaming deberá soportar 50 conexiones de streaming simultáneas.
-    - El server deberá soportar un máximo de mil usuarios simultáneos.
     - El sitio web deberá ser capaz de soportar 100.000 clientes.
     - El producto deberá procesar un minimo de un millón de transacciones por año.
     - El lapso de tiempo requerido para producir cualquier reporte mostrando información de las transacciones deberá estar basado en cuanta información se presenta  antes que en el total de información almacenada.
     - El esfuerzo necesario para administrar el sistema de pago (medido en horas por mes del administrador del sistema) no deberiá incrementar con el incremento del número de empleados.
     - El sistema de pago deberá ser escalable para soportar el crecimiento ilimitado del número de empleados.
     - El repositorio de reglas de negocio debera escalar para manejar un número ilimitado de reglas adicionales.
-    - El sistema de reservación de viajes deberá escalar para acomodar su uso a un número ilimitado de agentes.
     - El sistema de afirmaciones debera soportar todos los cambios surgidos de cualquier eveto catastrófico.
     - El sistema de manejo de cuentas debera soportar un número ilimitado de clientes, cuentas y transacciones.
-    - El sistema de autorización de transacciones debera escalar para ajustarse a picos potencias del 1000% en pedidos de autorización durante picos de compras de vacaciones.
     - El sistema debe ser escalable y no debe tener ninguna característica que pudiese perjudicar el uso en cualquier estación, aunque cambie el número de casos manejado.
-    - The System be scaleable and must not have any features which would preclude use in small or large police stations, with varying numbers of cases handled.
    
 - intent: security
   examples: |
@@ -116,6 +106,9 @@ nlu:
     - El producto estará libre de virus informáticos.
     - Se evitará ataques maliciosos, incluida la denegación de servicio.
     - Garantizar que los datos de la base de datos se correspondan con los datos introducidos por el usuario.
+    - Los accesos de usuario deben ser limitados según sus rol.
+    - Sólo usuarios autorizados deben tener acceso a información crítica del sistema.
+    - El sistema debe proteger la información privada de acuerdo con las políticas de la organización.
     
 - intent: usability
   examples: |
@@ -131,6 +124,9 @@ nlu:
     - Se deberá poder mostrar varias entidades (casos, sospechosos) simultáneamente.
     - La navegación debe diseñarse para ayudar a los usuarios a comprender dónde se encuentran, dónde han estado y adónde pueden ir a continuación.
     - Se deberán proporcionar funciones de usuario final y administrador que sean fáciles de usar e intuitivas en todo momento.
+    - La interfaz debe mostrar datos entendibles.
+    - El producto debe ser intuitivo y fácil para el usuario
+    - El usuario debe poder ubicar fácilmente instrucciones para el manejo del producto.
 
 - intent: see_vector
   examples: |
