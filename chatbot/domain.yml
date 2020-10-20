@@ -11,16 +11,16 @@ intents:
 - usability
 responses:
   utter_availability:
-  - text: Disponibilidad
+  - text: Availability
   utter_fault_tolerance:
-  - text: Tolerancia a fallos
+  - text: Fault tolerance
   utter_maintainability:
-  - text: Mantenibilidad
+  - text: Maintainability
   utter_performance:
   - text: Performance
   utter_scalability:
-  - text: Escalabilidad
+  - text: Scalability
   utter_security:
-  - text: Seguridad
+  - text: Security
   utter_usability:
-  - text: Usabilidad
+  - text: Usability
