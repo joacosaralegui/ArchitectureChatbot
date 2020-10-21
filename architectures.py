@@ -13,9 +13,11 @@ class Architecture:
         self.name = name
         self.vector = vector
 
+#disponibilidad tolerancia a fallos mantenibilidad performance escalabilidad seguridad usabilidad 
 architectures = []
-architectures.append(Architecture("Capas",(0,2,0,0,-1,0,1)))
-architectures.append(Architecture("Broker",(1,1,1,0,2,3,0)))
-architectures.append(Architecture("Server",(1,0,1,0,0,5,0)))
-architectures.append(Architecture("Monolitico",(1,0,0,0,-1,2,1)))
-architectures.append(Architecture("Pipes and filters",(1,1,0,5,0,0,0)))
+architectures.append(Architecture("Layers",(0,1,-1,-1,1,0,1)))
+architectures.append(Architecture("Broker",(0,0,0,-1,1,0,1)))
+architectures.append(Architecture("Model-Viwe-Controler",(0,0,1,-1,-1,0,1)))
+architectures.append(Architecture("Cliente-Serivor",(0,0,1,-1,-1,-1,0)))
+architectures.append(Architecture("Pipes and filters",(0,0,1,-1,0,0,0)))
+architectures.append(Architecture("Peer to Peer",(1,0,0,0,0,-1,0)))

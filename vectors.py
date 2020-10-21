@@ -1,7 +1,16 @@
+#Imports
 from scipy.spatial import distance
+from sklearn.preprocessing import normalize
+import numpy as np
 
 from architectures import architectures
 
+#Obtener un vector normalizado
+def get_normalized_vector(vector):
+  data = vector
+  data = normalize(data, axis=0, norm='max')
+  print(data)
+  
 def get_closer_architecture(vector):
     # (0,0,0,0,0,0,0)
     min_d = 100000000 # max_value
@@ -12,8 +21,11 @@ def get_closer_architecture(vector):
         if d < min_d:
             min_d = d
             min_arch = arch
+    return min_arch
 
-    return arch
+  
+v = np.array([[15,1,1,1,1,0,1]])
+get_normalized_vector(v)
 
-if __name__=="__main__":
-    print(get_closer_architecture((1,0,0,0,1,1,1)).name)
+match=get_closer_architecture(v)
+print(match.name)
