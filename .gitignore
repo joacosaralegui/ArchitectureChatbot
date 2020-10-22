@@ -7,3 +7,4 @@ chatbot/env
 chatbot/venv
 __pycache__
 chatbot/actions/__pycache__/
+chatbot/actions/__pycache__/actions.cpython-36.pyc

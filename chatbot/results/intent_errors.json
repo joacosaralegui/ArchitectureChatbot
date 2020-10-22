@@ -1,202 +1,10 @@
 [
   {
-    "text": "El sistema ante alguna falla, debe dar un comunicado comprensible al usuario.",
-    "intent": "availability",
-    "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "El sistema debe responder sin perdidas a los cambios de procesamiento y entrada y salida.",
-    "intent": "availability",
-    "intent_prediction": {
-      "name": "maintainability",
-      "confidence": 0.38803061842918396
-    }
-  },
-  {
-    "text": "Si un subsistema falla deben existir procedimientos predefinidos para redefinir el entorno de tal manera que la operaci\u00f3n pueda reiniciarse.",
+    "text": "El producto permitir\u00e1 al usuario ver resultados de b\u00fasqueda descargados previamente.",
     "intent": "fault_tolerance",
     "intent_prediction": {
       "name": "performance",
-      "confidence": 0.4776415228843689
-    }
-  },
-  {
-    "text": "Se lanzar\u00e1n nuevas versiones del sistema en per\u00edodos de tiempo cortos",
-    "intent": "maintainability",
-    "intent_prediction": {
-      "name": "performance",
-      "confidence": 0.9657025337219238
-    }
-  },
-  {
-    "text": "El producto sondear\u00e1 el sistema en busca de mensajes cada segundo.",
-    "intent": "performance",
-    "intent_prediction": {
-      "name": "fault_tolerance",
-      "confidence": 0.419724702835083
-    }
-  },
-  {
-    "text": "El sistema debe permitir un minimo de 6 usuarios para trabajar al mismo tiempo.",
-    "intent": "performance",
-    "intent_prediction": {
-      "name": "scalability",
-      "confidence": 0.6341020464897156
-    }
-  },
-  {
-    "text": "El lenguaje del producto se debe acomodar a todos los pa\u00edses de mercados objetivo.",
-    "intent": "scalability",
-    "intent_prediction": {
-      "name": "fault_tolerance",
-      "confidence": 0.4081747233867645
-    }
-  },
-  {
-    "text": "El lapso de tiempo requerido para producir cualquier reporte mostrando informaci\u00f3n de las transacciones deber\u00e1 estar basado en cuanta informaci\u00f3n se presenta  antes que en el total de informaci\u00f3n almacenada.",
-    "intent": "scalability",
-    "intent_prediction": {
-      "name": "security",
-      "confidence": 0.9530192613601685
-    }
-  },
-  {
-    "text": "Todos los mensajes de error producidos por el sistema deben ser significativos, de modo que los usuarios que probablemente los vean puedan actuar en consecuencia.",
-    "intent": "usability",
-    "intent_prediction": {
-      "name": "security",
-      "confidence": 0.681098461151123
-    }
-  },
-  {
-    "text": "La navegaci\u00f3n debe dise\u00f1arse para ayudar a los usuarios a comprender d\u00f3nde se encuentran, d\u00f3nde han estado y ad\u00f3nde pueden ir a continuaci\u00f3n.",
-    "intent": "usability",
-    "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "El sistema debe proporcionar un contacto de soporte todo el dia, cualquier dia de la semana.",
-    "intent": "availability",
-    "intent_prediction": {
-      "name": "maintainability",
-      "confidence": 0.6755209565162659
-    }
-  },
-  {
-    "text": "El hardware del sistema debe poder funcionar sin una perdida completa de servicio, excepto que falle la fuente de energia primaria y de respaldo.",
-    "intent": "availability",
-    "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Debe ser altamente configurable para uso con varios sistemas de bases de datos para los usuarios finales.",
-    "intent": "maintainability",
-    "intent_prediction": {
-      "name": "fault_tolerance",
-      "confidence": 0.6774584054946899
-    }
-  },
-  {
-    "text": "Es prioritario que el sistema realize la actualizaci\u00f3n del sitio r\u00e1pido",
-    "intent": "performance",
-    "intent_prediction": {
-      "name": "maintainability",
-      "confidence": 0.5670493245124817
-    }
-  },
-  {
-    "text": "El producto deber\u00e1 procesar un minimo de un mill\u00f3n de transacciones por a\u00f1o.",
-    "intent": "scalability",
-    "intent_prediction": {
-      "name": "performance",
-      "confidence": 0.41092559695243835
-    }
-  },
-  {
-    "text": "El producto funcionar\u00e1 en modo offline siempre que la conexi\u00f3n a Internet no est\u00e9 disponible",
-    "intent": "fault_tolerance",
-    "intent_prediction": {
-      "name": "availability",
-      "confidence": 0.6383616924285889
-    }
-  },
-  {
-    "text": "El producto y sus bases de datos deben permanecer funcionando a pesar del ingreso de datos maliciosos.",
-    "intent": "fault_tolerance",
-    "intent_prediction": {
-      "name": "security",
-      "confidence": 0.9841427206993103
-    }
-  },
-  {
-    "text": "El sistema debe ser f\u00e1cil de actualizar.",
-    "intent": "maintainability",
-    "intent_prediction": {
-      "name": "usability",
-      "confidence": 0.9494022727012634
-    }
-  },
-  {
-    "text": "El sistema debe estar dise\u00f1ado en m\u00f3dulos donde los errores puedan ser detectados y corregidos f\u00e1cilmente. Esto facilita instalar actualizaciones y nuevas funcionalidades si as\u00ed se requiere.",
-    "intent": "maintainability",
-    "intent_prediction": {
-      "name": "usability",
-      "confidence": 0.6964989900588989
-    }
-  },
-  {
-    "text": "El sistema debe ser escalable y no debe tener ninguna caracter\u00edstica que pudiese perjudicar el uso en cualquier estaci\u00f3n, aunque cambie el n\u00famero de casos manejado.",
-    "intent": "scalability",
-    "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "Es importante que el sistema traiga autorizaci\u00f3n de usuarios y almacenamiento seguro de contrase\u00f1as",
-    "intent": "security",
-    "intent_prediction": {
-      "name": "performance",
-      "confidence": 0.9392143487930298
-    }
-  },
-  {
-    "text": "Los usuarios se sentir\u00e1n satisfechos usando el producto.",
-    "intent": "usability",
-    "intent_prediction": {
-      "name": "security",
-      "confidence": 0.7952133417129517
-    }
-  },
-  {
-    "text": "Se deber\u00e1 poder mostrar varias entidades (casos, sospechosos) simult\u00e1neamente.",
-    "intent": "usability",
-    "intent_prediction": {
-      "name": "scalability",
-      "confidence": 0.9886630177497864
-    }
-  },
-  {
-    "text": "La interfaz debe mostrar datos entendibles.",
-    "intent": "usability",
-    "intent_prediction": {
-      "name": "security",
-      "confidence": 0.5787092447280884
-    }
-  },
-  {
-    "text": "Debe operar en cualquier plataforma. Debe ser adaptable para cualquier tecnolog\u00eda nueva sin hacer cambios en su arquitectura.",
-    "intent": "maintainability",
-    "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
+      "confidence": 0.9809591174125671
     }
   },
   {
@@ -204,55 +12,63 @@
     "intent": "maintainability",
     "intent_prediction": {
       "name": "fault_tolerance",
-      "confidence": 0.8500226140022278
+      "confidence": 0.8530384302139282
     }
   },
   {
-    "text": "El producto debe proveer Multi-threading y Load Balancing.",
+    "text": "El producto sondear\u00e1 el sistema en busca de mensajes cada segundo.",
     "intent": "performance",
     "intent_prediction": {
       "name": "fault_tolerance",
-      "confidence": 0.8067746758460999
+      "confidence": 0.5552372932434082
     }
   },
   {
-    "text": "Es prioritario que el sistema pueda ser usado con facilidad",
-    "intent": "usability",
+    "text": "El producto deber\u00e1 procesar un minimo de un mill\u00f3n de transacciones por a\u00f1o.",
+    "intent": "scalability",
+    "intent_prediction": {
+      "name": "fault_tolerance",
+      "confidence": 0.6251119375228882
+    }
+  },
+  {
+    "text": "El lapso de tiempo requerido para producir cualquier reporte mostrando informaci\u00f3n de las transacciones deber\u00e1 estar basado en cuanta informaci\u00f3n se presenta  antes que en el total de informaci\u00f3n almacenada.",
+    "intent": "scalability",
     "intent_prediction": {
       "name": "security",
-      "confidence": 0.712943971157074
+      "confidence": 0.7899308800697327
     }
   },
   {
-    "text": "F\u00e1cil uso, tanto por los administradores del programa, como por miembros del personal.",
+    "text": "La interfaz debe mostrar datos entendibles.",
     "intent": "usability",
     "intent_prediction": {
       "name": "performance",
-      "confidence": 0.8288833498954773
-    }
-  },
-  {
-    "text": "El producto permitir\u00e1 al usuario ver resultados de b\u00fasqueda descargados previamente.",
-    "intent": "fault_tolerance",
-    "intent_prediction": {
-      "name": "performance",
-      "confidence": 0.9951071739196777
+      "confidence": 0.7715975046157837
     }
   },
   {
     "text": "En caso de falla del hardware de la computadora en relaci\u00f3n con el equipo de la estaci\u00f3n de usuario, ser\u00e1 posible transferir el control de una estaci\u00f3n de usuario a otra mediante un sencillo procedimiento de reconfiguraci\u00f3n del software.",
     "intent": "fault_tolerance",
     "intent_prediction": {
-      "name": "availability",
-      "confidence": 0.9517632126808167
+      "name": "security",
+      "confidence": 0.6024835109710693
     }
   },
   {
-    "text": "Actualizaciones de mantenimiento deben ser oferecidas a los clientes una vez al a\u00f1o. Estas no deben tomar m\u00e1s de 5 minutos para ser instaladas.",
+    "text": "El producto debe ser dise\u00f1ado usando Patrones de Dise\u00f1o y buenas pr\u00e1cticas de programaci\u00f3n.",
     "intent": "maintainability",
     "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
+      "name": "usability",
+      "confidence": 0.708002507686615
+    }
+  },
+  {
+    "text": "Debe ser altamente configurable para uso con varios sistemas de bases de datos para los usuarios finales.",
+    "intent": "maintainability",
+    "intent_prediction": {
+      "name": "security",
+      "confidence": 0.417341023683548
     }
   },
   {
@@ -260,31 +76,23 @@
     "intent": "maintainability",
     "intent_prediction": {
       "name": "availability",
-      "confidence": 0.9995102882385254
+      "confidence": 0.9916133284568787
     }
   },
   {
-    "text": "Los miembros del personal deber\u00e1n poder completar una serie de tareas de manera oportuna.",
+    "text": "El sistema debe permitir un minimo de 6 usuarios para trabajar al mismo tiempo.",
     "intent": "performance",
     "intent_prediction": {
-      "name": "availability",
-      "confidence": 0.6065984964370728
+      "name": "scalability",
+      "confidence": 0.9296384453773499
     }
   },
   {
-    "text": "Se permitir\u00e1 que los clientes existentes inicien sesi\u00f3n en el sitio web con su direcci\u00f3n de correo electr\u00f3nico y contrase\u00f1a en un corto periodo.",
-    "intent": "performance",
+    "text": "El producto estar\u00e1 libre de virus inform\u00e1ticos.",
+    "intent": "security",
     "intent_prediction": {
-      "name": "nlu_fallback",
-      "confidence": 1.0
-    }
-  },
-  {
-    "text": "El sistema de afirmaciones debera soportar todos los cambios surgidos de cualquier eveto catastr\u00f3fico.",
-    "intent": "scalability",
-    "intent_prediction": {
-      "name": "maintainability",
-      "confidence": 0.7539571523666382
+      "name": "fault_tolerance",
+      "confidence": 0.5196375846862793
     }
   },
   {
@@ -292,23 +100,207 @@
     "intent": "security",
     "intent_prediction": {
       "name": "fault_tolerance",
-      "confidence": 0.983928918838501
+      "confidence": 0.9666669368743896
+    }
+  },
+  {
+    "text": "Los accesos de usuario deben ser limitados seg\u00fan sus rol.",
+    "intent": "security",
+    "intent_prediction": {
+      "name": "fault_tolerance",
+      "confidence": 0.5218223333358765
+    }
+  },
+  {
+    "text": "Es prioritario que el sistema pueda ser usado con facilidad",
+    "intent": "usability",
+    "intent_prediction": {
+      "name": "nlu_fallback",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Se deber\u00e1 poder mostrar varias entidades (casos, sospechosos) simult\u00e1neamente.",
+    "intent": "usability",
+    "intent_prediction": {
+      "name": "scalability",
+      "confidence": 0.8432172536849976
+    }
+  },
+  {
+    "text": "El sistema debe responder sin perdidas a los cambios de procesamiento y entrada y salida.",
+    "intent": "availability",
+    "intent_prediction": {
+      "name": "usability",
+      "confidence": 0.5767847299575806
+    }
+  },
+  {
+    "text": "El producto funcionar\u00e1 en modo offline siempre que la conexi\u00f3n a Internet no est\u00e9 disponible",
+    "intent": "fault_tolerance",
+    "intent_prediction": {
+      "name": "availability",
+      "confidence": 0.8527088761329651
+    }
+  },
+  {
+    "text": "Si un subsistema falla deben existir procedimientos predefinidos para redefinir el entorno de tal manera que la operaci\u00f3n pueda reiniciarse.",
+    "intent": "fault_tolerance",
+    "intent_prediction": {
+      "name": "availability",
+      "confidence": 0.6451759934425354
+    }
+  },
+  {
+    "text": "El producto y sus bases de datos deben permanecer funcionando a pesar del ingreso de datos maliciosos.",
+    "intent": "fault_tolerance",
+    "intent_prediction": {
+      "name": "security",
+      "confidence": 0.5553383827209473
+    }
+  },
+  {
+    "text": "Los componentes del sistema deben poder intercambiarse sin afectar el funcionamiento del programa.",
+    "intent": "maintainability",
+    "intent_prediction": {
+      "name": "usability",
+      "confidence": 0.801669716835022
+    }
+  },
+  {
+    "text": "Se lanzar\u00e1n nuevas versiones del sistema en per\u00edodos de tiempo cortos",
+    "intent": "maintainability",
+    "intent_prediction": {
+      "name": "availability",
+      "confidence": 0.9026780128479004
+    }
+  },
+  {
+    "text": "Los miembros del personal deber\u00e1n poder completar una serie de tareas de manera oportuna.",
+    "intent": "performance",
+    "intent_prediction": {
+      "name": "usability",
+      "confidence": 0.8178086280822754
+    }
+  },
+  {
+    "text": "El sistema de afirmaciones debera soportar todos los cambios surgidos de cualquier eveto catastr\u00f3fico.",
+    "intent": "scalability",
+    "intent_prediction": {
+      "name": "maintainability",
+      "confidence": 0.9297166466712952
+    }
+  },
+  {
+    "text": "Todos los mensajes de error producidos por el sistema deben ser significativos, de modo que los usuarios que probablemente los vean puedan actuar en consecuencia.",
+    "intent": "usability",
+    "intent_prediction": {
+      "name": "maintainability",
+      "confidence": 0.4064292907714844
+    }
+  },
+  {
+    "text": "El sistema debe proporcionar un contacto de soporte todo el dia, cualquier dia de la semana.",
+    "intent": "availability",
+    "intent_prediction": {
+      "name": "scalability",
+      "confidence": 0.5987148880958557
+    }
+  },
+  {
+    "text": "El sistema debe ser f\u00e1cil de actualizar.",
+    "intent": "maintainability",
+    "intent_prediction": {
+      "name": "usability",
+      "confidence": 0.9345175623893738
+    }
+  },
+  {
+    "text": "El producto debe proveer Multi-threading y Load Balancing.",
+    "intent": "performance",
+    "intent_prediction": {
+      "name": "scalability",
+      "confidence": 0.8078066110610962
+    }
+  },
+  {
+    "text": "Se espera que el producto opere por lo menos durante 5 a\u00f1os para cada instalaci\u00f3n de cliente.",
+    "intent": "scalability",
+    "intent_prediction": {
+      "name": "nlu_fallback",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "F\u00e1cil uso, tanto por los administradores del programa, como por miembros del personal.",
+    "intent": "usability",
+    "intent_prediction": {
+      "name": "maintainability",
+      "confidence": 0.3771343529224396
+    }
+  },
+  {
+    "text": "Los usuarios se sentir\u00e1n satisfechos usando el producto.",
+    "intent": "usability",
+    "intent_prediction": {
+      "name": "security",
+      "confidence": 0.6605791449546814
+    }
+  },
+  {
+    "text": "El producto debe evitar fallos est\u00e1ndar.",
+    "intent": "fault_tolerance",
+    "intent_prediction": {
+      "name": "nlu_fallback",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Actualizaciones de mantenimiento deben ser oferecidas a los clientes una vez al a\u00f1o. Estas no deben tomar m\u00e1s de 5 minutos para ser instaladas.",
+    "intent": "maintainability",
+    "intent_prediction": {
+      "name": "scalability",
+      "confidence": 0.7005691528320312
+    }
+  },
+  {
+    "text": "Debe operar en cualquier plataforma. Debe ser adaptable para cualquier tecnolog\u00eda nueva sin hacer cambios en su arquitectura.",
+    "intent": "maintainability",
+    "intent_prediction": {
+      "name": "scalability",
+      "confidence": 0.8132783770561218
+    }
+  },
+  {
+    "text": "Se permitir\u00e1 que los clientes existentes inicien sesi\u00f3n en el sitio web con su direcci\u00f3n de correo electr\u00f3nico y contrase\u00f1a en un corto periodo.",
+    "intent": "performance",
+    "intent_prediction": {
+      "name": "fault_tolerance",
+      "confidence": 0.46767958998680115
+    }
+  },
+  {
+    "text": "El lenguaje del producto se debe acomodar a todos los pa\u00edses de mercados objetivo.",
+    "intent": "scalability",
+    "intent_prediction": {
+      "name": "usability",
+      "confidence": 0.6054638028144836
     }
   },
   {
     "text": "Las personas sin formaci\u00f3n y sin conocimientos de ingl\u00e9s podr\u00e1n utilizar el producto.",
     "intent": "usability",
     "intent_prediction": {
-      "name": "security",
-      "confidence": 0.5798019766807556
+      "name": "nlu_fallback",
+      "confidence": 1.0
     }
   },
   {
-    "text": "El usuario debe poder ubicar f\u00e1cilmente instrucciones para el manejo del producto.",
+    "text": "La navegaci\u00f3n debe dise\u00f1arse para ayudar a los usuarios a comprender d\u00f3nde se encuentran, d\u00f3nde han estado y ad\u00f3nde pueden ir a continuaci\u00f3n.",
     "intent": "usability",
     "intent_prediction": {
-      "name": "scalability",
-      "confidence": 0.6755216717720032
+      "name": "maintainability",
+      "confidence": 0.8432217240333557
     }
   }
 ]
