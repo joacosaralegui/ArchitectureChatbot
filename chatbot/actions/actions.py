@@ -39,7 +39,9 @@ req_index = {
     'performance':3,
     'scalability':4,
     'security':5,
-    'usability':6
+    'usability':6,
+    'portability':7,
+    'interoperability':8
 }
 
 class ActionAddRequirement(Action):
