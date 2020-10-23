@@ -12,12 +12,14 @@ intents:
 - scalability
 - security
 - usability
+- portability
+- interoperability
 - see_vector
 
 slots:
   requirements:
     type: list
-    initial_value: [0,0,0,0,0,0,0]
+    initial_value: [0,0,0,0,0,0,0,0,0]
   
 actions:
   - action_add_requirement
