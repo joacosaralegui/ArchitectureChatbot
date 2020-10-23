@@ -15,13 +15,13 @@ class Architecture:
 
 #disponibilidad tolerancia a fallos mantenibilidad performance escalabilidad seguridad usabilidad 
 architectures = []
-architectures.append(Architecture("Layers",(0,1,-1,-1,1,0,1)))
-architectures.append(Architecture("Broker",(0,0,0,-1,1,0,1)))
-architectures.append(Architecture("Model-View-Controler",(0,0,1,-1,-1,0,1)))
-architectures.append(Architecture("Cliente-Serivor",(0,0,1,-1,-1,-1,0)))
-architectures.append(Architecture("Pipes and filters",(0,0,1,-1,0,0,0)))
-architectures.append(Architecture("Peer to Peer",(1,0,0,0,0,-1,0)))
-architectures.append(Architecture("Monolith",(-1,0,-1,1,0,1,-1)))
+architectures.append(Architecture("Layers",(0,1,-1,-1,1,0,1,0,0)))
+architectures.append(Architecture("Broker",(0,0,0,-1,1,0,1,0,0)))
+architectures.append(Architecture("Model-View-Controler",(0,0,1,-1,-1,0,1,0,0)))
+architectures.append(Architecture("Cliente-Serivor",(0,0,1,-1,-1,-1,0,0,0)))
+architectures.append(Architecture("Pipes and filters",(0,0,1,-1,0,0,0,0,0)))
+architectures.append(Architecture("Peer to Peer",(1,0,0,0,0,-1,0,0,0)))
+architectures.append(Architecture("Monolith",(-1,0,-1,1,0,1,-1,0,0)))
 """
 architectures.append(Architecture("Layers",(0,1,0,0,1,0,1)))
 architectures.append(Architecture("Broker",(0,0,0,0,1,0,1)))

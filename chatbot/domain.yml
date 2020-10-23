@@ -20,23 +20,8 @@ slots:
   requirements:
     type: list
     initial_value: [0,0,0,0,0,0,0,0,0]
-  
+
 actions:
   - action_add_requirement
   - action_show_vector
-
-responses:
-  utter_availability:
-  - text: Availability
-  utter_fault_tolerance:
-  - text: Fault tolerance
-  utter_maintainability:
-  - text: Maintainability
-  utter_performance:
-  - text: Performance
-  utter_scalability:
-  - text: Scalability
-  utter_security:
-  - text: Security
-  utter_usability:
-  - text: Usability
+  - action_ask_clarification

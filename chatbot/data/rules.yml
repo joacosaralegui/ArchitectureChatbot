@@ -1,0 +1,6 @@
+rules:
+- rule: Implementation of the Fallback
+  steps:
+  - intent: nlu_fallback
+  - action: action_ask_clarification
+  
