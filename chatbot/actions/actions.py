@@ -30,6 +30,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 
+from actions import vectors
+
 req_index = {
     'availability':0,
     'fault_tolerance':1,
@@ -70,5 +72,6 @@ class ActionShowVector(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         requirements = tracker.get_slot('requirements')
-        dispatcher.utter_message(text = "Requirements: " + str(requirements))
+        match = vectors.get_closer_architecture(requirements)
+        dispatcher.utter_message(text = "Solución sugerida: " + str(match.name))
         return []
