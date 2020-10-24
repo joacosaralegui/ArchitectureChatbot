@@ -1,0 +1,28 @@
+digraph  {
+0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
+"-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
+1 [class=active, fontsize=12, label=action_session_start];
+2 [class=active, fontsize=12, label=utter_greeting];
+3 [class=active, fontsize=12, label=utter_waiting_requirements];
+4 [class=active, fontsize=12, label=action_add_requirement];
+7 [class=active, fontsize=12, label=action_show_vector];
+8 [class="intent dashed active", label="  ?  ", shape=rect];
+9 [class="intent active", fillcolor=lightblue, label="Hola, que haces bot", shape=rect, style=filled];
+10 [class="intent active", fillcolor=lightblue, label="Necesito ayuda para definir una arquitectura", shape=rect, style=filled];
+11 [class="intent active", fillcolor=lightblue, label="El sistema tiene que ser facil de aprender", shape=rect, style=filled];
+12 [class="intent active", fillcolor=lightblue, label="El usuario debe poder aprender a usar el sistema en menos de 4 horas", shape=rect, style=filled];
+13 [class="intent active", fillcolor=lightblue, label="Termine. Que arquitectura me sugeris?", shape=rect, style=filled];
+0 -> "-1"  [class="", key=NONE, label=""];
+0 -> 1  [class=active, key=NONE, label=""];
+1 -> 9  [class=active, key=0];
+2 -> 10  [class=active, key=0];
+3 -> 11  [class=active, key=0];
+4 -> 12  [class=active, key=0];
+4 -> 13  [class=active, key=0];
+7 -> 8  [class=active, key=NONE, label=""];
+9 -> 2  [class=active, key=0];
+10 -> 3  [class=active, key=0];
+11 -> 4  [class=active, key=0];
+12 -> 4  [class=active, key=0];
+13 -> 7  [class=active, key=0];
+}

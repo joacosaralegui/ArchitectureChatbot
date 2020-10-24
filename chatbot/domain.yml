@@ -1,27 +1,46 @@
-version: "2.0"
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-
 intents:
+- architecture_from_requirements
+- usability
+- greeting
+- get_recomendation
+- stop
 - availability
 - fault_tolerance
 - maintainability
 - performance
 - scalability
 - security
-- usability
 - portability
 - interoperability
-- see_vector
-
+- nlu_fallback
 slots:
   requirements:
     type: list
-    initial_value: [0,0,0,0,0,0,0,0,0]
-
+    initial_value:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    influence_conversation: true
+responses:
+  utter_greeting:
+  - text: Buenos días, en que te puedo ayudar hoy?
+  - text: Buen día! En que te puedo ayudar?
+  - text: Hola! Que andas precisando hoy?
+  utter_waiting_requirements:
+  - text: Perfecto! Anda mandando los requerimientos que tengas y una vez que estén todos pedime los resultados
 actions:
-  - action_add_requirement
-  - action_show_vector
-  - action_ask_clarification
+- action_add_requirement
+- action_ask_clarification
+- action_show_vector
+- utter_greeting
+- utter_waiting_requirements
+version: '2.0'

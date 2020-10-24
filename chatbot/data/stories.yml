@@ -1,61 +1,100 @@
 version: "2.0"
 
 stories:
-- story: story 1
+
+- story: beginning of architecture recomendation flow
+  steps:
+  - intent: greeting
+  - action: utter_greeting
+  - intent: architecture_from_requirements
+  - action: utter_waiting_requirements
+
+- story: req availability
   steps:
   - intent: availability
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [1,0,0,0,0,0,0,0,0]
-- story: story 2
+
+- story: req fault_tolerance
   steps:
   - intent: fault_tolerance
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,1,0,0,0,0,0,0,0]
-- story: story 3
+
+- story: req maintainability
   steps:
   - intent: maintainability
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,1,0,0,0,0,0,0]
-- story: story 4
+
+
+- story: req performance
   steps:
   - intent: performance
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,0,1,0,0,0,0,0]
-- story: story 5
+
+
+- story: req scalability
   steps:
   - intent: scalability
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,0,0,1,0,0,0,0]
-- story: story 6
+
+
+- story: req security
   steps:
   - intent: security
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,0,0,0,1,0,0,0]
-- story: story 7
+
+
+- story: req usability
   steps:
   - intent: usability
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,0,0,0,0,1,0,0]
-- story: story 8
+
+
+- story: req portability
   steps:
   - intent: portability
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,0,0,0,0,0,1,0]
-- story: story 9
+
+
+- story: req interoperability
   steps:
   - intent: interoperability
   - action: action_add_requirement
   - slot_was_set:
       - requirements: [0,0,0,0,0,0,0,0,1]
-- story: story 10
+       
+
+- story: recomendation
   steps:
-  - intent: see_vector
+  - intent: get_recomendation
+  - action: action_show_vector
+
+- story: interactive_story_1
+  steps:
+  - intent: greeting
+  - action: utter_greeting
+  - intent: architecture_from_requirements
+  - action: utter_waiting_requirements
+  - intent: usability
+  - action: action_add_requirement
+  - intent: usability
+  - action: action_add_requirement
+  - intent: usability
+  - action: action_add_requirement
+  - intent: get_recomendation
   - action: action_show_vector

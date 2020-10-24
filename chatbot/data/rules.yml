@@ -1,3 +1,5 @@
+version: "2.0"
+
 rules:
 - rule: Implementation of the Fallback
   steps:

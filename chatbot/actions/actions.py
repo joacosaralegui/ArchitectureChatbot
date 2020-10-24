@@ -51,6 +51,14 @@ class ActionAddRequirement(Action):
     def name(self) -> Text:
         return "action_add_requirement"
 
+    def __init__(self):
+            self.intent_mappings = {}
+            # read the mapping from a csv and store it in a dictionary
+            with open('intent_mapping.csv', newline='', encoding='utf-8') as file:
+                csv_reader = csv.reader(file)
+                for row in csv_reader:
+                    self.intent_mappings[row[0]] = row[1]
+
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -61,7 +69,7 @@ class ActionAddRequirement(Action):
         requirements[req_index[intent_name]] += 1
 
         # Dispatch message to validate
-        dispatcher.utter_message(text = intent_name)
+        dispatcher.utter_message(text = self.intent_mappings[intent_name])
 
         # Set slot value
         return [SlotSet("requirements", requirements)]
@@ -75,9 +83,15 @@ class ActionShowVector(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
+        # Fetch requirements vector
         requirements = tracker.get_slot('requirements')
+        # Get closer architecture
         match = vectors.get_closer_architecture(requirements)
+        # Respond
         dispatcher.utter_message(text = "Solución sugerida: " + str(match.name))
+        
+        # TODO: CLEAN VECTOR?
+
         return []
 
 
@@ -96,25 +110,53 @@ class ActionAskClarification(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        index = 1
-        # get the most likely intent
-        last_intent_name = tracker.latest_message['intent_ranking'][index]['name']
 
-        while last_intent_name not in self.intent_mappings:
-            index += 1
-            last_intent_name = tracker.latest_message['intent_ranking'][index]['name']
+        # fetch two latest intents
+        prev_intent_1 = tracker.latest_message['intent_ranking'][1]
+        prev_intent_2 = tracker.latest_message['intent_ranking'][2]
 
-        # get the prompt for the intent
-        intent_prompt = self.intent_mappings[last_intent_name]
+        prev_1_name = prev_intent_1['name']
+        prev_2_name = prev_intent_2['name']
+        
+        # both 
+        if prev_1_name in req_index and prev_2_name in req_index:
+            intent_prompt_1 = self.intent_mappings[prev_1_name]
+            intent_prompt_2 = self.intent_mappings[prev_2_name]
 
-        # Create the affirmation message and add two buttons to it.
-        # Use '/<intent_name>' as payload to directly trigger '<intent_name>'
-        # when the button is clicked.
-        message = "Para vos ese requerimiento se refiere a {}?".format(intent_prompt)
-        buttons = [{'title': 'Si',
-                    'payload': '/{}'.format(last_intent_name)},
+            message = "Para vos este requerimiento se centra principalmente en ..."
+            buttons = [
+                    {'title': intent_prompt_1,
+                    'payload': '/{}'.format(prev_1_name)},
+                    {'title': intent_prompt_2,
+                    'payload': '/{}'.format(prev_2_name)},
+                    {'title': 'Ninguno de los dos',
+                    'payload': '/back'}]
+            dispatcher.utter_message(message, buttons=buttons)
+
+            """
+            requirements = tracker.get_slot('requirements')
+            requirements[req_index[prev_1_name]] += 1
+            message = self.intent_mappings[prev_1_name]
+
+            if prev_intent_1['confidence']-prev_intent_2['confidence'] < 0.15:
+                requirements[req_index[prev_2_name]] += 1
+                message +=  " y " + self.intent_mappings[prev_2_name]
+
+            dispatcher.utter_message(text = message)
+
+            return [SlotSet("requirements", requirements)]
+            """
+        # validate only first
+        elif prev_1_name in req_index:
+            intent_prompt = self.intent_mappings[prev_1_name]
+            message = "Para vos ese requerimiento se refiere a {}?".format(intent_prompt)
+            buttons = [{'title': 'Si',
+                    'payload': '/{}'.format(prev_1_name)},
                     {'title': 'No',
                     'payload': '/back'}]
-        dispatcher.utter_message(message, buttons=buttons)
-
+            dispatcher.utter_message(message, buttons=buttons)
+        # ask rephrase
+        else:
+            dispatcher.utter_message("No te entendí. Podrías volver a escribirlo de otra manera?")
+            
         return []

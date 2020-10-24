@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: availability
   examples: |
@@ -15,12 +14,11 @@ nlu:
     - El sistema debe seguir funcionando, excepto que se pierdan sus recursos de alimentación.
     - El sistema debe responder a los cambios de procesamiento y entrada y salida.
     - Ante una inactividad el sistema debe volver a operar con un retraso minimo.
-    - Ante una caida del sistema este debe recuperarse en el menos tiempo posible. 
+    - Ante una caida del sistema este debe recuperarse en el menos tiempo posible.
     - El entorno de desarollo y mantenimiento debe estar disponible para una gran cantidad de desarrolladores el mayor tiempo posible laboral.
     - El sistema debe continuar operando sin interrupciones durante las actualizaciones.
     - El producto debe funcionar sin interrupciones incluso mientras se actualiza.
     - El producto funcionará en modo offline siempre que la conexión a Internet no esté disponible.
-
 - intent: fault_tolerance
   examples: |
     - El software del sistema debe poder funcionar sin reiniciar el sistema por completo frente a una falla.
@@ -29,14 +27,14 @@ nlu:
     - El sistema seguirá funcionando si el servidor de transmisión deja de funcionar.
     - El producto debe ser robusto con tolerancia a fallos.
     - El producto tendrá tolerancia a fallas mediante el uso de técnicas de recuperación, transacciones compensatorias y enrutamiento en caso de fallas.
-    - Si un subsistema falla deben existir procedimientos predefinidos para redefinir el entorno de tal manera que la operación pueda reiniciarse. 
+    - Si un subsistema falla deben existir procedimientos predefinidos para redefinir el entorno de tal manera que la operación pueda reiniciarse.
     - En caso de falla del hardware de la computadora en relación con el equipo de la estación de usuario, será posible transferir el control de una estación de usuario a otra mediante un sencillo procedimiento de reconfiguración del software.
     - Debe ser posible que se trate de forma independiente una falla de software del sistema.
     - El sistema debe permitir al usuario ver logs de errores previos.
     - El producto y sus bases de datos deben permanecer funcionando a pesar del ingreso de datos no deseados.
     - El producto debe evitar fallos estándar.
     - El sistema deberá soportar todos los cambios provocados de cualquier falla importante.
-
+    - Necesito un programa con tolerancia a los fallos
 - intent: maintainability
   examples: |
     - Los componentes del sistema deben poder intercambiarse sin afectar el funcionamiento del programa.
@@ -52,7 +50,6 @@ nlu:
     - El programa va a ser actualizado durante las horas de mantenimiento estipuladas.
     - Todos los cambios y actualizaciones al sistema deben ser actualizados en la documentación.
     - Se lanzarán nuevas versiones del sistema de forma constante
-
 - intent: performance
   examples: |
     - Es importante que el sistema traiga resultados de búsqueda en un tiempo aceptable
@@ -66,7 +63,12 @@ nlu:
     - El tiempo de espera para que un usuario navegue de una pantalla será inmediato
     - La respuesta del producto en su uso debe ser rápida.
     - El tiempo de respuesta de la interfaz del producto debe ser rápida.
-
+    - La interfaz debe responder con rapidez
+    - El sistema debe responder a las consultas en menos de 5 segundos
+    - Cada interacción no debe tardar mas de 3 segundos
+    - El tiempo de ejecución por operación debe ser constante, y no depender del volumen de datos
+    - Necesito un sistema que responda rápido
+    - Necesita un programa que responda rapido
 - intent: scalability
   examples: |
     - El producto debe ser capaz de soportar y administrar 1000 usuarios simultáneos y remotos.
@@ -79,7 +81,6 @@ nlu:
     - El repositorio de reglas de negocio debera escalar para manejar un número ilimitado de reglas adicionales.
     - El sistema de manejo de cuentas debera soportar un número ilimitado de clientes, cuentas y transacciones.
     - El sistema debe ser escalable y no debe tener ninguna característica que pudiese perjudicar el uso en cualquier estación, aunque cambie el número de casos manejado.
-   
 - intent: security
   examples: |
     - Es importante que el sistema traiga autorización de usuarios y almacenamiento seguro de contraseñas
@@ -89,7 +90,7 @@ nlu:
     - Todo usuario del sistema deberá estar autenticado y autorizado.
     - Verificación básica de la integridad de los datos para reducir la posibilidad de que se introduzcan datos incorrectos o no válidos.
     - Todas las adiciones de nuevos usuarios y las modificaciones al acceso de los usuarios se registrarán en un informe.
-    - Solo se ingresarán datos válidos en el sistema. 
+    - Solo se ingresarán datos válidos en el sistema.
     - No se introducirán datos inválidos en el sistema.
     - El producto estará libre de virus informáticos.
     - Se evitará ataques maliciosos.
@@ -97,7 +98,7 @@ nlu:
     - Los accesos de usuario deben ser limitados según sus roles.
     - Sólo usuarios autorizados deben tener acceso a información crítica del sistema.
     - El sistema debe proteger la información privada de acuerdo con las políticas de la organización.
-    
+    - Permite que el administrador restrinja el\nacceso a carpetas, documentos y metadatos\na determinados usuarios del sistema
 - intent: usability
   examples: |
     - Es importante que el sistema sea intuitivo y de fácil comprensión
@@ -115,7 +116,12 @@ nlu:
     - La interfaz debe mostrar datos entendibles para el usuario.
     - El producto debe ser intuitivo y fácil para el usuario
     - El usuario debe poder ubicar fácilmente instrucciones para el manejo del producto.
-
+    - El sistema debe poseer interfaces gráficas bien formadas.
+    - El tiempo de aprendizaje del sistema por un usuario deberá ser menor a 4 horas.
+    - El sistema debe contar con manuales de usuario estructurados adecuadamente.
+    - El sistema tiene que ser facil de aprender
+    - Necesito que tenga manuales de usuario y una interfaz user-friendly
+    - El usuario debe poder aprender a usar el sistema en menos de 4 horas
 - intent: portability
   examples: |
     - Debe ser altamente configurable para uso con varios sistemas de bases de datos para los usuarios finales.
@@ -131,16 +137,34 @@ nlu:
     - El sistema debe funcionar en más de una plataforma móvil (Android, iOS)
     - El producto estará disponible en los sistemas operativos móviles tales como iOS y Android
     - El producto debe correr en más de un sistema operativo (Windows, Linux, macOS)
-
 - intent: interoperability
   examples: |
     - El sistema debe poder comunicarse fácilmente con otros servicios
     - El producto debe tener la capacidad de interpretar correctamente los datos que se intercambian
     - El sistema debe poder intercambiar información de forma libre y fácil
     - La interoperabilidad del sistema debe identificar con quién, con qué y bajo qué circunstancias, -or lo tanto, la necesidad de incluir el contexto.
-
-- intent: see_vector
+- intent: get_recomendation
   examples: |
-    - Mostrame los resultados
-    - Quiero ver los resultados
-    - Quiero ver el resultado
+    - Que me sugerís?
+    - Listo! Que arquitectura me sugerís?
+    - Qué me recomendas para esos requerimientos?
+    - Cuál arquitectura te parece la mas adecuada?
+    - Termine. Que arquitectura me sugeris?
+    - Mostrame la arquitectura
+    - Recomendame la arquitectura
+- intent: greeting
+  examples: |
+    - Buenas
+    - Hola!
+    - Buenos días
+    - Buen día
+    - Hola, que tal?
+    - Hola, que haces bot
+- intent: architecture_from_requirements
+  examples: |
+    - Quiero diseñar una arquitectura a partir de requerimientos no funcionales
+    - Me gustaria definir una arquitectura a partir de requerimientos no funcionales
+    - Quiero ideas de arquitecturas basadas en requerimientos
+    - Quiero que me ayudes a generar una arquitectura!
+    - Quiero definir una arquitectura
+    - Necesito ayuda para definir una arquitectura
