@@ -85,10 +85,14 @@ class ActionShowVector(Action):
         
         # Fetch requirements vector
         requirements = tracker.get_slot('requirements')
+        vector = vectors.get_normalized_vector(requirements)
+        print(vector)
         # Get closer architecture
-        match = vectors.get_closer_architecture(requirements)
-        # Respond
-        dispatcher.utter_message(text = "Solución sugerida: " + str(match.name))
+        match = vectors.get_closer_architecture(vector)
+
+        for i,arch in enumerate(match):
+            dispatcher.utter_message(text = f"Arquitectura sugerida n°{i+1}: " + str(arch.name))
+            dispatcher.utter_message(text = arch.analysis(vector))
         
         # TODO: CLEAN VECTOR?
 
