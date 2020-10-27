@@ -92,11 +92,14 @@ class ActionShowVector(Action):
 
         for i,arch in enumerate(match):
             dispatcher.utter_message(text = f"Arquitectura sugerida n°{i+1}: " + str(arch.name))
-            dispatcher.utter_message(text = arch.analysis(vector))
+            analysis_done = arch.analysis(vector)
+            for line in analysis_done.split("\n"):
+                dispatcher.utter_message(text = line)
         
         # TODO: CLEAN VECTOR?
 
-        return []
+        return [SlotSet("requirements", [])]
+        #return []
 
 
 class ActionAskClarification(Action):
