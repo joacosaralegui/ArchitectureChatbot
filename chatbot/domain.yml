@@ -2,6 +2,8 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+- login
+- project
 - architecture_from_requirements
 - usability
 - greeting
@@ -16,6 +18,11 @@ intents:
 - portability
 - interoperability
 - nlu_fallback
+
+entities:
+  - username
+  - project_name
+
 slots:
   requirements:
     type: list
@@ -30,14 +37,38 @@ slots:
     - 0
     - 0
     influence_conversation: true
+
+  username_slot:
+    type: text
+    influence_conversation: false
+  
+  project_slot:
+    type: text
+    influence_conversation: true
+
 responses:
   utter_greeting:
   - text: Buenos días, en que te puedo ayudar hoy?
   - text: Buen día! En que te puedo ayudar?
   - text: Hola! Que andas precisando hoy?
   utter_waiting_requirements:
-  - text: Perfecto! Anda mandando los requerimientos que tengas y una vez que estén todos pedime los resultados
+  - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project_slot} y una vez que estén todos pedime los resultados
+  utter_ask_username:
+  - text: Cómo es tu nombre de usuario?
+  - text: Cómo te llamas?
+  - text: Cómo es tu nombre?
+  - text: Cuál es tu nombre?
+  - text: Decime tu nombre de usuario
+  utter_ask_project_name:
+  - text: Bienvenido {username_slot}! En qué proyecto trabajas?
+  - text: Bienvenido {username_slot}! Cuál es tu proyecto?
+  - text: Bienvenido {username_slot}! En cuál proyecto querés trabajar?
+  - text: Bienvenido {username_slot}! Cual es el nombre de tu proyecto?
+  - text: Bienvenido {username_slot}! Decime el nombre del proyecto
+  
 actions:
+- action_ask_username
+- action_ask_project_name
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector

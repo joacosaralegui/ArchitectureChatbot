@@ -7,6 +7,14 @@ stories:
   - intent: greeting
   - action: utter_greeting
   - intent: architecture_from_requirements
+  - action: action_ask_username
+  - intent: login
+  - slot_was_set:
+      - username_slot: (username)
+  - action: action_ask_project_name
+  - intent: project
+  - slot_was_set:
+      - project_slot: (project_name)
   - action: utter_waiting_requirements
 
 - story: req availability
@@ -84,17 +92,17 @@ stories:
   - intent: get_recomendation
   - action: action_show_vector
 
-- story: interactive_story_1
-  steps:
-  - intent: greeting
-  - action: utter_greeting
-  - intent: architecture_from_requirements
-  - action: utter_waiting_requirements
-  - intent: usability
-  - action: action_add_requirement
-  - intent: usability
-  - action: action_add_requirement
-  - intent: usability
-  - action: action_add_requirement
-  - intent: get_recomendation
-  - action: action_show_vector
+#- story: interactive_story_1
+ # steps:
+ # - intent: greeting
+ # - action: utter_greeting
+ # - intent: architecture_from_requirements
+ # - action: utter_waiting_requirements
+ # - intent: usability
+ # - action: action_add_requirement
+ # - intent: usability
+ # - action: action_add_requirement
+ # - intent: usability
+ # - action: action_add_requirement
+ # - intent: get_recomendation
+ # - action: action_show_vector

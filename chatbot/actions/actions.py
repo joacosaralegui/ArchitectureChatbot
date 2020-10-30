@@ -35,16 +35,57 @@ from actions import vectors
 import csv
 
 req_index = {
-    'availability':0,
-    'fault_tolerance':1,
-    'maintainability':2,
-    'performance':3,
-    'scalability':4,
-    'security':5,
-    'usability':6,
-    'portability':7,
-    'interoperability':8
+    'availability': 0,
+    'fault_tolerance': 1,
+    'maintainability': 2,
+    'performance': 3,
+    'scalability': 4,
+    'security': 5,
+    'usability': 6,
+    'portability': 7,
+    'interoperability': 8
 }
+
+
+class ActionAskUsername(Action):
+    def name(self) -> Text:
+        return "action_ask_username"
+
+    def run(self, dispatcher, tracker, domain):
+        print('Hola ActionAskUsername')
+        # send utter template to user
+        dispatcher.utter_message(template='utter_ask_username')
+
+        # intent_name = tracker.latest_message['entities']
+        # username_data = tracker.get_slot("username_slot")
+        # If no entity is found, then None is the default result.
+        username_data = next(
+            tracker.get_latest_entity_values('username'), None)
+
+        print(username_data)
+
+        # Set slot value
+        return [SlotSet("username_slot", username_data)]
+
+
+class ActionAskProjectName(Action):
+    def name(self) -> Text:
+        return "action_ask_project_name"
+
+    def run(self, dispatcher, tracker, domain):
+        print('Hola ActionAskProjectName')
+        # send utter default template to user
+        dispatcher.utter_message(template='utter_ask_project_name')
+
+        # If no entity is found, then None is the default result.
+        project_data = next(
+            tracker.get_latest_entity_values('project_name'), None)
+
+        print(project_data)
+
+        # Set slot value
+        return [SlotSet("project_slot", project_data)]
+
 
 class ActionAddRequirement(Action):
 
@@ -52,28 +93,28 @@ class ActionAddRequirement(Action):
         return "action_add_requirement"
 
     def __init__(self):
-            self.intent_mappings = {}
-            # read the mapping from a csv and store it in a dictionary
-            with open('intent_mapping.csv', newline='', encoding='utf-8') as file:
-                csv_reader = csv.reader(file)
-                for row in csv_reader:
-                    self.intent_mappings[row[0]] = row[1]
+        self.intent_mappings = {}
+        # read the mapping from a csv and store it in a dictionary
+        with open('intent_mapping.csv', newline='', encoding='utf-8') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                self.intent_mappings[row[0]] = row[1]
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
+
         # Update requirements vector
         intent_name = tracker.latest_message['intent']['name']
         requirements = tracker.get_slot('requirements')
         requirements[req_index[intent_name]] += 1
 
         # Dispatch message to validate
-        dispatcher.utter_message(text = self.intent_mappings[intent_name])
+        dispatcher.utter_message(text=self.intent_mappings[intent_name])
 
         # Set slot value
         return [SlotSet("requirements", requirements)]
-       
+
 
 class ActionShowVector(Action):
     def name(self) -> Text:
@@ -82,7 +123,7 @@ class ActionShowVector(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
+
         # Fetch requirements vector
         requirements = tracker.get_slot('requirements')
         vector = vectors.get_normalized_vector(requirements)
@@ -90,10 +131,11 @@ class ActionShowVector(Action):
         # Get closer architecture
         match = vectors.get_closer_architecture(vector)
 
-        for i,arch in enumerate(match):
-            dispatcher.utter_message(text = f"Arquitectura sugerida n°{i+1}: " + str(arch.name))
-            dispatcher.utter_message(text = arch.analysis(vector))
-        
+        for i, arch in enumerate(match):
+            dispatcher.utter_message(
+                text=f"Arquitectura sugerida n°{i+1}: " + str(arch.name))
+            dispatcher.utter_message(text=arch.analysis(vector))
+
         # TODO: CLEAN VECTOR?
 
         return []
@@ -121,20 +163,20 @@ class ActionAskClarification(Action):
 
         prev_1_name = prev_intent_1['name']
         prev_2_name = prev_intent_2['name']
-        
-        # both 
+
+        # both
         if prev_1_name in req_index and prev_2_name in req_index:
             intent_prompt_1 = self.intent_mappings[prev_1_name]
             intent_prompt_2 = self.intent_mappings[prev_2_name]
 
             message = "Para vos este requerimiento se centra principalmente en ..."
             buttons = [
-                    {'title': intent_prompt_1,
-                    'payload': '/{}'.format(prev_1_name)},
-                    {'title': intent_prompt_2,
-                    'payload': '/{}'.format(prev_2_name)},
-                    {'title': 'Ninguno de los dos',
-                    'payload': '/back'}]
+                {'title': intent_prompt_1,
+                 'payload': '/{}'.format(prev_1_name)},
+                {'title': intent_prompt_2,
+                 'payload': '/{}'.format(prev_2_name)},
+                {'title': 'Ninguno de los dos',
+                 'payload': '/back'}]
             dispatcher.utter_message(message, buttons=buttons)
 
             """
@@ -153,14 +195,16 @@ class ActionAskClarification(Action):
         # validate only first
         elif prev_1_name in req_index:
             intent_prompt = self.intent_mappings[prev_1_name]
-            message = "Para vos ese requerimiento se refiere a {}?".format(intent_prompt)
+            message = "Para vos ese requerimiento se refiere a {}?".format(
+                intent_prompt)
             buttons = [{'title': 'Si',
-                    'payload': '/{}'.format(prev_1_name)},
-                    {'title': 'No',
-                    'payload': '/back'}]
+                        'payload': '/{}'.format(prev_1_name)},
+                       {'title': 'No',
+                        'payload': '/back'}]
             dispatcher.utter_message(message, buttons=buttons)
         # ask rephrase
         else:
-            dispatcher.utter_message("No te entendí. Podrías volver a escribirlo de otra manera?")
-            
+            dispatcher.utter_message(
+                "No te entendí. Podrías volver a escribirlo de otra manera?")
+
         return []

@@ -1,5 +1,22 @@
 version: "2.0"
 nlu:
+- intent: login
+  examples: |
+    - Mi nombre de usuario es [Galo](username)
+    - Mi nombre es [Palmira](username)
+    - Quiero iniciar sesión como [Nicolás](username)
+    - [Palmira](username)
+
+- intent: project
+  examples: |
+    - Mi proyecto es [PedidosYa](project_name)
+    - El nombre de mi proyecto es [PedidosYa](project_name)
+    - [PedidosYa](project_name)
+    - El nombre es [PedidosYa](project_name)
+    - Quiero trabajar en [PedidosYa](project_name)
+    - Estoy trabajando en el proyecto [PedidosYa](project_name)
+    - Me gustaría avanzar en [PedidosYa](project_name)
+
 - intent: availability
   examples: |
     - Es relevante que el sistema este disponible las 24 horas del día durante todo el año
@@ -98,7 +115,7 @@ nlu:
     - Los accesos de usuario deben ser limitados según sus roles.
     - Sólo usuarios autorizados deben tener acceso a información crítica del sistema.
     - El sistema debe proteger la información privada de acuerdo con las políticas de la organización.
-    - Permite que el administrador restrinja el\nacceso a carpetas, documentos y metadatos\na determinados usuarios del sistema
+    - Permite que el administrador restrinja el acceso a carpetas, documentos y metadatos a determinados usuarios del sistema
 - intent: usability
   examples: |
     - Es importante que el sistema sea intuitivo y de fácil comprensión
