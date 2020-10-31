@@ -47,14 +47,14 @@ req_index = {
 }
 
 
-class ActionAskUsername(Action):
+class ActionSaveUsername(Action):
     def name(self) -> Text:
-        return "action_ask_username"
+        return "action_save_username"
 
     def run(self, dispatcher, tracker, domain):
         print('Hola ActionAskUsername')
         # send utter template to user
-        dispatcher.utter_message(template='utter_ask_username')
+        # dispatcher.utter_message(template='utter_ask_username')
 
         # intent_name = tracker.latest_message['entities']
         # username_data = tracker.get_slot("username_slot")
@@ -68,14 +68,14 @@ class ActionAskUsername(Action):
         return [SlotSet("username_slot", username_data)]
 
 
-class ActionAskProjectName(Action):
+class ActionSaveProjectName(Action):
     def name(self) -> Text:
-        return "action_ask_project_name"
+        return "action_save_project_name"
 
     def run(self, dispatcher, tracker, domain):
         print('Hola ActionAskProjectName')
         # send utter default template to user
-        dispatcher.utter_message(template='utter_ask_project_name')
+        # dispatcher.utter_message(template='utter_ask_project_name')
 
         # If no entity is found, then None is the default result.
         project_data = next(

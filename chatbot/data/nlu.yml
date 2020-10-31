@@ -2,20 +2,48 @@ version: "2.0"
 nlu:
 - intent: login
   examples: |
-    - Mi nombre de usuario es [Galo](username)
-    - Mi nombre es [Palmira](username)
-    - Quiero iniciar sesión como [Nicolás](username)
-    - [Palmira](username)
+    - Mi nombre de usuario es [Galo]{"entity": "username"}
+    - Mi nombre es [Palmira]{"entity": "username"}
+    - Quiero iniciar sesión como [Nicolás]{"entity": "username"}
+    - [Palmira]{"entity": "username"}
+    - [Galo]{"entity": "username"}
+    - [Joaquin]{"entity": "username"}
+    - [Nicolas]{"entity": "username"}
+    - [Mauro]{"entity": "username"}
+    - Tengo que iniciar sesion como [Mauro]{"entity": "username"}
+    - Quiero trabjar como [Joaquin]{"entity": "username"}
+    - Necesito entrar como [Nicolas]{"entity": "username"}
+    - Me llamo [Agustin]{"entity": "username"}
 
-- intent: project
+- intent: new_project
   examples: |
-    - Mi proyecto es [PedidosYa](project_name)
-    - El nombre de mi proyecto es [PedidosYa](project_name)
-    - [PedidosYa](project_name)
-    - El nombre es [PedidosYa](project_name)
-    - Quiero trabajar en [PedidosYa](project_name)
-    - Estoy trabajando en el proyecto [PedidosYa](project_name)
-    - Me gustaría avanzar en [PedidosYa](project_name)
+    - Quiero empezar un nuevo proyecto
+    - Quiero crear un proyecto de cero
+    - Creame un nuevo proyecto
+
+- intent: project_name
+  examples: |
+    - Mi proyecto es [PedidosYa]{"entity": "project"}
+    - El nombre de mi proyecto es [GranDT]{"entity": "project"}
+    - [Uber]{"entity": "project"}
+    - El nombre es [Lyft]{"entity": "project"}
+    - Quiero trabajar en [PedidosYa]{"entity": "project"}
+    - Estoy trabajando en el proyecto [PedidosYa]{"entity": "project"}
+    - Me gustaría avanzar en [PedidosYa]{"entity": "project"}
+
+- intent: continue_project
+  examples: |
+    - Quiero continuar mi proyecto
+    - Necesito seguir con mi proyecto
+    - Tengo un trabajo empezado
+    - [842]{"entity": "project_id"}
+    - El id del proyecto es [924]{"entity": "project_id"}
+    - El id es [1034]{"entity": "project_id"}
+    - Quiero continuar mi proyecto [001]{"entity": "project_id"}
+    - Quiero seguir con mi proyecto [417]{"entity": "project_id"}
+    - Necesito continuar con mi proyecto [2482]{"entity": "project_id"}
+    - Voy a seguir con mi proyecto [127]{"entity": "project_id"}
+    - Voy a continuar mi trabajo [127]{"entity": "project_id"}
 
 - intent: availability
   examples: |
