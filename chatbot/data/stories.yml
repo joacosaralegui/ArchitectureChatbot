@@ -8,7 +8,7 @@ stories:
   - action: utter_greeting
   - intent: new_project
   - action: register_form
-  - action: utter_waiting_requirements
+  - action: action_attempt_login
 
 - story: continuar proyecto
   steps:
@@ -16,7 +16,6 @@ stories:
   - action: utter_greeting
   - intent: continue_project
   - action: continue_form
-  - 
 
 - story: req availability
   steps:

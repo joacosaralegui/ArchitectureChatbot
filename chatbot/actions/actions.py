@@ -28,10 +28,11 @@
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, FollowupAction
 
 from actions import vectors
-
+        
+import requests
 import csv
 
 req_index = {
@@ -46,45 +47,57 @@ req_index = {
     'interoperability': 8
 }
 
-
-class ActionSaveUsername(Action):
+class ActionAttemptLogin(Action):
     def name(self) -> Text:
-        return "action_save_username"
+        return "action_attempt_login"
 
     def run(self, dispatcher, tracker, domain):
-        print('Hola ActionAskUsername')
-        # send utter template to user
-        # dispatcher.utter_message(template='utter_ask_username')
+        email = tracker.get_slot('email')
 
-        # intent_name = tracker.latest_message['entities']
-        # username_data = tracker.get_slot("username_slot")
-        # If no entity is found, then None is the default result.
-        username_data = next(
-            tracker.get_latest_entity_values('username'), None)
+        data = '{"email": "'+email+'"}'
 
-        print(username_data)
+        response = requests.post('http://fastapi-training1.herokuapp.com/users/', data=data)
 
-        # Set slot value
-        return [SlotSet("username_slot", username_data)]
+        if response.status_code == 400:             
+            response = requests.get('http://fastapi-training1.herokuapp.com/users/email/'+email)
+            if response.status_code != 400: 
+                dispatcher.utter_message("Usuario ingresado exitosamente!")
+            else:
+                dispatcher.utter_message("Error al ingresar el usuario ingresado, por favor intente nuevamente!")
+                # VOLVER AL FORM
+                return []
+        else:
+            dispatcher.utter_message("Usuario registrado exitosamente!")
 
+        user_id = str(response.json()['id'])
+        
+        project_id = tracker.get_slot('project_id')
+        if project_id == None:
+            # CREAR PROYECTO
+            project = tracker.get_slot('project')
+            data = '{"title": "'+project+'"}'
 
-class ActionSaveProjectName(Action):
-    def name(self) -> Text:
-        return "action_save_project_name"
-
-    def run(self, dispatcher, tracker, domain):
-        print('Hola ActionAskProjectName')
-        # send utter default template to user
-        # dispatcher.utter_message(template='utter_ask_project_name')
-
-        # If no entity is found, then None is the default result.
-        project_data = next(
-            tracker.get_latest_entity_values('project_name'), None)
-
-        print(project_data)
-
-        # Set slot value
-        return [SlotSet("project_slot", project_data)]
+            response2 = requests.post('http://fastapi-training1.herokuapp.com/users/'+user_id+'/projects/', data=data)
+            print(response2.json())
+            if response2.status_code == 400:            
+                dispatcher.utter_message("Error al crear el proyecto, por favor intente nuevamente!")
+                # VOLVER AL FORM
+                return []
+            else:
+                dispatcher.utter_message("Proyecto creado exitosamente!")
+                # TODO: print ID proyecto p usuario
+                return [SlotSet("user_id", user_id),SlotSet("project_id", response2.json()['id'])]
+        else:
+            # RECUPERAR PROYECTO
+            response2 = requests.get('http://fastapi-training1.herokuapp.com/projects/'+project_id)
+            print(response2.json())
+            if response2.status_code == 400:            
+                dispatcher.utter_message("Error al crear el proyecto, por favor intente nuevamente!")
+                # VOLVER AL FORM
+                return []
+            else:
+                dispatcher.utter_message("Proyecto recuperado exitosamente!")
+                return [SlotSet("user_id", user_id)]
 
 
 class ActionAddRequirement(Action):

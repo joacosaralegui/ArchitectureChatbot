@@ -1,30 +1,28 @@
+version: '2.0'
 
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
 intents:
 - login
 - project_name
 - new_project
 - continue_project
 - architecture_from_requirements
-- usability
 - greeting
-- get_recomendation
-- stop
-- availability
-- fault_tolerance
-- maintainability
-- performance
-- scalability
-- security
-- portability
-- interoperability
+#- usability
+#- get_recomendation
+#- stop
+#- availability
+#- fault_tolerance
+#- maintainability
+#- performance
+#- scalability
+#- security
+#- portability
+#- interoperability
 - nlu_fallback
 
 entities:
   - started_project
-  - username
+  - email
   - project
   - project_id
 
@@ -43,7 +41,7 @@ slots:
     - 0
     influence_conversation: true
 
-  username:
+  email:
     type: text
     influence_conversation: false
   
@@ -55,20 +53,24 @@ slots:
     type: text
     influence_conversation: true
 
+  user_id:
+    type: text
+    influence_conversation: true
+
 forms:
   register_form:
-    username:
+    email:
     - type: from_entity
-      entity: username
+      entity: email
       intent: login
     project:
     - type: from_entity
       entity: project
       intent: project_name
   continue_form:
-    username:
+    email:
     - type: from_entity
-      entity: username
+      entity: email
       intent: login
     project_id:
     - type: from_entity
@@ -82,25 +84,24 @@ responses:
   - text: Hola! Decime si queres arrancar un proyecto nuevo o continuar uno
   utter_waiting_requirements:
   - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados
-  utter_ask_username:
-  - text: Cómo es tu nombre de usuario?
-  - text: Cómo te llamas?
-  - text: Cómo es tu nombre?
-  - text: Cuál es tu nombre?
-  - text: Decime tu nombre de usuario
+  utter_ask_email:
+  - text: Cómo es tu email?
+  - text: Me decís tu mail?
   utter_ask_project:
-  - text: Bienvenido {username}! Cómo se llamará tu proyecto?
-  - text: Bienvenido {username}! Cuál es el nombre de tu nuevo proyecto?
-  - text: Bienvenido {username}! Decime el nombre del proyecto nuevo
+  - text: Bienvenido {email}! Cómo se llamará tu proyecto? (por favor incluí el nombre entre comillas)
+  - text: Bienvenido {email}! Cuál es el nombre de tu nuevo proyecto?  (por favor incluí el nombre entre comillas)
+  - text: Bienvenido {email}! Decime el nombre del proyecto nuevo  (por favor incluí el nombre entre comillas)
   utter_ask_project_id:
-  - text: Bienvenido {username}! Cuál es el id de tu proyecto?
-  - text: Bienvenido {username}! Cuál es el id del proyecto en el que trabajas?
-  - text: Bienvenido {username}! En cuál proyecto querés trabajar? Dame su id
+  - text: Bienvenido {email}! Cuál es el id de tu proyecto?
+  - text: Bienvenido {email}! Cuál es el id del proyecto en el que trabajas?
+  - text: Bienvenido {email}! En cuál proyecto querés trabajar? Dame su id
 
 actions:
-- action_save_username
-- action_save_project_name
+- action_attempt_login
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector
-version: '2.0'
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
