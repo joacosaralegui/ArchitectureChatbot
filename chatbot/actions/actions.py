@@ -54,51 +54,62 @@ class ActionAttemptLogin(Action):
     def run(self, dispatcher, tracker, domain):
         email = tracker.get_slot('email')
 
-        data = '{"email": "'+email+'"}'
+        # Si no esta cargado el slot de email entonces no podemos continuar
+        if email == None:
+            dispatcher.utter_message("No se pudo reconocer el email. Por favor, ingresalo de nuevo.")
+            # TODO: forzar que la intent que sigue se marque como email??
+            return []
 
-        response = requests.post('http://fastapi-training1.herokuapp.com/users/', data=data)
-
-        if response.status_code == 400:             
-            response = requests.get('http://fastapi-training1.herokuapp.com/users/email/'+email)
-            if response.status_code != 400: 
-                dispatcher.utter_message("Usuario ingresado exitosamente!")
-            else:
-                dispatcher.utter_message("Error al ingresar el usuario ingresado, por favor intente nuevamente!")
-                # VOLVER AL FORM
-                return []
-        else:
-            dispatcher.utter_message("Usuario registrado exitosamente!")
-
-        user_id = str(response.json()['id'])
+        # Intento crear usuario
+        response_create_user = requests.post('http://fastapi-training1.herokuapp.com/users/', data='{"email": "'+email+'"}')
         
+        # Si falla la creación, 
+        if response_create_user.status_code != 200:
+            # Lo busco por email a ver si existe
+            response_get_user = requests.get('http://fastapi-training1.herokuapp.com/users/email/'+email)
+            # Si no lo encuentra
+            if response_get_user.status_code != 200: 
+                dispatcher.utter_message("Error al ingresar el usuario ingresado, por favor intente nuevamente!")
+                # TODO: VOLVER AL FORM
+                return []
+
+        user_data = response_create_user.json() if response_create_user.status_code == 200 else response_get_user.json()
+        print(user_data)
+
+        # Buscar user_id value, project_id y project_name
+        user_id = user_data['id']
         project_id = tracker.get_slot('project_id')
-        if project_id == None:
-            # CREAR PROYECTO
-            project = tracker.get_slot('project')
-            data = '{"title": "'+project+'"}'
 
-            response2 = requests.post('http://fastapi-training1.herokuapp.com/users/'+user_id+'/projects/', data=data)
-            print(response2.json())
-            if response2.status_code == 400:            
-                dispatcher.utter_message("Error al crear el proyecto, por favor intente nuevamente!")
-                # VOLVER AL FORM
-                return []
+        # Si nos piden continuar un proyecto (osea si tenemos project_id)
+        if project_id != None:
+            projects = user_data['projects']
+            projects_match = [p for p in projects if p['id'] == project_id]
+            project_exists = any(projects_match)
+            if not project_exists:
+                dispatcher.utter_message("No existe projecto con ese ID!")
+                # TODO: VOLVER A preguntar si quiere crear o no
             else:
-                dispatcher.utter_message("Proyecto creado exitosamente!")
-                # TODO: print ID proyecto p usuario
-                return [SlotSet("user_id", user_id),SlotSet("project_id", response2.json()['id'])]
-        else:
-            # RECUPERAR PROYECTO
-            response2 = requests.get('http://fastapi-training1.herokuapp.com/projects/'+project_id)
-            print(response2.json())
-            if response2.status_code == 400:            
-                dispatcher.utter_message("Error al crear el proyecto, por favor intente nuevamente!")
-                # VOLVER AL FORM
-                return []
-            else:
+                project_data = projects_match[0]
+                # Si llegamos hasta acá entonces tenemos todo.
                 dispatcher.utter_message("Proyecto recuperado exitosamente!")
-                return [SlotSet("user_id", user_id)]
+                
+            return [SlotSet("user_id", user_id)]
+        else:
+            # Tenemos que crear el proyecto
+            project = tracker.get_slot('project')
+            response_create_project = requests.post('http://fastapi-training1.herokuapp.com/users/'+str(user_id)+'/projects/', data='{"title": "'+str(project)+'"}')
 
+            if response_create_project.status_code != 200:            
+                dispatcher.utter_message("Error al crear el proyecto, por favor intente nuevamente!")
+                # VOLVER AL FORM
+                return [SlotSet("user_id", str(user_id))]
+
+            project_data = response_create_project.json()
+            project_id = str(project_data['id'])
+            dispatcher.utter_message(f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}")
+            return [SlotSet("user_id", str(user_id)),SlotSet("project_id", project_id)]
+       
+     
 
 class ActionAddRequirement(Action):
 
