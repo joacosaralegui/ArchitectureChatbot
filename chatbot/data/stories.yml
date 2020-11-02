@@ -16,6 +16,7 @@ stories:
   - action: utter_greeting
   - intent: continue_project
   - action: continue_form
+  - action: action_attempt_login
 
 - story: req availability
   steps:

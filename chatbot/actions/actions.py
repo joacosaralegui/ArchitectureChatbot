@@ -48,6 +48,11 @@ req_index = {
 }
 
 class ActionAttemptLogin(Action):
+
+    def __init__(self):
+        self.SUCCESS_CODE = 200
+        self.API_URL = "http://fastapi-training1.herokuapp.com"
+
     def name(self) -> Text:
         return "action_attempt_login"
 
@@ -57,22 +62,23 @@ class ActionAttemptLogin(Action):
         # Si no esta cargado el slot de email entonces no podemos continuar
         if email == None:
             dispatcher.utter_message("No se pudo reconocer el email. Por favor, ingresalo de nuevo.")
-            # TODO: forzar que la intent que sigue se marque como email??
+            # TODO: forzar que la intent que sigue se marque como email?? reenviar el form (followupAction)
             return []
 
         # Intento crear usuario
-        response_create_user = requests.post('http://fastapi-training1.herokuapp.com/users/', data='{"email": "'+email+'"}')
+        response_create_user = requests.post(self.API_URL+'/users/', data='{"email": "'+email+'"}')
         
         # Si falla la creación, 
-        if response_create_user.status_code != 200:
+        if response_create_user.status_code != self.SUCCESS_CODE:
             # Lo busco por email a ver si existe
-            response_get_user = requests.get('http://fastapi-training1.herokuapp.com/users/email/'+email)
+            response_get_user = requests.get(self.API_URL+'/users/email/'+email)
             # Si no lo encuentra
-            if response_get_user.status_code != 200: 
+            if response_get_user.status_code != self.SUCCESS_CODE: 
                 dispatcher.utter_message("Error al ingresar el usuario ingresado, por favor intente nuevamente!")
                 # TODO: VOLVER AL FORM
                 return []
 
+        # Se que la info esta en alguno de los dos response porque la ejecucion llego hasta aca. Elijo de cual lo agarro.
         user_data = response_create_user.json() if response_create_user.status_code == 200 else response_get_user.json()
         print(user_data)
 
@@ -82,12 +88,14 @@ class ActionAttemptLogin(Action):
 
         # Si nos piden continuar un proyecto (osea si tenemos project_id)
         if project_id != None:
+            project_id = int(project_id)
             projects = user_data['projects']
+            # list comprehension python
             projects_match = [p for p in projects if p['id'] == project_id]
             project_exists = any(projects_match)
             if not project_exists:
                 dispatcher.utter_message("No existe projecto con ese ID!")
-                # TODO: VOLVER A preguntar si quiere crear o no
+                # TODO: VOLVER A preguntar si quiere crear o no (quizas listar ids del proyecto que ya existe)
             else:
                 project_data = projects_match[0]
                 # Si llegamos hasta acá entonces tenemos todo.
@@ -97,16 +105,22 @@ class ActionAttemptLogin(Action):
         else:
             # Tenemos que crear el proyecto
             project = tracker.get_slot('project')
-            response_create_project = requests.post('http://fastapi-training1.herokuapp.com/users/'+str(user_id)+'/projects/', data='{"title": "'+str(project)+'"}')
+            response_create_project = requests.post(self.API_URL+'/users/'+str(user_id)+'/projects/', data='{"title": "'+str(project)+'"}')
 
-            if response_create_project.status_code != 200:            
+            if response_create_project.status_code != self.SUCCESS_CODE:            
                 dispatcher.utter_message("Error al crear el proyecto, por favor intente nuevamente!")
                 # VOLVER AL FORM
                 return [SlotSet("user_id", str(user_id))]
 
+            # Extraigo la info del proyecto particular
             project_data = response_create_project.json()
+            # Guardo la id del proyecto como str
             project_id = str(project_data['id'])
+            # Muestro al usuario el id para la proxima vez
             dispatcher.utter_message(f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}")
+            
+            # Guardo tanto el id de usuario como el de proyecto para mas adelante
+            
             return [SlotSet("user_id", str(user_id)),SlotSet("project_id", project_id)]
        
      
