@@ -5,6 +5,7 @@ intents:
 - project_name
 - new_project
 - continue_project
+- list_projects
 - architecture_from_requirements
 - greeting
 #- usability
@@ -75,9 +76,27 @@ forms:
     project_id:
     - type: from_entity
       entity: project_id
-      intent: continue_project
+      intent: continue_project #aca deberiamos tener dos caminos, uno por si lo sabe y otro por si quiere listado
+
+rules:
+- rule: mostrar los proyectos si no sabe id
+  condition:
+  # Condition that form is active.
+  - active_loop: continue_form
+  steps:
+  # This unhappy path handles the case of an intent `chitchat`.
+  - intent: list_projects
+  - action: utter_list_projects
+  # Return to form after handling the `chitchat` intent
+  - action: continue_form
+  - active_loop: continue_form
+
 
 responses:
+  utter_prueba:
+  - text: hola soy una prueba
+  utter_list_projects:
+  - text: Bueno aca te voy a mostrar todos tus proyectos
   utter_greeting:
   - text: Buenos días, tenés un proyecto empezado o querés arrancar uno nuevo?
   - text: Buen día! Querés empezar un nuevo proyecto? O ya tenés uno?
@@ -95,12 +114,14 @@ responses:
   - text: Bienvenido {email}! Cuál es el id de tu proyecto?
   - text: Bienvenido {email}! Cuál es el id del proyecto en el que trabajas?
   - text: Bienvenido {email}! En cuál proyecto querés trabajar? Dame su id
+  # aca la idea es preguntar si ya sabe el id del proyecto, y ofrecer listarlos por si no lo recuerda
 
 actions:
 - action_attempt_login
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector
+# - action_list_projects
 
 session_config:
   session_expiration_time: 60

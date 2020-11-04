@@ -20,13 +20,23 @@ nlu:
     - Creame un nuevo proyecto
     - Uno nuevo
     - Dame uno nuevo
+    - Voy a empezar un nuevo proyecto
+    - Quiero arrancar un nuevo trabajo
+    - Haceme un proyecto nuevo
+    - Arrancar uno
+    - Hacer uno nuevo
+    - Quiero empezar uno
+    - Empezar uno
+    - Crear uno nuevo
+    - Quiero arrancar un proyecto de cero
+    - Voy a trabajar en mi nuevo proyecto
 
 - intent: project_name
   examples: |
     - Mi proyecto es "[Pedidos Ya]{"entity": "project"}"
     - El nombre de mi proyecto es "[GranDT]{"entity": "project"}"
     - [Uber]{"entity": "project"}
-    - [Proyecto 4]{"entity": "project"}
+    - '[Proyecto 4]{"entity": "project"}'
     - "[Arquitectura II]"{"entity": "project"}"
     - El nombre es "[Proyecto de arquitecura I]{"entity": "project"}"
     - Quiero trabajar en '[Pedidos Ya]{"entity": "project"}'
@@ -39,6 +49,8 @@ nlu:
     - Necesito seguir con mi proyecto
     - Tengo un trabajo empezado
     - [842]{"entity": "project_id"}
+    - [4]{"entity": "project_id"}
+    - [35]{"entity": "project_id"}
     - El id del proyecto es [924]{"entity": "project_id"}
     - El id es [1034]{"entity": "project_id"}
     - Quiero continuar mi proyecto [001]{"entity": "project_id"}
@@ -46,6 +58,28 @@ nlu:
     - Necesito continuar con mi proyecto [2482]{"entity": "project_id"}
     - Voy a seguir con mi proyecto [127]{"entity": "project_id"}
     - Voy a continuar mi trabajo [127]{"entity": "project_id"}
+    - El id del proyecto que necesito es [924]{"entity": "project_id"}
+    - El id que quiero  [1034]{"entity": "project_id"}
+    - Quiero continuar con el [001]{"entity": "project_id"}
+    - Quiero seguir con mi proyecto [417]{"entity": "project_id"}
+    - Quiero el [2482]{"entity": "project_id"}
+    - Voy a seguir con el [127]{"entity": "project_id"}
+    - Voy a continuar el [127]{"entity": "project_id"}
+    - Elijo el [127]{"entity": "project_id"}
+    - Quiero mi proyecto [537]{"entity": "project_id"}
+    - Necesito seguir con mi proyecto [1]{"entity": "project_id"}
+
+- intent: list_projects
+  examples: |
+    - Quiero ver todos mis proyectos
+    - Dame los datos de mis proyectos
+    - Quiero saber cuales son mis proyectos creados
+    - Listame mis proyectos actuales
+    - Necesito ver mis trabajos
+    - Quiero ver los datos de mis proyectos actuales
+    - Necesito saber qué proyectos tengo
+    - Necesito un listado de mis proyectos
+    - Quiero un listado de todos mis trabajos
 
 - intent: availability
   examples: |
