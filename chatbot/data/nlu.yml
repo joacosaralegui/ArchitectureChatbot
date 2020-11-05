@@ -13,7 +13,7 @@ nlu:
     - Quiero trabjar como [galopiancola@yahoo.com.ar]{"entity": "email"}
     - Necesito entrar como [marcosfernandez@outlook.com]{"entity": "email"}
 
-- intent: new_project
+- intent: register_project
   examples: |
     - Quiero empezar un nuevo proyecto
     - Quiero crear un proyecto de cero
@@ -21,15 +21,9 @@ nlu:
     - Uno nuevo
     - Dame uno nuevo
     - Voy a empezar un nuevo proyecto
+    - Quiero crear un nuevo trabajo
     - Quiero arrancar un nuevo trabajo
     - Haceme un proyecto nuevo
-    - Arrancar uno
-    - Hacer uno nuevo
-    - Quiero empezar uno
-    - Empezar uno
-    - Crear uno nuevo
-    - Quiero arrancar un proyecto de cero
-    - Voy a trabajar en mi nuevo proyecto
 
 - intent: join_project
   examples: |
@@ -38,18 +32,7 @@ nlu:
     - Sumame a un equipo
     - Quiero agregarme
     - Agremame a un proyecto
-
-- intent: project_name
-  examples: |
-    - Mi proyecto es "[Pedidos Ya]{"entity": "project"}"
-    - El nombre de mi proyecto es "[GranDT]{"entity": "project"}"
-    - [Uber]{"entity": "project"}
-    - '[Proyecto 4]{"entity": "project"}'
-    - "[Arquitectura II]"{"entity": "project"}"
-    - El nombre es "[Proyecto de arquitecura I]{"entity": "project"}"
-    - Quiero trabajar en '[Pedidos Ya]{"entity": "project"}'
-    - Estoy trabajando en el proyecto "[Arquitectura para Proyecto]{"entity": "project"}"
-    - Me gustaría avanzar en "[Diseño 2]{"entity": "project"}"
+    - Me quiero sumar a uno
 
 - intent: continue_project
   examples: |
@@ -66,16 +49,19 @@ nlu:
     - Necesito continuar con mi proyecto [2482]{"entity": "project_id"}
     - Voy a seguir con mi proyecto [127]{"entity": "project_id"}
     - Voy a continuar mi trabajo [127]{"entity": "project_id"}
-    - El id del proyecto que necesito es [924]{"entity": "project_id"}
-    - El id que quiero  [1034]{"entity": "project_id"}
-    - Quiero continuar con el [001]{"entity": "project_id"}
-    - Quiero seguir con mi proyecto [417]{"entity": "project_id"}
-    - Quiero el [2482]{"entity": "project_id"}
-    - Voy a seguir con el [127]{"entity": "project_id"}
-    - Voy a continuar el [127]{"entity": "project_id"}
-    - Elijo el [127]{"entity": "project_id"}
-    - Quiero mi proyecto [537]{"entity": "project_id"}
-    - Necesito seguir con mi proyecto [1]{"entity": "project_id"}
+
+- intent: project_name
+  examples: |
+    - Mi proyecto es "[Pedidos Ya]{"entity": "project"}"
+    - El nombre de mi proyecto es "[GranDT]{"entity": "project"}"
+    - [Uber]{"entity": "project"}
+    - '[Proyecto 4]{"entity": "project"}'
+    - "[Arquitectura II]"{"entity": "project"}"
+    - El nombre es "[Proyecto de arquitecura I]{"entity": "project"}"
+    - Quiero trabajar en '[Pedidos Ya]{"entity": "project"}'
+    - Estoy trabajando en el proyecto "[Arquitectura para Proyecto]{"entity": "project"}"
+    - Me gustaría avanzar en "[Diseño 2]{"entity": "project"}"
+
 
 - intent: list_projects
   examples: |
@@ -85,13 +71,8 @@ nlu:
     - Listame mis proyectos actuales
     - Necesito ver mis trabajos
     - Quiero ver los datos de mis proyectos actuales
-    - Necesito saber qué proyectos tengo
-    - Necesito un listado de mis proyectos
-    - Quiero un listado de todos mis trabajos
-    - Quiero verlos
-    - Quiero que me los muestres
-    - Necesito verlos
-    - Necesito que me los muestres
+    - Mostrame mis proyectos
+    - Mostrame los ids
 
 - intent: availability
   examples: |

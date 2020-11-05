@@ -76,14 +76,14 @@ class ActionListProjects(Action):
         return []
 
 
-class ActionAttemptLogin(Action):
+class ActionRegisterProject(Action):
 
     def __init__(self):
         self.SUCCESS_CODE = 200
         self.API_URL = "http://fastapi-training1.herokuapp.com"
 
     def name(self) -> Text:
-        return "action_attempt_login"
+        return "action_register_project"
 
     def run(self, dispatcher, tracker, domain):
         email = tracker.get_slot('email')
@@ -94,7 +94,7 @@ class ActionAttemptLogin(Action):
                 "No se pudo reconocer el email. Por favor, ingresalo de nuevo.")
             return [UserUttered("/greeting",intent={'name': 'greeting', 'confidence': 1.0})]
             # TODO: forzar que la intent que sigue se marque como email?? reenviar el form (followupAction)
-            # return [FollowupAction("action_attempt_login")]
+            # return [FollowupAction("action_login")]
 
         # Intento crear usuario
         # TODO: al querer continuar un proyecto con un email inexistente en la api, se crea
@@ -164,6 +164,96 @@ class ActionAttemptLogin(Action):
 
             return [SlotSet("user_id", str(user_id)), SlotSet("project_id", project_id)]
 
+
+class ActionContinueProject(Action):
+
+    def __init__(self):
+        self.SUCCESS_CODE = 200
+        self.API_URL = "http://fastapi-training1.herokuapp.com"
+
+    def name(self) -> Text:
+        return "action_continue_project"
+
+    def run(self, dispatcher, tracker, domain):
+        email = tracker.get_slot('email')
+
+        # Si no esta cargado el slot de email entonces no podemos continuar
+        if email == None:
+            dispatcher.utter_message(
+                "No se pudo reconocer el email. Por favor, ingresalo de nuevo.")
+            return [UserUttered("/greeting",intent={'name': 'greeting', 'confidence': 1.0})]
+            # TODO: forzar que la intent que sigue se marque como email?? reenviar el form (followupAction)
+            # return [FollowupAction("action_login")]
+
+        # Intento crear usuario
+        # TODO: al querer continuar un proyecto con un email inexistente en la api, se crea
+        # y obviamente no tiene ningun proyecto para ser continuado
+        response_create_user = requests.post(
+            self.API_URL+'/users/create', data='{"email": "'+email+'"}')
+
+        # Si falla la creación,
+        if response_create_user.status_code != self.SUCCESS_CODE:
+            # Lo busco por email a ver si existe
+            response_get_user = requests.get(
+                self.API_URL+'/users/email/'+email)
+            # Si no lo encuentra
+            if response_get_user.status_code != self.SUCCESS_CODE:
+                dispatcher.utter_message(
+                    "Error al ingresar el usuario ingresado, por favor intente nuevamente!")
+                # TODO: VOLVER AL FORM
+                # return [SlotSet(‘mobNum’,mobNum),FollowupAction(“action_name”)]
+                return []
+
+        # Se que la info esta en alguno de los dos response porque la ejecucion llego hasta aca. Elijo de cual lo agarro.
+        user_data = response_create_user.json(
+        ) if response_create_user.status_code == 200 else response_get_user.json()
+
+        # Buscar user_id value, project_id y project_name
+        user_id = user_data['id']
+        project_id = tracker.get_slot('project_id')
+
+        # Si nos piden continuar un proyecto (osea si tenemos project_id)
+        if project_id != None:
+            project_id = int(project_id)
+            projects = user_data['projects']
+            # list comprehension python
+            projects_match = [p for p in projects if p['id'] == project_id]
+            project_exists = any(projects_match)
+            if not project_exists:
+                dispatcher.utter_message("No existe projecto con ese ID!")
+                return [FollowupAction("action_list_projects")]
+                # TODO: VOLVER A preguntar si quiere crear o no (quizas listar ids del proyecto que ya existe)
+            else:
+                project_data = projects_match[0]
+                # Si llegamos hasta acá entonces tenemos todo.
+                dispatcher.utter_message("Proyecto recuperado exitosamente!")
+
+            return [SlotSet("user_id", user_id)]
+        else:
+            # Tenemos que crear el proyecto
+            project = tracker.get_slot('project')
+            response_create_project = requests.post(
+                self.API_URL+'/users/'+str(user_id)+'/projects/create', data='{"title": "'+str(project)+'"}')
+
+            if response_create_project.status_code != self.SUCCESS_CODE:
+                dispatcher.utter_message(
+                    "Error al crear el proyecto, por favor intente nuevamente!")
+                # VOLVER AL FORM
+                return [SlotSet("user_id", str(user_id))]
+
+            # Extraigo la info del proyecto particular
+            project_data = response_create_project.json()
+            # Guardo la id del proyecto como str
+            project_id = str(project_data['id'])
+            # Muestro al usuario el id para la proxima vez
+            dispatcher.utter_message(
+                f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}")
+
+            # Guardo tanto el id de usuario como el de proyecto para mas adelante
+
+            return [SlotSet("user_id", str(user_id)), SlotSet("project_id", project_id)]
+
+
 class ActionJoinProject(Action):
 
     def __init__(self):
@@ -181,7 +271,7 @@ class ActionJoinProject(Action):
             dispatcher.utter_message(
                 "No se pudo reconocer el email. Por favor, ingresalo de nuevo.")
             # TODO: forzar que la intent que sigue se marque como email?? reenviar el form (followupAction)
-            # return [FollowupAction("action_attempt_login")]
+            # return [FollowupAction("action_login")]
 
         # Intento crear usuario
         # TODO: al querer continuar un proyecto con un email inexistente en la api, se crea
@@ -214,7 +304,7 @@ class ActionJoinProject(Action):
         if project_id != None:                
             response_project = requests.get(
                 self.API_URL+'/users/'+str(user_id)+'/projects/'+str(project_id))
-            if response_project.status == self.SUCCESS_CODE:
+            if response_project.status_code == self.SUCCESS_CODE:
                 dispatcher.utter_message("Exitosamente agregado al proyecto!")
             else:
                 dispatcher.utter_message("No se pudo agregar el usuario al proyecto!")

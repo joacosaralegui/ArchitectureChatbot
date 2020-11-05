@@ -3,7 +3,7 @@ version: '2.0'
 intents:
 - login
 - project_name
-- new_project
+- register_project
 - continue_project
 - join_project
 - list_projects
@@ -77,7 +77,6 @@ forms:
     project_id:
     - type: from_entity
       entity: project_id
-      intent: join_project
   continue_form:
     email:
     - type: from_entity
@@ -86,20 +85,22 @@ forms:
     project_id:
     - type: from_entity
       entity: project_id
-      intent: continue_project #aca deberiamos tener dos caminos, uno por si lo sabe y otro por si quiere listado
 
 rules:
-- rule: mostrar los proyectos si no sabe id
-  condition:
-  # Condition that form is active.
-  - active_loop: continue_form
   steps:
-  # This unhappy path handles the case of an intent `chitchat`.
-  - intent: list_projects
-  - action: action_list_projects
-  # Return to form after handling the `chitchat` intent
-  - action: continue_form
-  - active_loop: continue_form
+    - intent: list_projects
+    - action: action_list_projects
+#- rule: mostrar los proyectos si no sabe id
+#  condition:
+#  # Condition that form is active.
+#  - active_loop: continue_form
+#  steps:
+#  # This unhappy path handles the case of an intent `chitchat`.
+#  - intent: list_projects
+#  - action: action_list_projects
+#  # Return to form after handling the `chitchat` intent
+#  - action: continue_form
+#  - active_loop: continue_form
 
 
 responses:
@@ -123,8 +124,9 @@ responses:
 
 actions:
 - action_list_projects
-- action_attempt_login
+- action_register_project
 - action_join_project
+- action_continue_project
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector
