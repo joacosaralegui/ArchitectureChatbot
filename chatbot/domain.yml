@@ -74,7 +74,7 @@ forms:
     - type: from_entity
       entity: email
       intent: login
-    project:
+    project_id:
     - type: from_entity
       entity: project_id
       intent: join_project
@@ -106,9 +106,7 @@ responses:
   utter_prueba:
   - text: hola soy una prueba
   utter_greeting:
-  - text: Buenos días, tenés un proyecto empezado o querés arrancar uno nuevo?
-  - text: Buen día! Querés empezar un nuevo proyecto? O ya tenés uno?
-  - text: Hola! Decime si queres arrancar un proyecto nuevo o continuar uno
+  - text: Buenos días, tenés un proyecto empezado, querés arrancar uno nuevo o te queres sumar a un equipo?
   utter_waiting_requirements:
   - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados
   utter_ask_email:
