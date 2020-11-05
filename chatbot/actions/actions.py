@@ -47,8 +47,12 @@ req_index = {
     'interoperability': 8
 }
 
-"""
+
 class ActionListProjects(Action):
+    def __init__(self):
+        self.SUCCESS_CODE = 200
+        self.API_URL = "http://fastapi-training1.herokuapp.com"
+
     def name(self) -> Text:
         return "action_list_projects"
 
@@ -56,29 +60,21 @@ class ActionListProjects(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # Tomo de la api todos los proyectos del usuario actual.
-        projects_match = [p for p in projects if p['id'] == project_id]
+        # Obtengo el email del usuario actual y busco en la api su lista de proyectos
+        email = tracker.get_slot('email')
+        user_data = requests.get(self.API_URL+'/users/email/'+email).json()
+        projects_match = user_data['projects']
 
-        # Buscar user_id value
-        user_id_from_slot = Tracker.getSlot(user_id)
-        #buscar todos los proyectos con ese id
-
-        # Fetch requirements vector
-        requirements = tracker.get_slot('requirements')
-        vector = vectors.get_normalized_vector(requirements)
-        print(vector)
-        # Get closer architecture
-        match = vectors.get_closer_architecture(vector)
-
-        for i, arch in enumerate(match):
-            dispatcher.utter_message(
-                text=f"Arquitectura sugerida n°{i+1}: " + str(arch.name))
-            dispatcher.utter_message(text=arch.analysis(vector))
-
-        # TODO: CLEAN VECTOR?
+        if not projects_match:  # Si la lista esta vacia
+            dispatcher.utter_message(text="El usuario no tiene proyectos")
+            print("List is empty")
+        else:
+            # Recorro la lista de projectos del usuario, imprimiendo los datos de c/u
+            for p in projects_match:
+                dispatcher.utter_message(
+                    text="imprimo los datos del proyecto p" + p)
 
         return []
-"""
 
 
 class ActionAttemptLogin(Action):

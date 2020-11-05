@@ -111,17 +111,16 @@ responses:
   - text: Bienvenido {email}! Cuál es el nombre de tu nuevo proyecto?  (por favor incluí el nombre entre comillas)
   - text: Bienvenido {email}! Decime el nombre del proyecto nuevo  (por favor incluí el nombre entre comillas)
   utter_ask_project_id:
-  - text: Bienvenido {email}! Cuál es el id de tu proyecto?
-  - text: Bienvenido {email}! Cuál es el id del proyecto en el que trabajas?
-  - text: Bienvenido {email}! En cuál proyecto querés trabajar? Dame su id
-  # aca la idea es preguntar si ya sabe el id del proyecto, y ofrecer listarlos por si no lo recuerda
+  - text: Bienvenido {email}! Cuál es el id de tu proyecto? Puedo mostrartelos si queres
+  - text: Bienvenido {email}! Cuál es el id del proyecto en el que trabajas? Puedo mostrarte tus proyectos si lo necesitas
+  - text: Bienvenido {email}! En cuál proyecto querés trabajar? Dame su id. Si no lo recordas, puedo mostrártelos
 
 actions:
+- action_list_projects
 - action_attempt_login
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector
-# - action_list_projects
 
 session_config:
   session_expiration_time: 60

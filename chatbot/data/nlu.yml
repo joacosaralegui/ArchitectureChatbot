@@ -80,6 +80,10 @@ nlu:
     - Necesito saber qué proyectos tengo
     - Necesito un listado de mis proyectos
     - Quiero un listado de todos mis trabajos
+    - Quiero verlos
+    - Quiero que me los muestres
+    - Necesito verlos
+    - Necesito que me los muestres
 
 - intent: availability
   examples: |

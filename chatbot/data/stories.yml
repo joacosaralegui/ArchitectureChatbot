@@ -27,7 +27,7 @@ stories:
   - active_loop: continue_form
   - intent: list_projects
   - action: utter_list_projects
-  #- action: custom action que liste los proyectos del usuario
+  - action: action_list_projects # (custom action que liste los proyectos del usuario)
   - intent: continue_project
   - action: action_deactivate_loop
   - action: action_attempt_login
