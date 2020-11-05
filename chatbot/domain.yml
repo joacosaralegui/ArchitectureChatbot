@@ -5,6 +5,7 @@ intents:
 - project_name
 - new_project
 - continue_project
+- join_project
 - list_projects
 - architecture_from_requirements
 - greeting
@@ -68,6 +69,15 @@ forms:
     - type: from_entity
       entity: project
       intent: project_name
+  join_form:
+    email:
+    - type: from_entity
+      entity: email
+      intent: login
+    project:
+    - type: from_entity
+      entity: project_id
+      intent: join_project
   continue_form:
     email:
     - type: from_entity
@@ -86,7 +96,7 @@ rules:
   steps:
   # This unhappy path handles the case of an intent `chitchat`.
   - intent: list_projects
-  - action: utter_list_projects
+  - action: action_list_projects
   # Return to form after handling the `chitchat` intent
   - action: continue_form
   - active_loop: continue_form
@@ -95,8 +105,6 @@ rules:
 responses:
   utter_prueba:
   - text: hola soy una prueba
-  utter_list_projects:
-  - text: Bueno aca te voy a mostrar todos tus proyectos
   utter_greeting:
   - text: Buenos días, tenés un proyecto empezado o querés arrancar uno nuevo?
   - text: Buen día! Querés empezar un nuevo proyecto? O ya tenés uno?
@@ -118,6 +126,7 @@ responses:
 actions:
 - action_list_projects
 - action_attempt_login
+- action_join_project
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector

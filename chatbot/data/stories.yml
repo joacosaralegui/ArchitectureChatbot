@@ -18,6 +18,16 @@ stories:
   - action: continue_form
   - action: action_attempt_login
 
+- story: unirte a proyecto
+  steps:
+  - intent: greeting
+  - action: utter_greeting
+  - intent: join_project
+  - action: join_form
+  - action: action_join_project
+
+
+
 - story: continuar proyecto pero viendo los anteriores
   steps:
   - intent: greeting
@@ -26,7 +36,6 @@ stories:
   - action: continue_form
   - active_loop: continue_form
   - intent: list_projects
-  - action: utter_list_projects
   - action: action_list_projects # (custom action que liste los proyectos del usuario)
   - intent: continue_project
   - action: action_deactivate_loop

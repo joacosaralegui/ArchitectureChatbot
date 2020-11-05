@@ -31,6 +31,14 @@ nlu:
     - Quiero arrancar un proyecto de cero
     - Voy a trabajar en mi nuevo proyecto
 
+- intent: join_project
+  examples: |
+    - Quiero unirme a un proyecto
+    - Quiero sumame a un proyecto
+    - Sumame a un equipo
+    - Quiero agregarme
+    - Agremame a un proyecto
+
 - intent: project_name
   examples: |
     - Mi proyecto es "[Pedidos Ya]{"entity": "project"}"

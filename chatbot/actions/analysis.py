@@ -18,7 +18,7 @@ class Analysis:
         self.comparison = comparison
     
     def __str__(self):    
-        return  name
+        return  self.name
     
     def compare(self, vector1, vector2):
         found = []
