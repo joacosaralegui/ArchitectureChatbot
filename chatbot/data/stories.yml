@@ -2,36 +2,63 @@ version: "2.0"
 
 stories:
 
-- story: arrancar proyecto
+- story: saludo
   steps:
   - intent: greeting
   - action: utter_greeting
+
+- story: arrancar proyecto
+  steps:
   - intent: register_project
   - action: register_form
-  - action: action_register_project # aca se agrega el proyecto y te pregunta la next task
-  #- intent: add_requirements
-  #- action: utter_waiting_requirements
-  #- action: requirements_form
-  # aca se ejecutaria el form que se queda loopeando sobre el agregado de requerimentos
+  - active_loop: null
+  - slot_was_set:
+    - user_id: 1
+    - project: "nombre"
+  - action: action_register_project 
 
 - story: continuar proyecto
   steps:
-  - intent: greeting
-  - action: utter_greeting
   - intent: continue_project
   - action: continue_form
+  - active_loop: null
+  - slot_was_set:
+    - user_id: 1
+    - project_id: 1
   - action: action_continue_project
 
 - story: unirte a proyecto
   steps:
-  - intent: greeting
-  - action: utter_greeting
   - intent: join_project
   - action: join_form
+  - active_loop: null
+  - slot_was_set:
+    - user_id: 1
+    - project_id: 1
   - action: action_join_project
 
+- story: agregar requerimientos
+  steps:
+  - intent: add_requirements
+  - action: utter_waiting_requirements
+  - checkpoint: agregar_requerimiento
 
-#- story: continuar proyecto pero viendo los anteriores
+- story: agregar requerimientos
+  steps:
+  - checkpoint: agregar_requerimiento
+  - intent: stop_intent
+  - action: utter_prueba
+
+- story: agregar requerimiento availability
+  steps:
+  - checkpoint: agregar_requerimiento
+  - intent: availability
+  - action: action_add_requirement
+  - checkpoint: agregar_requerimiento
+
+
+
+# - story: continuar proyecto pero viendo los anteriores
 #  steps:
 #  - intent: greeting
 #  - action: utter_greeting
@@ -44,80 +71,80 @@ stories:
 #  - action: action_deactivate_loop
 #  - action: action_login
 
-- story: req availability
-  steps:
-  - intent: availability
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [1,0,0,0,0,0,0,0,0]
+# - story: req availability
+#   steps:
+#   - intent: availability
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [1,0,0,0,0,0,0,0,0]
 
-- story: req fault_tolerance
-  steps:
-  - intent: fault_tolerance
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,1,0,0,0,0,0,0,0]
+# - story: req fault_tolerance
+#   steps:
+#   - intent: fault_tolerance
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,1,0,0,0,0,0,0,0]
 
-- story: req maintainability
-  steps:
-  - intent: maintainability
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,1,0,0,0,0,0,0]
-
-
-- story: req performance
-  steps:
-  - intent: performance
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,0,1,0,0,0,0,0]
+# - story: req maintainability
+#   steps:
+#   - intent: maintainability
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,1,0,0,0,0,0,0]
 
 
-- story: req scalability
-  steps:
-  - intent: scalability
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,0,0,1,0,0,0,0]
+# - story: req performance
+#   steps:
+#   - intent: performance
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,0,1,0,0,0,0,0]
 
 
-- story: req security
-  steps:
-  - intent: security
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,0,0,0,1,0,0,0]
+# - story: req scalability
+#   steps:
+#   - intent: scalability
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,0,0,1,0,0,0,0]
 
 
-- story: req usability
-  steps:
-  - intent: usability
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,0,0,0,0,1,0,0]
+# - story: req security
+#   steps:
+#   - intent: security
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,0,0,0,1,0,0,0]
 
 
-- story: req portability
-  steps:
-  - intent: portability
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,0,0,0,0,0,1,0]
+# - story: req usability
+#   steps:
+#   - intent: usability
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,0,0,0,0,1,0,0]
 
 
-- story: req interoperability
-  steps:
-  - intent: interoperability
-  - action: action_add_requirement
-  - slot_was_set:
-      - requirements: [0,0,0,0,0,0,0,0,1]
+# - story: req portability
+#   steps:
+#   - intent: portability
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,0,0,0,0,0,1,0]
+
+
+# - story: req interoperability
+#   steps:
+#   - intent: interoperability
+#   - action: action_add_requirement
+#   - slot_was_set:
+#       - requirements: [0,0,0,0,0,0,0,0,1]
        
 
-- story: recomendation
-  steps:
-  - intent: get_recomendation
-  - action: action_show_vector
+# - story: recomendation
+#   steps:
+#   - intent: get_recomendation
+#   - action: action_show_vector
 
 #- story: interactive_story_1
  # steps:

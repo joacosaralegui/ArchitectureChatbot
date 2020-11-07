@@ -127,7 +127,7 @@ class ActionRegisterProject(Action):
         return "action_register_project"
 
     def run(self, dispatcher, tracker, domain):
-        user_data = login(self, dispatcher, tracker, create_if_not_found=False)
+        user_data = login(self, dispatcher, tracker, create_if_not_found=True)
 
         # If login failed, go back to start
         if user_data == None:
@@ -143,7 +143,7 @@ class ActionRegisterProject(Action):
 
         if response_create_project.status_code != SUCCESS_CODE:
             dispatcher.utter_message(
-                "Error al crear el proyecto, por favor intente nuevamente!")
+                "Error al crear el proyecto: " + response_create_project.json()['detail'])
             # VOLVER AL FORM
             return RESET_CONVERSATION
 
@@ -248,17 +248,18 @@ class ActionAddRequirement(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        # Update requirements vector
+        #Update requirements vector
         intent_name = tracker.latest_message['intent']['name']
-        requirements = tracker.get_slot('requirements')
-        requirements[req_index[intent_name]] += 1
+        print(intent_name)
+        return []
+        # requirements = tracker.get_slot('requirements')
+        # requirements[req_index[intent_name]] += 1
 
-        # Dispatch message to validate
-        dispatcher.utter_message(text=self.intent_mappings[intent_name])
+        # # Dispatch message to validate
+        # dispatcher.utter_message(text=self.intent_mappings[intent_name])
 
-        # Set slot value
-        return [SlotSet("requirements", requirements)]
+        # # Set slot value
+        # return [SlotSet("requirements", requirements)]
 
 
 class ActionShowVector(Action):

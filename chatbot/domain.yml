@@ -11,16 +11,16 @@ intents:
 - stop_intent
 - architecture_from_requirements
 - greeting
-- usability
-- get_recomendation
+# - usability
+# - get_recomendation
 - availability
-- fault_tolerance
-- maintainability
-- performance
-- scalability
-- security
-- portability
-- interoperability
+# - fault_tolerance
+# - maintainability
+# - performance
+# - scalability
+# - security
+# - portability
+# - interoperability
 - nlu_fallback
 
 entities:
@@ -75,29 +75,10 @@ forms:
     project_id:
     - type: from_entity
       entity: project_id
-  requirements_form:
-    req1:
-    - type: from_intent
-    - intent: 
-
-rules:
-  - rule: listar proyectos
-    steps:
-    - intent: list_projects
-    - action: action_list_projects
-  - rule: activar requeriments form
-    steps:
-      - intent: add_requirements   # intent that triggers form activation
-      - action: requirements_form      # run the form (form sin hacer)
-      - active_loop: requirements_form # this form is active
-  - rule: desactivar requeriments form
-    condition:
-    - active_loop: requirements_form   # this form must be active
-    steps:
-      - intent: stop_intent
-      - action: requirements_form      # run the form
-      - active_loop: null            # the form is no longer active because it has been filled
-      - action: utter_prueba         # action to take after the form is complete (podes hacer mas de una)
+#  requirements_form:
+#    req1:
+#    - type: from_intent
+#    - intent: 
 
 #- rule: mostrar los proyectos si no sabe id
 #  condition:
