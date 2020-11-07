@@ -62,6 +62,14 @@ nlu:
     - Estoy trabajando en el proyecto "[Arquitectura para Proyecto]{"entity": "project"}"
     - Me gustaría avanzar en "[Diseño 2]{"entity": "project"}"
 
+- intent: add_requirements
+  examples: |
+    - Quiero agregar requerimentos al proyecto
+    - Necesito agregar requerimentos
+    - Voy a agregar requerimentos al trabajo
+    - Elijo añadir requerimentos al proyecto
+    - Quiero añadir requerimentos al trabajo
+    - Voy a añadir requerimentos
 
 - intent: list_projects
   examples: |
@@ -73,6 +81,15 @@ nlu:
     - Quiero ver los datos de mis proyectos actuales
     - Mostrame mis proyectos
     - Mostrame los ids
+
+- intent: stop_intent
+  examples: |
+    - Stop
+    - Basta
+    - Listo
+    - stop
+    - basta
+    - listo
 
 - intent: availability
   examples: |

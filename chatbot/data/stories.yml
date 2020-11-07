@@ -8,7 +8,11 @@ stories:
   - action: utter_greeting
   - intent: register_project
   - action: register_form
-  - action: action_register_project
+  - action: action_register_project # aca se agrega el proyecto y te pregunta la next task
+  #- intent: add_requirements
+  #- action: utter_waiting_requirements
+  #- action: requirements_form
+  # aca se ejecutaria el form que se queda loopeando sobre el agregado de requerimentos
 
 - story: continuar proyecto
   steps:

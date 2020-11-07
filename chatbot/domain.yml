@@ -7,19 +7,20 @@ intents:
 - continue_project
 - join_project
 - list_projects
+- add_requirements
+- stop_intent
 - architecture_from_requirements
 - greeting
-#- usability
-#- get_recomendation
-#- stop
-#- availability
-#- fault_tolerance
-#- maintainability
-#- performance
-#- scalability
-#- security
-#- portability
-#- interoperability
+- usability
+- get_recomendation
+- availability
+- fault_tolerance
+- maintainability
+- performance
+- scalability
+- security
+- portability
+- interoperability
 - nlu_fallback
 
 entities:
@@ -30,18 +31,7 @@ entities:
 
 slots:
   requirements:
-    type: list
-    initial_value:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    influence_conversation: true
+    type: any
 
   email:
     type: text
@@ -85,11 +75,30 @@ forms:
     project_id:
     - type: from_entity
       entity: project_id
+  requirements_form:
+    req1:
+    - type: from_intent
+    - intent: 
 
 rules:
-  steps:
+  - rule: listar proyectos
+    steps:
     - intent: list_projects
     - action: action_list_projects
+  - rule: activar requeriments form
+    steps:
+      - intent: add_requirements   # intent that triggers form activation
+      - action: requirements_form      # run the form (form sin hacer)
+      - active_loop: requirements_form # this form is active
+  - rule: desactivar requeriments form
+    condition:
+    - active_loop: requirements_form   # this form must be active
+    steps:
+      - intent: stop_intent
+      - action: requirements_form      # run the form
+      - active_loop: null            # the form is no longer active because it has been filled
+      - action: utter_prueba         # action to take after the form is complete (podes hacer mas de una)
+
 #- rule: mostrar los proyectos si no sabe id
 #  condition:
 #  # Condition that form is active.
@@ -105,11 +114,11 @@ rules:
 
 responses:
   utter_prueba:
-  - text: hola soy una prueba
+  - text: hola soy utter, me despido
   utter_greeting:
   - text: Buenos días, tenés un proyecto empezado, querés arrancar uno nuevo o te queres sumar a un equipo?
   utter_waiting_requirements:
-  - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados
+  - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados.\nEscribi 'stop' cuando no tengas mas requerimentos.
   utter_ask_email:
   - text: Cómo es tu email?
   - text: Me decís tu mail?
