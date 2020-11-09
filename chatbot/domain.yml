@@ -97,9 +97,16 @@ responses:
   utter_prueba:
   - text: hola soy utter, me despido
   utter_greeting:
-  - text: Buenos días, tenés un proyecto empezado, querés arrancar uno nuevo o te queres sumar a un equipo?
+  - text: Buenos días! Vamos a comenzar a trabajar en un proyecto! ¿Que te gustaría hacer?
+    buttons:
+      - title: "Crear un proyecto nuevo"
+        payload: "/register_project"
+      - title: "Continuar trabajando en un proyecto existente"
+        payload: "/continue_project"
+      - title: "Unirme a un proyecto existente"
+        payload: "/join_project"
   utter_waiting_requirements:
-  - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados.\nEscribi 'stop' cuando no tengas mas requerimentos.
+  - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados. Escribi 'stop' cuando no tengas mas requerimentos.
   utter_ask_email:
   - text: Cómo es tu email?
   - text: Me decís tu mail?
@@ -108,9 +115,13 @@ responses:
   - text: Bienvenido {email}! Cuál es el nombre de tu nuevo proyecto?  (por favor incluí el nombre entre comillas)
   - text: Bienvenido {email}! Decime el nombre del proyecto nuevo  (por favor incluí el nombre entre comillas)
   utter_ask_project_id:
-  - text: Bienvenido {email}! Cuál es el id de tu proyecto? Puedo mostrartelos si queres
-  - text: Bienvenido {email}! Cuál es el id del proyecto en el que trabajas? Puedo mostrarte tus proyectos si lo necesitas
-  - text: Bienvenido {email}! En cuál proyecto querés trabajar? Dame su id. Si no lo recordas, puedo mostrártelos
+  - text: Bienvenido {email}! Cuál es el id del proyecto? Puedo mostrartelos si queres
+  utter_work_with_project:
+  - text: Genial, ahora que querés hacer con tu proyecto?
+    buttons:
+      - title: "Agregar requerimientos"
+        payload: "/add_requirements"
+
 
 actions:
 - action_list_projects

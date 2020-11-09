@@ -69,7 +69,7 @@ def login(self, dispatcher, tracker, create_if_not_found=True):
         # return [FollowupAction("action_login")]
 
     # Lo busco por email a ver si existe
-    response_get_user = requests.get(API_URL+'/users/email/'+email)
+    response_get_user = requests.get(API_URL+'/users/get/email/'+email)
 
     # Si no lo encuentra
     if response_get_user.status_code != SUCCESS_CODE:
@@ -106,7 +106,7 @@ class ActionListProjects(Action):
 
         # Obtengo el email del usuario actual y busco en la api su lista de proyectos
         email = tracker.get_slot('email')
-        user_data = requests.get(API_URL+'/users/email/'+email).json()
+        user_data = requests.get(API_URL+'/users/get/email/'+email).json()
         projects_match = user_data['projects']
 
         if not projects_match:  # Si la lista esta vacia
@@ -138,24 +138,45 @@ class ActionRegisterProject(Action):
 
         # Tenemos que crear el proyecto
         project = tracker.get_slot('project')
+        # Limpio un poco el slot (compiten dos clasificadores, y ademas le agregan comillas)
+        if project and isinstance(project, list):
+            project = project[0]
+        project = project.replace('"','')
+
         response_create_project = requests.post(
-            API_URL+'/users/'+str(user_id)+'/projects/create', data='{"title": "'+str(project)+'"}')
+            API_URL+'/projects/create', data='{"title": "'+str(project)+'"}')
 
         if response_create_project.status_code != SUCCESS_CODE:
             dispatcher.utter_message(
-                "Error al crear el proyecto: " + response_create_project.json()['detail'])
+                "Error al crear el proyecto: " + str(response_create_project.json()['detail']))
             # VOLVER AL FORM
             return RESET_CONVERSATION
-
+            
         # Extraigo la info del proyecto particular
         project_data = response_create_project.json()
         # Guardo la id del proyecto como str
         project_id = str(project_data['id'])
         # Guardo el nombre del proyecto como str
         project_name = str(project_data['title'])
+
+        params = (
+            ('project_id', project_id),
+            ('user_id', str(user_id)),
+        )
+        # Me agrego al proyecto
+        response_join_project = requests.put(
+            API_URL+'/projects/join', params=params)
+
+        if response_join_project.status_code != SUCCESS_CODE:
+            dispatcher.utter_message(
+                "Error al crear el proyecto: " + str(response_create_project.json()))
+            # VOLVER AL FORM
+            return RESET_CONVERSATION
+
         # Muestro al usuario el id para la proxima vez
         dispatcher.utter_message(
-            f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}\nCómo queres continuar? Agregar requerimentos o tal y tal cosa?")
+            f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}")
+        dispatcher.utter_message(template="utter_work_with_project")
 
         # Guardo tanto el id de usuario como el de proyecto para mas adelante
 
@@ -192,7 +213,8 @@ class ActionContinueProject(Action):
             else:
                 # Si llegamos hasta acá entonces tenemos todo.
                 dispatcher.utter_message(
-                    "Proyecto recuperado exitosamente!\nCómo queres continuar? Agregar requerimentos o tal y tal cosa?")
+                    "Proyecto recuperado exitosamente!")
+                dispatcher.utter_message(template="utter_work_with_project")
 
             return [SlotSet("user_id", user_id)]
         else:
@@ -217,12 +239,18 @@ class ActionJoinProject(Action):
         project_id = tracker.get_slot('project_id')
 
         if project_id != None:
-            response_project = requests.get(
-                API_URL+'/users/'+str(user_id)+'/projects/'+str(project_id))
-            if response_project.status_code == SUCCESS_CODE:
-                dispatcher.utter_message(
-                    "Exitosamente agregado al proyecto!\nCómo queres continuar? Agregar requerimentos o tal y tal cosa?")
-                return []
+            params = (
+                ('project_id', project_id),
+                ('user_id', str(user_id)),
+            )
+
+            # Me agrego al proyecto
+            response_join_project = requests.put(
+                API_URL+'/projects/join', params=params)
+
+            if response_join_project.status_code == SUCCESS_CODE:
+                dispatcher.utter_message(template="utter_work_with_project")
+                return [SlotSet("project", response_join_project.json()['title'])]
             else:
                 dispatcher.utter_message(
                     "No se pudo agregar el usuario al proyecto!")
@@ -249,8 +277,10 @@ class ActionAddRequirement(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         #Update requirements vector
-        intent_name = tracker.latest_message['intent']['name']
-        print(intent_name)
+        attribute = tracker.latest_message['intent']['name']
+        requirement = tracker.latest_message['intent']['text']
+        print(attribute)
+        print(requirement)
         return []
         # requirements = tracker.get_slot('requirements')
         # requirements[req_index[intent_name]] += 1

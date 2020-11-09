@@ -1,5 +1,9 @@
 version: "2.0"
 nlu:
+- regex: project
+  examples: |
+    - "([^"]*)"
+
 - intent: login
   examples: |
     - Mi mail es [galopiancola@hotmail.com]{"entity": "email"}
@@ -54,13 +58,15 @@ nlu:
   examples: |
     - Mi proyecto es "[Pedidos Ya]{"entity": "project"}"
     - El nombre de mi proyecto es "[GranDT]{"entity": "project"}"
-    - [Uber]{"entity": "project"}
-    - '[Proyecto 4]{"entity": "project"}'
-    - "[Arquitectura II]"{"entity": "project"}"
+    - "[Uber]"{"entity": "project"}"
+    - "[Proyecto 4]{"entity": "project"}"
+    - "[Proyecto 4]{"entity": "project"}"
+    - "[Arquitectura II]{"entity": "project"}
     - El nombre es "[Proyecto de arquitecura I]{"entity": "project"}"
-    - Quiero trabajar en '[Pedidos Ya]{"entity": "project"}'
-    - Estoy trabajando en el proyecto "[Arquitectura para Proyecto]{"entity": "project"}"
-    - Me gustaría avanzar en "[Diseño 2]{"entity": "project"}"
+    - Mi proyecto se llama "[Proyecto 1]{"entity":"project"}"
+    - El proyecto se llama "[Proyecto Nuevo 15]{"entity":"project"}"
+    - Se llama "[Proyecto de Joaco 123]{"entity":"project"}"
+    - El nombre es "[Carlos 14 123]{"entity":"project"}"
 
 - intent: add_requirements
   examples: |
