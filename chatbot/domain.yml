@@ -14,7 +14,7 @@ intents:
 # - usability
 # - get_recomendation
 - availability
-# - fault_tolerance
+- fault_tolerance
 # - maintainability
 # - performance
 # - scalability

@@ -49,12 +49,23 @@ stories:
   - intent: stop_intent
   - action: utter_prueba
 
-- story: agregar requerimiento availability
+- story: agregar requerimiento especifico
   steps:
   - checkpoint: agregar_requerimiento
-  - intent: availability
+  - or:
+    - intent: availability
+    - intent: fault_tolerance
+    - intent: maintainability
+    - intent: performance
+    - intent: scalability
+    - intent: security
+    - intent: usability
+    - intent: portability
+    - intent: interoperability
   - action: action_add_requirement
   - checkpoint: agregar_requerimiento
+
+
 
 
 
