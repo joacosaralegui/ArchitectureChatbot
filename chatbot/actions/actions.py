@@ -203,10 +203,13 @@ class ActionContinueProject(Action):
         if project_id != None:
             project_id = int(project_id)
             projects = user_data['projects']
+            project_data = None
             # list comprehension python
-            projects_match = [p for p in projects if p['id'] == project_id]
-            project_exists = any(projects_match)
-            if not project_exists:
+            for p in projects:
+                if p['id'] == project_id:
+                    project_data = p
+                    
+            if not project_data:
                 dispatcher.utter_message("No existe projecto con ese ID!")
                 return [FollowupAction("action_list_projects")]
                 # TODO: VOLVER A preguntar si quiere crear o no (quizas listar ids del proyecto que ya existe)
@@ -215,6 +218,7 @@ class ActionContinueProject(Action):
                 dispatcher.utter_message(
                     "Proyecto recuperado exitosamente!")
                 dispatcher.utter_message(template="utter_work_with_project")
+                return [SlotSet("user_id", user_id),SlotSet("project", project_data['title'])]
 
             return [SlotSet("user_id", user_id)]
         else:
