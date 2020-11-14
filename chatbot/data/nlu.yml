@@ -97,6 +97,33 @@ nlu:
     - basta
     - listo
 
+- intent: ask_project_description
+  examples: |
+    - Quiero ver la descripción de mi proyecto
+    - Necesito la descripción del proyecto
+    - No recuerdo la descripción del proyecto actual
+    - Te pido la descripción del trabajo actual
+    - Mostrame la descripción del proyecto
+    - Quiero que me muestres la descripción
+
+- intent: ask_project_pattern
+  examples: |
+    - Quiero ver el patrón de mi proyecto
+    - Necesito saber cuál es el patrón del proyecto
+    - No recuerdo el patrón de diseño del proyecto actual
+    - Te pido el patrón del trabajo actual
+    - Mostrame el patrón del proyecto
+    - Quiero que me muestres el patrón de diseño
+
+- intent: ask_project_attributes
+  examples: |
+    - Quiero ver los atributos de calidad de mi proyecto
+    - Necesito saber cuáles son los atributos del proyecto
+    - No recuerdo los atributos de calidad del proyecto actual
+    - Te pido los atributos de calidad del trabajo actual
+    - Mostrame los atributos del proyecto
+    - Quiero que me muestres los atributos de calidad
+
 - intent: availability
   examples: |
     - Es relevante que el sistema este disponible las 24 horas del día durante todo el año

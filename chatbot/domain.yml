@@ -13,6 +13,11 @@ intents:
 - greeting
 # - usability
 # - get_recomendation
+- accept_suggestion
+- reject_suggestion
+- ask_project_description
+- ask_project_pattern
+- ask_project_attributes
 - availability
 - fault_tolerance
 # - maintainability
@@ -46,6 +51,13 @@ slots:
     influence_conversation: true
 
   user_id:
+    type: text
+    influence_conversation: true
+
+  project_data:
+    type: any
+  
+  pattern_id_slot:
     type: text
     influence_conversation: true
 
@@ -131,6 +143,10 @@ actions:
 - action_add_requirement
 - action_ask_clarification
 - action_show_vector
+- action_architecture_suggestion
+- action_save_pattern
+- action_reject_suggestion
+- action_provide_data
 
 session_config:
   session_expiration_time: 60

@@ -47,7 +47,7 @@ stories:
   steps:
   - checkpoint: agregar_requerimiento
   - intent: stop_intent
-  - action: utter_prueba
+  - action: action_architecture_suggestions # Si acepta la sugerencia, aca se guarda en el slot
 
 - story: agregar requerimiento especifico
   steps:
@@ -64,3 +64,21 @@ stories:
     - intent: interoperability
   - action: action_add_requirement
   - checkpoint: agregar_requerimiento
+
+- story: aceptacion de la arquitectura sugerida
+  steps:
+  - intent: accept_suggestion
+  - action: action_save_pattern # Como hubo aceptacion (y ya esta el pattern id en el slot) se guarda en la API
+
+- story: rechazo de la arquitectura sugerida
+  steps:
+  - intent: reject_suggestion
+  - action: action_reject_suggestion # Como hubo rechazo, muestro patrones, se elige y guarda en API (y todo en slot)
+
+- story: pedido de datos de parte del usuario
+  steps:
+  - or:
+    - intent: ask_project_description
+    - intent: ask_project_pattern
+    - intent: ask_project_attributes
+  - action: action_provide_data
