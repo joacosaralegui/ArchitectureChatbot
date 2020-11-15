@@ -282,10 +282,29 @@ class ActionAddRequirement(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         #Update requirements vector
         attribute = tracker.latest_message['intent']['name']
-        requirement = tracker.latest_message['intent']['text']
+        requirement = tracker.latest_message['text']
         print(attribute)
         print(requirement)
-        return []
+        project_id = tracker.get_slot('project_id')
+
+        if project_id != None:
+            params = (
+                ('attribute_name',attribute),
+                ('project_id', project_id),
+                ('requirement_text', requirement),
+            )
+
+            response = requests.get(API_URL+'/projects/add_attribute',params=params)
+
+            if response.status_code == SUCCESS_CODE:
+                dispatcher.utter_message("Requerimiento agregado exitosamente!")
+            else:
+                dispatcher.utter_message(
+                    "Error al agregar atributo: " + str(response.json()['detail']))
+            return []
+        else:
+            dispatcher.utter_message("No se encontró id para el proyecto.")
+            return RESET_CONVERSATION
         # requirements = tracker.get_slot('requirements')
         # requirements[req_index[intent_name]] += 1
 

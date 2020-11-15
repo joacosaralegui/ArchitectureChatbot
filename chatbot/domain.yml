@@ -11,16 +11,16 @@ intents:
 - stop_intent
 - architecture_from_requirements
 - greeting
-# - usability
-# - get_recomendation
+- usability
+- get_recomendation
 - availability
 - fault_tolerance
-# - maintainability
-# - performance
-# - scalability
-# - security
-# - portability
-# - interoperability
+- maintainability
+- performance
+- scalability
+- security
+- portability
+- interoperability
 - nlu_fallback
 
 entities:
