@@ -95,6 +95,160 @@ def login(self, dispatcher, tracker, create_if_not_found=True):
     return user_data
 
 
+class ActionProvideData(Action):
+    def name(self) -> Text:
+        return "action_provide_data"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Obtengo toda la data del proyecto actual que tengo guardada en el slot project_data
+        project_data = tracker.get_slot('project_data')
+
+        # Obtengo ahora cual fue la ultima intencion del usuario, para saber que data en especifico quiere
+        last_intent = tracker.latest_message['intent'].get('name')
+
+        # TODO Revisar antes si project_data no esta vacio
+        if project_data == None:
+            dispatcher.utter_message(
+                text="No hay datos del proyecto.")
+        else:
+            # Ahora dependiendo de esa intencion, sera la data que tiro en utter message
+            if last_intent == 'ask_project_description':
+                dispatcher.utter_message(
+                    text="La descripcion de tu proyecto es:\n" + project_data['description'])
+            elif last_intent == 'ask_project_pattern':
+                dispatcher.utter_message(
+                    text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern'])
+            else:  # si quiere los QA
+                dispatcher.utter_message(
+                    text="Los atributos de tu proyecto son:\n" + project_data['attributes'])
+
+        return []
+
+
+class ActionRejectSuggestion(Action):
+
+    def name(self) -> Text:
+        return "action_reject_suggestion"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        response = requests.get(
+            'http://fastapi-training1.herokuapp.com/pattern/get')
+
+        # Muestro todos los patrones y le pido que elija
+        message = "Te muestro todos los patrones disponibles, elegí el que más se adecúe a tus necesidades:"
+
+        # Recorro el response mostrando botones con el titulo y descripcion de cada patron
+        buttons = []
+        for i in response.json():
+            buttons.append(
+                {"title": i['title'] + ": " + i['description'],
+                 "payload": "/accept_suggestion {\"pattern_id_slot\": \""+str(i['id'])+"\"}"})
+        
+        dispatcher.utter_message(text=message, buttons=buttons)
+
+        return [SlotSet("pattern_id_slot", None)]
+
+"""
+        choosed_option = tracker.latest_message['intent'].get('name')
+
+        # Recorro la lista de patrones disponibles buscando cual es el que eligió y tomo el id para guardarlo
+        # TODO falta tener las intenciones pattern_id234241
+        for i in response:
+            if 'pattern_id' + i['id'] == choosed_option:
+                choosed_option_id = i['id']
+
+        # Obtengo el id del proyecto actual (ya tengo el id del patron elegido en choosed_option_id)
+        project_id = tracker.get_slot('project_id')
+
+        params = (
+            ('pattern_id', choosed_option_id),
+            ('project_id', project_id),
+        )
+
+        # Meto el nuevo pattern elegido del proyecto en la api
+        response = requests.get(
+            'https://fastapi-training1.herokuapp.com/projects/add_pattern', params=params)
+
+        # Ahora que ya eligio el patron (habiendo antes rechazado la sugerencia), actualizo todo el project_data
+        return [SlotSet("project_data", response)]
+"""
+
+
+class ActionSavePattern(Action):
+    # En esta accion se guarda en la API el slot del patron elegido para el proyecto actual
+
+    def name(self) -> Text:
+        return "action_save_pattern"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Obtengo el id del proyecto actual y el id de la sugerencia aceptada
+        project_id = tracker.get_slot('project_id')
+        pattern_id = tracker.get_slot('pattern_id_slot')
+
+        params = (
+            ('pattern_id', pattern_id),
+            ('project_id', project_id),
+        )
+
+        response = requests.get(
+            'https://fastapi-training1.herokuapp.com/projects/add_pattern', params=params)
+
+        # Con ese response, actualizar (SlotSet) el project_data
+        return [SlotSet("project_data", response.json())]
+
+
+class ActionArchitectureSuggestion(Action):
+
+    def name(self) -> Text:
+        return "action_architecture_suggestion"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Obtengo el id del proyecto actual, armo los parametros y solicito a la api
+        project_id = tracker.get_slot('project_id')
+        params = (
+            # aca va la variable del project_id en string
+            ('project_id', project_id),
+        )
+        response = requests.get(
+            'http://fastapi-training1.herokuapp.com/pattern/suggestion', params=params)
+
+        if response.status_code != SUCCESS_CODE:
+            dispatcher.utter_message("No se encontraron sugerencias!")
+            return []
+
+        response = response.json()[0]
+
+        # Muestro la sugerencia y le pregunto si la acepta
+        message = "La arquitectura sugerida es " + \
+            response['title'] + ":\n" + response['description']
+
+        # Seteo opciones de los botones
+        buttons = []
+        buttons.append({"title": "Acepto la sugerencia",
+                        "payload": "/accept_suggestion"})
+        buttons.append({"title": "Rechazo la sugerencia",
+                        "payload": "/reject_suggestion"})
+
+        dispatcher.utter_message(text=message, buttons=buttons)
+
+        # Guardo el id del patron sugerido para guardarlo en el slot
+        suggested_pattern_id = response['id']
+
+        return [SlotSet("pattern_id_slot", suggested_pattern_id)]
+
+
 class ActionListProjects(Action):
 
     def name(self) -> Text:
@@ -141,7 +295,7 @@ class ActionRegisterProject(Action):
         # Limpio un poco el slot (compiten dos clasificadores, y ademas le agregan comillas)
         if project and isinstance(project, list):
             project = project[0]
-        project = project.replace('"','')
+        project = project.replace('"', '')
 
         response_create_project = requests.post(
             API_URL+'/projects/create', data='{"title": "'+str(project)+'"}')
@@ -151,7 +305,7 @@ class ActionRegisterProject(Action):
                 "Error al crear el proyecto: " + str(response_create_project.json()['detail']))
             # VOLVER AL FORM
             return RESET_CONVERSATION
-            
+
         # Extraigo la info del proyecto particular
         project_data = response_create_project.json()
         # Guardo la id del proyecto como str
@@ -208,7 +362,7 @@ class ActionContinueProject(Action):
             for p in projects:
                 if p['id'] == project_id:
                     project_data = p
-                    
+
             if not project_data:
                 dispatcher.utter_message("No existe projecto con ese ID!")
                 return [FollowupAction("action_list_projects")]
@@ -218,7 +372,7 @@ class ActionContinueProject(Action):
                 dispatcher.utter_message(
                     "Proyecto recuperado exitosamente!")
                 dispatcher.utter_message(template="utter_work_with_project")
-                return [SlotSet("user_id", user_id),SlotSet("project", project_data['title'])]
+                return [SlotSet("user_id", user_id), SlotSet("project", project_data['title'])]
 
             return [SlotSet("user_id", user_id)]
         else:
@@ -280,7 +434,7 @@ class ActionAddRequirement(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        #Update requirements vector
+        # Update requirements vector
         attribute = tracker.latest_message['intent']['name']
         requirement = tracker.latest_message['text']
         print(attribute)
