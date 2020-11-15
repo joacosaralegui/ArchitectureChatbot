@@ -18,6 +18,10 @@ intents:
 - ask_project_description
 - ask_project_pattern
 - ask_project_attributes
+- pattern_id1
+- pattern_id2
+- pattern_id3
+- pattern_id4
 - availability
 - fault_tolerance
 # - maintainability
