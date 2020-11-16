@@ -53,6 +53,15 @@ SUCCESS_CODE = 200
 API_URL = "http://fastapi-training1.herokuapp.com"
 
 
+class ActionLoginForm(Action):
+    def name(self) -> Text:
+        return "action_provide_data"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+
 def login(self, dispatcher, tracker, create_if_not_found=True):
     """
     Attempts login, returns user_data dict if found or created, otherwise returns None
@@ -108,17 +117,14 @@ class ActionProvideData(Action):
 
         # Obtengo ahora cual fue la ultima intencion del usuario, para saber que data en especifico quiere
         last_intent = tracker.latest_message['intent'].get('name')
-
-        # TODO Revisar antes si project_data no esta vacio
-        if project_data == None:
+        print(last_intent)
+        if last_intent == 'ask_project_info':
+            project_name = tracker.get_slot('project')
             dispatcher.utter_message(
-                text="No hay datos del proyecto.")
-        else:
-            # Ahora dependiendo de esa intencion, sera la data que tiro en utter message
-            if last_intent == 'ask_project_description':
-                dispatcher.utter_message(
-                    text="La descripcion de tu proyecto es:\n" + project_data['description'])
-            elif last_intent == 'ask_project_pattern':
+                text="El nombre de tu proyecto es: " + project_name)
+            # aca faltaria la descripcion
+        elif project_data != None:
+            if last_intent == 'ask_project_pattern':
                 dispatcher.utter_message(
                     text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern']['title'])
             else:  # si quiere los QA
@@ -127,6 +133,8 @@ class ActionProvideData(Action):
                 for att in project_data['attributes']:
                     dispatcher.utter_message(
                         text="- " + att['template']['name'])
+        else:
+            dispatcher.utter_message(text="No hay datos del proyecto.")
 
         return []
 
@@ -152,35 +160,10 @@ class ActionRejectSuggestion(Action):
             buttons.append(
                 {"title": i['title'] + ": " + i['description'],
                  "payload": "/accept_suggestion {\"pattern_id_slot\": \""+str(i['id'])+"\"}"})
-        
+
         dispatcher.utter_message(text=message, buttons=buttons)
 
         return [SlotSet("pattern_id_slot", None)]
-
-"""
-        choosed_option = tracker.latest_message['intent'].get('name')
-
-        # Recorro la lista de patrones disponibles buscando cual es el que eligió y tomo el id para guardarlo
-        # TODO falta tener las intenciones pattern_id234241
-        for i in response:
-            if 'pattern_id' + i['id'] == choosed_option:
-                choosed_option_id = i['id']
-
-        # Obtengo el id del proyecto actual (ya tengo el id del patron elegido en choosed_option_id)
-        project_id = tracker.get_slot('project_id')
-
-        params = (
-            ('pattern_id', choosed_option_id),
-            ('project_id', project_id),
-        )
-
-        # Meto el nuevo pattern elegido del proyecto en la api
-        response = requests.get(
-            'https://fastapi-training1.herokuapp.com/projects/add_pattern', params=params)
-
-        # Ahora que ya eligio el patron (habiendo antes rechazado la sugerencia), actualizo todo el project_data
-        return [SlotSet("project_data", response)]
-"""
 
 
 class ActionSavePattern(Action):
@@ -335,8 +318,11 @@ class ActionRegisterProject(Action):
             f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}")
         dispatcher.utter_message(template="utter_work_with_project")
 
-        # Guardo tanto el id de usuario como el de proyecto para mas adelante
+        # Actualizo el project_data
+        project_data = requests.get(API_URL + '/projects/get')
+        [SlotSet("project_data", project_data)]
 
+        # Guardo tanto el id de usuario como el de proyecto para mas adelante
         return [SlotSet("user_id", user_id), SlotSet("project_id", project_id), SlotSet("project", project_name)]
 
 
@@ -444,15 +430,17 @@ class ActionAddRequirement(Action):
 
         if project_id != None:
             params = (
-                ('attribute_name',attribute),
+                ('attribute_name', attribute),
                 ('project_id', project_id),
                 ('requirement_text', requirement),
             )
 
-            response = requests.get(API_URL+'/projects/add_attribute',params=params)
+            response = requests.get(
+                API_URL+'/projects/add_attribute', params=params)
 
             if response.status_code == SUCCESS_CODE:
-                dispatcher.utter_message("Requerimiento agregado exitosamente!")
+                dispatcher.utter_message(
+                    "Requerimiento agregado exitosamente!")
             else:
                 dispatcher.utter_message(
                     "Error al agregar atributo: " + str(response.json()['detail']))

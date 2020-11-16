@@ -1,19 +1,20 @@
 version: "2.0"
 
 stories:
-
 - story: saludo
   steps:
   - intent: greeting
+  - action: login_form
+  - slot_was_set:
+    - user_id: 1
   - action: utter_greeting
 
 - story: arrancar proyecto
   steps:
   - intent: register_project
-  - action: register_form
+  - action: create_form
   - active_loop: null
   - slot_was_set:
-    - user_id: 1
     - project: "nombre"
   - action: action_register_project 
 
@@ -23,7 +24,6 @@ stories:
   - action: continue_form
   - active_loop: null
   - slot_was_set:
-    - user_id: 1
     - project_id: 1
   - action: action_continue_project
 
@@ -33,7 +33,6 @@ stories:
   - action: join_form
   - active_loop: null
   - slot_was_set:
-    - user_id: 1
     - project_id: 1
   - action: action_join_project
 
@@ -76,13 +75,14 @@ stories:
     - intent: interoperability
   - action: action_add_requirement
   - slot_was_set:
-    - requirements; 
+    - requirements
   - checkpoint: agregar_requerimiento
 
 - story: pedido de datos de parte del usuario
   steps:
   - or:
-    - intent: ask_project_description
+    - intent: ask_project_info
     - intent: ask_project_pattern
     - intent: ask_project_attributes
   - action: action_provide_data
+  - action: utter_work_with_project

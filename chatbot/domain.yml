@@ -13,13 +13,9 @@ intents:
 - greeting
 - accept_suggestion
 - reject_suggestion
-- ask_project_description
+- ask_project_info
 - ask_project_pattern
 - ask_project_attributes
-- pattern_id1
-- pattern_id2
-- pattern_id3
-- pattern_id4
 - usability
 - get_recomendation
 - availability
@@ -66,28 +62,21 @@ slots:
     influence_conversation: true
 
 forms:
-  register_form:
+  login_form:
     email:
     - type: from_entity
       entity: email
       intent: login
+  create_form:
     project:
     - type: from_entity
       entity: project
       intent: project_name
   join_form:
-    email:
-    - type: from_entity
-      entity: email
-      intent: login
     project_id:
     - type: from_entity
       entity: project_id
   continue_form:
-    email:
-    - type: from_entity
-      entity: email
-      intent: login
     project_id:
     - type: from_entity
       entity: project_id
@@ -133,10 +122,16 @@ responses:
   utter_ask_project_id:
   - text: Bienvenido {email}! Cuál es el id del proyecto? Puedo mostrartelos si queres
   utter_work_with_project:
-  - text: Genial, ahora que querés hacer con tu proyecto?
+  - text: Ahora que querés hacer con tu proyecto?
     buttons:
       - title: "Agregar requerimientos"
         payload: "/add_requirements"
+      - title: "Ver información"
+        payload: "/ask_project_info"
+      - title: "Ver patrón de diseño"
+        payload: "/ask_project_pattern"
+      - title: "Ver atributos de calidad"
+        payload: "/ask_project_attributes"
 
 
 actions:
