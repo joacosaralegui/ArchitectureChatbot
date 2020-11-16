@@ -56,6 +56,9 @@ slots:
 
   project_data:
     type: any
+
+  user_data:
+    type: any
   
   pattern_id_slot:
     type: text
@@ -146,6 +149,8 @@ actions:
 - action_reject_suggestion
 - action_provide_data
 - action_architecture_suggestion
+- action_login_user
+- action_list_projects_options
 
 session_config:
   session_expiration_time: 60

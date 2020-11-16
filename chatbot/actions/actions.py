@@ -53,14 +53,21 @@ SUCCESS_CODE = 200
 API_URL = "http://fastapi-training1.herokuapp.com"
 
 
-class ActionLoginForm(Action):
+class ActionLoginUser(Action):
     def name(self) -> Text:
-        return "action_provide_data"
+        return "action_login_user"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        user_data = login(self, dispatcher, tracker, create_if_not_found=True)
+
+        # If login failed, go back to start
+        if user_data == None:
+            return RESET_CONVERSATION
+        
+        return [SlotSet("user_data", user_data),SlotSet("user_id", user_data['id'])]
 
 def login(self, dispatcher, tracker, create_if_not_found=True):
     """
@@ -83,6 +90,7 @@ def login(self, dispatcher, tracker, create_if_not_found=True):
     # Si no lo encuentra
     if response_get_user.status_code != SUCCESS_CODE:
         if create_if_not_found:
+            dispatcher.utter_message(text="El usuario no existe, lo voy a crear!")
             # Intento crear usuario
             response_create_user = requests.post(
                 API_URL+'/users/create', data='{"email": "'+email+'"}')
@@ -117,22 +125,29 @@ class ActionProvideData(Action):
 
         # Obtengo ahora cual fue la ultima intencion del usuario, para saber que data en especifico quiere
         last_intent = tracker.latest_message['intent'].get('name')
-        print(last_intent)
-        if last_intent == 'ask_project_info':
-            project_name = tracker.get_slot('project')
-            dispatcher.utter_message(
-                text="El nombre de tu proyecto es: " + project_name)
-            # aca faltaria la descripcion
-        elif project_data != None:
-            if last_intent == 'ask_project_pattern':
+
+        if project_data != None:
+            if last_intent == 'ask_project_info':
                 dispatcher.utter_message(
-                    text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern']['title'])
-            else:  # si quiere los QA
-                dispatcher.utter_message(
-                    text="Los atributos de tu proyecto son:\n")
-                for att in project_data['attributes']:
+                    text="El nombre de tu proyecto es: " + project_data['title'])
+                dispatcher.utter_message(text="El id de tu proyecto es: " + str(project_data['id']))
+                # aca faltaria la descripcion
+            elif last_intent == 'ask_project_pattern':
+                if project_data['architecture_pattern'] != None:
                     dispatcher.utter_message(
-                        text="- " + att['template']['name'])
+                        text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern']['title'])
+                else:
+                    dispatcher.utter_message(
+                        text="Todavía no hay un patrón definido. Para eso cargá los requerimientos.")
+            else:  # si quiere los QA
+                if len(project_data['attributes']) > 0:
+                    dispatcher.utter_message(
+                        text="Los atributos de tu proyecto son:\n")
+                    for att in project_data['attributes']:
+                        dispatcher.utter_message(
+                            text="- " + att['template']['name'])
+                else:
+                    dispatcher.utter_message(text="No hay atriubutos cargados para el proyecto.")
         else:
             dispatcher.utter_message(text="No hay datos del proyecto.")
 
@@ -188,6 +203,7 @@ class ActionSavePattern(Action):
         response = requests.get(
             'https://fastapi-training1.herokuapp.com/projects/add_pattern', params=params)
 
+        dispatcher.utter_message(text="Se ha guardado el patrón correctamente!")
         # Con ese response, actualizar (SlotSet) el project_data
         return [SlotSet("project_data", response.json())]
 
@@ -261,13 +277,46 @@ class ActionListProjects(Action):
         return []
 
 
+class ActionListProjectsOptions(Action):
+
+    def name(self) -> Text:
+        return "action_list_projects_options"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Obtengo el email del usuario actual y busco en la api su lista de proyectos
+        user_data = tracker.get_slot('user_data')
+
+        if user_data != None:
+            projects_match = user_data['projects']
+
+            if len(projects_match) == 0:  # Si la lista esta vacia
+                dispatcher.utter_message(text="El usuario no tiene proyectos.")
+            else:
+                # Muestro todos los patrones y le pido que elija
+                message = "Elegí que proyecto querés continuar:"
+
+                # Recorro el response mostrando botones con el titulo y descripcion de cada patron
+                buttons = []
+                for p in projects_match:
+                    buttons.append(
+                        {"title": "Titulo: " + p['title'],
+                        "payload": "/accept_suggestion {\"project_id\": \""+str(p['id'])+"\"}"})
+
+                dispatcher.utter_message(text=message, buttons=buttons)
+                # Recorro la lista de projectos del usuario, imprimiendo los datos de c/u
+
+        return []
+
 class ActionRegisterProject(Action):
 
     def name(self) -> Text:
         return "action_register_project"
 
     def run(self, dispatcher, tracker, domain):
-        user_data = login(self, dispatcher, tracker, create_if_not_found=True)
+        user_data = tracker.get_slot('user_data')
 
         # If login failed, go back to start
         if user_data == None:
@@ -320,10 +369,10 @@ class ActionRegisterProject(Action):
 
         # Actualizo el project_data
         project_data = requests.get(API_URL + '/projects/get')
-        [SlotSet("project_data", project_data)]
+        SlotSet("project_data", project_data)
 
         # Guardo tanto el id de usuario como el de proyecto para mas adelante
-        return [SlotSet("user_id", user_id), SlotSet("project_id", project_id), SlotSet("project", project_name)]
+        return [SlotSet("project_id", project_id), SlotSet("project", project_name)]
 
 
 class ActionContinueProject(Action):
@@ -332,7 +381,8 @@ class ActionContinueProject(Action):
         return "action_continue_project"
 
     def run(self, dispatcher, tracker, domain):
-        user_data = login(self, dispatcher, tracker, create_if_not_found=False)
+        user_data = tracker.get_slot('user_data')
+        # TODO: ya sabemos que el project_id esta bien, podriamos simplificar
 
         # If login failed, go back to start
         if user_data == None:
@@ -361,9 +411,10 @@ class ActionContinueProject(Action):
                 dispatcher.utter_message(
                     "Proyecto recuperado exitosamente!")
                 dispatcher.utter_message(template="utter_work_with_project")
-                return [SlotSet("user_id", user_id), SlotSet("project", project_data['title'])]
+                
+                return [SlotSet("project", project_data['title']),SlotSet("project_data",project_data)]
 
-            return [SlotSet("user_id", user_id)]
+            return []
         else:
             dispatcher.utter_message("No se cargó el ID!")
             return RESET_CONVERSATION
@@ -375,7 +426,7 @@ class ActionJoinProject(Action):
         return "action_join_project"
 
     def run(self, dispatcher, tracker, domain):
-        user_data = login(self, dispatcher, tracker)
+        user_data = tracker.get_slot('user_data')
 
         # If login failed, go back to start
         if user_data == None:
