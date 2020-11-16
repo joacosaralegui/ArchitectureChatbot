@@ -120,10 +120,13 @@ class ActionProvideData(Action):
                     text="La descripcion de tu proyecto es:\n" + project_data['description'])
             elif last_intent == 'ask_project_pattern':
                 dispatcher.utter_message(
-                    text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern'])
+                    text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern']['title'])
             else:  # si quiere los QA
                 dispatcher.utter_message(
-                    text="Los atributos de tu proyecto son:\n" + project_data['attributes'])
+                    text="Los atributos de tu proyecto son:\n")
+                for att in project_data['attributes']:
+                    dispatcher.utter_message(
+                        text="- " + att['template']['name'])
 
         return []
 
@@ -437,8 +440,6 @@ class ActionAddRequirement(Action):
         # Update requirements vector
         attribute = tracker.latest_message['intent']['name']
         requirement = tracker.latest_message['text']
-        print(attribute)
-        print(requirement)
         project_id = tracker.get_slot('project_id')
 
         if project_id != None:
