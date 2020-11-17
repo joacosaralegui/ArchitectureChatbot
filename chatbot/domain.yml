@@ -105,7 +105,7 @@ responses:
   utter_prueba:
   - text: hola soy utter, me despido
   utter_greeting:
-  - text: Buenos días! Vamos a comenzar a trabajar en un proyecto! ¿Que te gustaría hacer?
+  - text: Qué te gustaría hacer hoy?
     buttons:
       - title: "Crear un proyecto nuevo"
         payload: "/register_project"
@@ -114,16 +114,16 @@ responses:
       - title: "Unirme a un proyecto existente"
         payload: "/join_project"
   utter_waiting_requirements:
-  - text: Perfecto! Anda mandando los requerimientos que tengas para el proyecto {project} y una vez que estén todos pedime los resultados. Escribi 'stop' cuando no tengas mas requerimentos.
+  - text: Perfecto! Mandame los requerimientos de a uno por favor. Cuando los hayas cargado todos decí basta y te sugiero una arquitectura.
   utter_ask_email:
-  - text: Cómo es tu email?
-  - text: Me decís tu mail?
+  - text: Holaa! Antes de arrancar decime porfa tu email.
+  - text: Buenas! Pasame tu correo electrónico así empezamos a trabajar.
   utter_ask_project:
-  - text: Bienvenido {email}! Cómo se llamará tu proyecto? (por favor incluí el nombre entre comillas)
-  - text: Bienvenido {email}! Cuál es el nombre de tu nuevo proyecto?  (por favor incluí el nombre entre comillas)
-  - text: Bienvenido {email}! Decime el nombre del proyecto nuevo  (por favor incluí el nombre entre comillas)
+  - text: Cómo se va a llamar tu proyecto? (por favor incluí el nombre entre comillas)
+  - text: Cuál es el nombre de tu nuevo proyecto?  (por favor incluí el nombre entre comillas)
+  - text: Decime el nombre del proyecto nuevo  (por favor incluí el nombre entre comillas)
   utter_ask_project_id:
-  - text: Bienvenido {email}! Cuál es el id del proyecto? Puedo mostrartelos si queres
+  - text: Cuál es el id del proyecto?
   utter_work_with_project:
   - text: Ahora que querés hacer con tu proyecto?
     buttons:

@@ -6,8 +6,10 @@ stories:
   - intent: greeting
   - action: login_form
   - slot_was_set:
-    - user_id: 1
+    - email: "joacosaralegui@gmail.com"
   - action: action_login_user
+  - slot_was_set:
+    - user_id: 1
   - action: utter_greeting
 
 - story: arrancar proyecto

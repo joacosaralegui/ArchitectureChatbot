@@ -368,8 +368,8 @@ class ActionRegisterProject(Action):
         dispatcher.utter_message(template="utter_work_with_project")
 
         # Actualizo el project_data
-        project_data = requests.get(API_URL + '/projects/get')
-        SlotSet("project_data", project_data)
+        #project_data = requests.get(API_URL + '/projects/get')
+        SlotSet("project_data", response_join_project.json())
 
         # Guardo tanto el id de usuario como el de proyecto para mas adelante
         return [SlotSet("project_id", project_id), SlotSet("project", project_name)]
