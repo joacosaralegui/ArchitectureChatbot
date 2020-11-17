@@ -448,7 +448,8 @@ class ActionJoinProject(Action):
 
             if response_join_project.status_code == SUCCESS_CODE:
                 dispatcher.utter_message(template="utter_work_with_project")
-                return [SlotSet("project", response_join_project.json()['title'])]
+                project_data = response_join_project.json()
+                return [SlotSet("project", project_data['title']),SlotSet("project_data",project_data)]
             else:
                 dispatcher.utter_message(
                     "No se pudo agregar el usuario al proyecto!")

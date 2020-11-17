@@ -9,6 +9,14 @@ rules:
   steps:
   - intent: list_projects
   - action: action_list_projects
+- rule: adios
+  steps:
+  - intent: bye
+  - action: utter_bye
+- rule: gracias
+  steps:
+  - intent: thanks
+  - action: utter_welcome
 #- rule: activar requeriments form
 #  steps:
 #    - intent: add_requirements   # intent that triggers form activation

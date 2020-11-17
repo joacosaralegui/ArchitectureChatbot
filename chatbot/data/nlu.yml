@@ -277,6 +277,25 @@ nlu:
 #     - Termine. Que arquitectura me sugeris?
 #     - Mostrame la arquitectura
 #     - Recomendame la arquitectura
+
+
+- intent: thanks
+  examples: |
+    - Gracias!
+    - Muchas gracias
+    - Genial
+    - Perfecto, muchas gracias
+    - Joya
+
+- intent: bye
+  examples: |
+    - Chau!
+    - Hasta luego!
+    - Adiós
+    - Perfecto, nos vemos!
+    - Bye
+
+
 - intent: greeting
   examples: |
     - Buenas

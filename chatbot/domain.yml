@@ -11,6 +11,8 @@ intents:
 - stop_intent
 - architecture_from_requirements
 - greeting
+- bye
+- thanks
 - accept_suggestion
 - reject_suggestion
 - ask_project_info
@@ -102,8 +104,15 @@ forms:
 
 
 responses:
-  utter_prueba:
-  - text: hola soy utter, me despido
+  utter_welcome:
+  - text: No hay porque!
+  - text: No es molestia, estoy para ayudarte!
+  - text: Un placer!
+  utter_bye:
+  - text: Hasta luego!
+  - text: Chau! Que tengas un lindo día :D
+  - text: Adiós! Suerte 
+  - text: Nos vemos che!
   utter_greeting:
   - text: Qué te gustaría hacer hoy?
     buttons:
