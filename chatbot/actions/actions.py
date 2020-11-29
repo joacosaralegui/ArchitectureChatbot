@@ -30,10 +30,11 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet, FollowupAction, UserUttered
 
-from actions import vectors
+from actions import architectures_graph
 
 import requests
 import csv
+import os 
 
 req_index = {
     'availability': 0,
@@ -510,31 +511,6 @@ class ActionAddRequirement(Action):
         # return [SlotSet("requirements", requirements)]
 
 
-class ActionShowVector(Action):
-    def name(self) -> Text:
-        return "action_show_vector"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        # Fetch requirements vector
-        requirements = tracker.get_slot('requirements')
-        vector = vectors.get_normalized_vector(requirements)
-        print(vector)
-        # Get closer architecture
-        match = vectors.get_closer_architecture(vector)
-
-        for i, arch in enumerate(match):
-            dispatcher.utter_message(
-                text=f"Arquitectura sugerida n°{i+1}: " + str(arch.name))
-            dispatcher.utter_message(text=arch.analysis(vector))
-
-        # TODO: CLEAN VECTOR?
-
-        return []
-
-
 class ActionAskClarification(Action):
     def name(self) -> Text:
         return "action_ask_clarification"
@@ -602,3 +578,25 @@ class ActionAskClarification(Action):
                 "No te entendí. Podrías volver a escribirlo de otra manera?")
 
         return []
+
+
+# Other imports
+# Action
+class ActionShowEntities(Action):
+
+    def name(self) -> Text:
+        return "action_show_entities"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        entities = architectures_graph.get_entities(tracker)
+        architectures_graph.print_summary(entities)
+        intent = architectures_graph.get_intent(tracker)
+        graph_manager = architectures_graph.GraphManager(tracker)
+        graph_manager.update_graph_with_new_entities(entities,intent)
+        graph_image_file = graph_manager.get_image_file()
+        dispatcher.utter_message(image=os.path.abspath(graph_image_file))
+
+        return [graph_manager.save_to_slot(slotname="graph")]

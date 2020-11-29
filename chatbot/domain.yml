@@ -1,40 +1,57 @@
 version: '2.0'
 
 intents:
-- login
-- project_name
-- register_project
-- continue_project
-- join_project
-- list_projects
-- add_requirements
-- stop_intent
-- architecture_from_requirements
-- greeting
-- bye
-- thanks
-- accept_suggestion
-- reject_suggestion
-- ask_project_info
-- ask_project_pattern
-- ask_project_attributes
-- usability
-- get_recomendation
-- availability
-- fault_tolerance
-- maintainability
-- performance
-- scalability
-- security
-- portability
-- interoperability
-- nlu_fallback
+  - login
+  - project_name
+  - register_project
+  - continue_project
+  - join_project
+  - list_projects
+  - add_requirements
+  - stop_intent
+  - architecture_from_requirements
+  - greeting
+  - bye
+  - thanks
+  - accept_suggestion
+  - reject_suggestion
+  - ask_project_info
+  - ask_project_pattern
+  - ask_project_attributes
+  - usability
+  - get_recomendation
+  - availability
+  - fault_tolerance
+  - maintainability
+  - performance
+  - scalability
+  - security
+  - portability
+  - interoperability
+  - nlu_fallback
+  - double_chain_and_star
+  - double_chain
+  - simple_chain_and_star
+  - simple_chain
+  - star_and_double_chain
+  - star
+  - specs
+  - misc
+  - add_functional_requirements
 
 entities:
   - started_project
   - email
   - project
   - project_id
+  - ACTION
+  - EVENT
+  - MODEL
+  - MODULE
+  - PROPERTY
+  - SYSTEM
+  - PROVIDER
+  - CONNECTOR
 
 slots:
   requirements:
@@ -65,6 +82,9 @@ slots:
   pattern_id_slot:
     type: text
     influence_conversation: true
+
+  graph:
+    type: text
 
 forms:
   login_form:
@@ -136,15 +156,18 @@ responses:
   utter_work_with_project:
   - text: Ahora que querés hacer con tu proyecto?
     buttons:
-      - title: "Agregar requerimientos"
+      - title: "Que patrón puedo usar?"
         payload: "/add_requirements"
+      - title: "Cómo se vería una arquitectura para mi proyecto?"
+        payload: "/add_functional_requirements"
       - title: "Ver información"
         payload: "/ask_project_info"
       - title: "Ver patrón de diseño"
         payload: "/ask_project_pattern"
       - title: "Ver atributos de calidad"
         payload: "/ask_project_attributes"
-
+  utter_functional_requirements:
+  - text: Contame un poco sobre tu proyecto. Tratá de usar sentencias cortas y claras.
 
 actions:
 - action_list_projects
@@ -160,6 +183,7 @@ actions:
 - action_architecture_suggestion
 - action_login_user
 - action_list_projects_options
+- action_show_entities
 
 session_config:
   session_expiration_time: 60

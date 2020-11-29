@@ -11,8 +11,8 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 action_endpoint:
-  url: "https://architecture-chatbot-actions.herokuapp.com/webhook"
-#  url: "http://localhost:5055/webhook"
+#  url: "https://architecture-chatbot-actions.herokuapp.com/webhook"
+  url: "http://localhost:5055/webhook"
 
 
 # Tracker store which is used to store the conversations.

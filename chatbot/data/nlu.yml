@@ -295,7 +295,6 @@ nlu:
     - Perfecto, nos vemos!
     - Bye
 
-
 - intent: greeting
   examples: |
     - Buenas
@@ -304,6 +303,7 @@ nlu:
     - Buen día
     - Hola, que tal?
     - Hola, que haces bot
+
 - intent: architecture_from_requirements
   examples: |
     - Quiero diseñar una arquitectura a partir de requerimientos no funcionales
@@ -312,3 +312,83 @@ nlu:
     - Quiero que me ayudes a generar una arquitectura!
     - Quiero definir una arquitectura
     - Necesito ayuda para definir una arquitectura
+
+- intent: double_chain_and_star
+  examples: |   
+    - El [sistema](SYSTEM) [enviará](EVENT) un [correo electrónico](MODEL) cuando se [registre](EVENT) alguna de las siguientes [transacciones](MODEL): [pedido de venta](MODEL) de [cliente](MODEL), [despacho de mercancía](MODEL) al [cliente](MODEL), [emisión de factura](MODEL) a[cliente](MODEL) y [registro de pago](MODEL) de [cliente](MODEL).
+    - El [sistema](SYSTEM) [enviará una alerta](EVENT) al [administrador del sistema](MODEL) cuando [ocurra](EVENT) alguno de los siguientes [eventos](MODEL): [Registro de nueva cuenta](PROPERTY), [ingreso al sistema por parte del cliente](PROPERTY), [2 o más intentos fallidos en el ingreso de la contraseña de usuario y cambio de contraseña de usuario](PROPERTY).
+    - El [proceso de compras](MODEL) en [el sistema](SYSTEM) [abarcará](EVENT) los siguientes [pasos](MODEL) y [transacciones](MODEL): [Ingreso](EVENT) de la [requisición](MODEL), [emisión](EVENT) de la [solicitud de cotización](MODEL) y [emisión](EVENT) de la [orden de compra](MODEL).
+
+- intent: double_chain
+  examples: |  
+    - Al [ingresar](EVENT) [ordenes de entrega](MODEL), toda [orden de entrega](MODEL) estará [asociada](EVENT) a un [pedido de venta](MODEL).
+    - La [solución](SYSTEM) [validara](EVENT) automáticamente el [cliente](MODEL) [asociado](EVENT) a una [orden](MODEL) con el [sistema de gestión de contactos](PROVIDER).
+    - Cualquier [intercambio de datos](EVENT) vía internet que [realice](EVENT) [el software](SYSTEM) se [realizará](EVENT) por medio del protocolo encriptado [https](PROVIDER).
+    - El [sistema](SYSTEM) [manejará](EVENT) un [registro maestro](MODEL) de [clientes](MODEL). 
+    - Se permitirá el [registro](EVENT) de [pedidos de compra](MODEL) con [datos obligatorios incompletos](PROPERTY), los cuales podrán [completarse](EVENT) posteriormente [modificando](EVENT) el [pedido](MODEL). 
+    - Al [aprobar](EVENT) un [pedido](MODEL), la [solicitud](MODEL) [pasará](EVENT) al siguiente [paso](PROPERTY) del [flujo de trabajo](MODEL) (workflow) de aprobación configurado en [el sistema](SYSTEM).
+    - El [sistema](SYSTEM) [permitirá](EVENT) el [envío](EVENT) automatizado de cartas de [órdenes de entrega](MODEL) directamente al [almacén](MODEL).
+    - La [facturación](EVENT) de [pedidos de venta](MODEL) se [realizara](EVENT) en lotes, por medio de una [pantalla de pedidos](MODEL) pendientes de [facturación](EVENT), la cual [mostrará](EVENT) los [pedidos](MODEL) no facturados. 
+    - [El sistema](SYSTEM) también [permitirá](EVENT) el [registro](EVENT) de [facturas](MODEL) manuales [no asociadas](EVENT) a [pedidos](MODEL).
+    - El [sistema](SYSTEM) [permitirá](EVENT) [manejar](EVENT) un [maestro de materiales y productos](MODEL), en el cual se [registrarán](EVENT) todos los [ítems](MODEL) que se pueden [vender](EVENT). 
+    - El [acceso](EVENT) a la [lista de precios](MODEL) estará [restringido](EVENT) solamente a un grupo de [usuarios](MODEL) [autorizados](PROPERTY).
+    - Se podrán [crear](EVENT) [listas de precios](MODEL) [convenidos](EVENT) con un [cliente](MODEL). 
+    - Los [pedidos de compra](MODEL) que [excedan](EVENT) los [montos establecidos](PROPERTY) en el [flujo de liberaciones](MODEL) de pedidos configurados, deberán [pasar](EVENT) por las [aprobaciones establecidas](PROPERTY) en dicho [flujo de aprobación](MODEL).
+
+- intent: simple_chain_and_star
+  examples: |    
+    - El [software](SYSTEM) debe poder [emitir](EVENT) los siguientes [estados financieros](MODEL): [Balance general](PROPERTY), [Estado de ganancias y pérdidas](PROPERTY), [Estado de flujos de efectivo](PROPERTY). 
+    - Además, debe poder [emitir](EVENT) un [listado](MODEL) de [mayor general](MODEL) y [mayor analítico](MODEL).
+    - La [pantalla de registro](MODEL) de pago puede [imprimir](EVENT) los [datos](PROPERTY) en [pantalla](PROVIDER) a la [impresora](PROVIDER).
+    - El [sistema](SYSTEM) [permitirá](EVENT) a los [usuarios](MODEL) [autorizados](PROPERTY) el [ingresar](EVENT) [planes](MODEL) y [cronogramas de proyecto](MODEL).
+    - El [sistema](SYSTEM) [permitirá](EVENT) [elaborar](EVENT) y [emitir](EVENT) el [reporte regulatorio](MODEL) XX, según los [requerimientos](PROPERTY)[establecidos](ACTION) en el [reglamento](MODEL) y [ley aplicable](MODEL).
+    - Al [crear](EVENT) la [lista de precios](MODEL) se [agregarán](EVENT) los [materiales](MODEL) e [ítems](MODEL), los cuales deben estar [registrados](EVENT) previamente en el [maestro de materiales](MODEL). 
+    - Los [usuarios](MODEL) deben [ingresar](EVENT) al [sistema](SYSTEM) con un [nombre de usuario](PROPERTY) y [contraseña](PROPERTY).
+
+- intent: simple_chain
+  examples: |    
+    - El [sistema](SYSTEM) [controlará](EVENT) el acceso y lo [permitirá](EVENT) solamente a [usuarios](MODEL) [autorizados](PROPERTY).
+    - Antes de poder [aprobarse](EVENT) los [datos](PROPERTY) del [pedido](MODEL) deben estar [completos](PROPERTY).
+    - Las [facturas](MODEL) [requerirán autorización](EVENT) por parte del [grupo de Gerentes](MODEL) antes de ser [contabilizadas](PROPERTY).
+    - El [sistema](SYSTEM) debe [manejar](EVENT) [listas de precios](MODEL).
+    - El [usuario](MODEL) podrá [agregar](EVENT), [modificar](EVENT) o [eliminar](EVENT) [listas de precios](MODEL). 
+    - Para cada [ítem] deberá [especificarse](EVENT) un [precio](PROPERTY).
+    - A cada [orden](MODEL) se le [asignará](EVENT) un [identificador único](PROPERTY), que será utilizado para [identificarla](EVENT) en todos los procesos subsecuentes que se realicen sobre esta.
+    - Para [crear](EVENT) un [registro maestro](MODEL) de [cliente](MODEL), se [solicitará](EVENT) como mínimo el [nombre del cliente](PROPERTY) y su [número de identificación fiscal](PROPERTY). 
+
+- intent: star_and_double_chain
+  examples: | 
+    - Los [libros](MODEL) de [venta](MODEL) y de [compras](MODEL) serán [emitidos](EVENT) en el [formato](PROPERTY) [establecido](EVENT) por las [autoridades tributarias](MODEL) de dicha materia.
+
+- intent: star
+  examples: |
+    - El [sistema](SYSTEM) [permitirá](EVENT) [aprobar](EVENT), [cambiar](EVENT) o [actualizar](EVENT) [planes](MODEL) y [cronogramas de proyecto](MODEL).
+    - Los integrantes del [grupo de usuarios de analistas](MODEL) pueden [ingresar](EVENT) [solicitudes](MODEL) pero no pueden [aprobarlas](EVENT) o [borrarlas](EVENT).
+    - Sólo los [usuarios](MODEL) [autorizados](PROPERTY) podrán [ingresar nuevos](EVENT) [clientes](MODEL), [modificar](EVENT) los [datos](PROPERTY) o [eliminarlos](EVENT).
+    - Los integrantes del [grupo de usuarios de gerentes](MODEL) pueden [ingresar](EVENT) y [aprobar](EVENT) [solicitudes](MODEL), pero no pueden [borrarlas](EVENT).
+    - Los integrantes del [grupo de usuario de administradores](MODEL) no pueden [ingresar](EVENT) o [aprobar](EVENT) [solicitudes](MODEL), pero si pueden [borrarlas](EVENT).
+    - El [software](SYSTEM) podrá ser [utilizado](EVENT) en los sistemas operativos [Windows](PROVIDER), [Linux](PROVIDER) y [OSX](PROVIDER).
+    - El [registro maestro](MODEL) de [clientes](MODEL) tendrá [asociado](EVENT) un [límite de crédito](PROPERTY). 
+    - Cada [item](MODEL) debe tener al menos su [nombre](PROPERTY), [unidad de medida](PROPERTY) y [descripción](PROPERTY).
+    - La [lista de precios](MODEL) tendrá [fechas inicio](PROPERTY) y [fin de vigencia](PROPERTY) del convenio y se le podrán [agregar](EVENT) [ítems](MODEL) del [maestro de materiales](MODEL) y [definir](EVENT) su [precio](PROPERTY) convenido.
+    - Se permitirán [asociar](EVENT) varias [direcciones](PROPERTY) al registro de [cliente](MODEL) y se le podrá [asignar](EVENT) a cada [dirección](PROPERTY) un [propósito](PROPERTY), por ejemplo dirección fiscal, dirección de despacho, entre otros. Al crear el [registro maestro](MODEL), el [sistema](SYSTEM) asignará un [código de cliente](PROPERTY).
+
+- intent: specs
+  examples: |   
+    - El campo de [monto](PROPERTY) [acepta](EVENT) únicamente valores numéricos con dos decimales.
+    - El campo [fecha de transacción](PROPERTY) [acepta](EVENT) únicamente fechas anteriores al día de hoy (día actual).
+    - El campo [nombre](PROPERTY) [acepta](EVENT) caracteres alfabéticos únicamente.
+    - El campo [dirección](PROPERTY)  [acepta](EVENT) caracteres alfabéticos, numéricos y especiales.
+    - El campo [país](PROPERTY) [consistirá](EVENT) en una [lista de preselección](PROPERTY). 
+    - El [país](PROPERTY) [asociado](EVENT) a una [dirección](PROPERTY) debe ser previamente [registrado](EVENT) en el [sistema](SYSTEM).
+    - El campo [estado](PROPERTY), [provincia](PROPERTY) o [departamento](PROPERTY) consistirá en una lista de preselección. A los [usuarios](MODEL) se les presentará únicamente los [estados](PROPERTY) [asociados](EVENT) al [país](PROPERTY) seleccionado previamente. El [departamento](PROPERTY) o [provincia](PROPERTY) a seleccionar deberá ser [registrado](EVENT) en la funcionalidad correspondiente.
+    - El campo [fecha contable](PROPERTY) [acepta](EVENT) únicamente [fechas](PROPERTY) que correspondan con [periodos contables](MODEL) que estén [abiertos](PROPERTY) en el [sistema](SYSTEM).
+
+
+- intent: misc
+  examples: |   
+    - Las [listas de precios](MODEL) [tendrán](EVENT) un [período de vigencia](PROPERTY) ([fecha inicial](PROPERTY) y [fecha final](PROPERTY)). 
+
+
+
+

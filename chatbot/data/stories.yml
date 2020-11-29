@@ -98,3 +98,75 @@ stories:
     - intent: ask_project_attributes
   - action: action_provide_data
   - action: utter_work_with_project
+
+- story: happy path 1
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: double_chain_and_star
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 2
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: double_chain
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 3
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: simple_chain_and_star
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 4
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: simple_chain
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 5
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: star_and_double_chain
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 6
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: star
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 7
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: specs
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
+
+- story: happy path 8
+  steps:
+  - intent: add_functional_requirements
+  - action: utter_functional_requirements
+  - intent: misc
+  - action: action_show_entities
+  - slot_was_set: 
+    - graph: "Graph"
