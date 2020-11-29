@@ -133,7 +133,7 @@ class ActionProvideData(Action):
                 dispatcher.utter_message(text="El id de tu proyecto es: " + str(project_data['id']))
                 # aca faltaria la descripcion
             elif last_intent == 'ask_project_pattern':
-                if project_data['architecture_pattern'] != None:
+                if 'architecture_pattern' in project_data:
                     dispatcher.utter_message(
                         text="El patrón de tu proyecto es:\n" + project_data['architecture_pattern']['title'])
                 else:
