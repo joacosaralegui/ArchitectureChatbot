@@ -4,9 +4,6 @@ stories:
 - story: saludo
   steps:
   - intent: greeting
-  - action: login_form
-  - slot_was_set:
-    - email: "joacosaralegui@gmail.com"
   - action: action_login_user
   - slot_was_set:
     - user_id: 1
