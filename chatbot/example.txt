@@ -1,0 +1,4 @@
+A cada órden de entrega se le asignará un identificador único, que será utilizado para identificarla en todos los procesos subsecuentes que se realicen sobre esta.
+El sistema permitirá el envío automático de las órdenes de entrega directamente al almacén.
+El sistema permitirá a los usuarios autorizados el ingresar planes y cronogramas de proyecto.
+Al ingresar órdenes de entrega, toda órden de entrega estará asociada a un pedido de venta.
