@@ -48,7 +48,7 @@ class GraphManager:
 
 
     def get_image_file(self):
-        filename = 'file'+ str(datetime.now()) +'.png'
+        filename = 'images/file'+ str(datetime.now()) +'.png'
         self.draw_in_file(filename)
         return filename
 
