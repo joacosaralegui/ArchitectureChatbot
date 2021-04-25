@@ -29,7 +29,7 @@ class GraphManager:
 
     def update_graph_with_new_entities(self,entities,intent):
         print(intent)
-        if intent == "start":
+        if intent == "star":
             self.update_graph_with_star_entities(entities)
         elif intent == "simple_chain" or intent == "double_chain":
             self.update_graph_with_chained_entities(entities)  
@@ -39,6 +39,8 @@ class GraphManager:
                 cut_index = entities.index(nodes[1])
             elif "double" in intent:
                 cut_index = entities.index(nodes[2])
+            else: 
+                cut_index = len(entities)-1
 
             if len(entities) > cut_index:
                 self.update_graph_with_chained_entities(entities[:cut_index+1])
@@ -165,7 +167,7 @@ class GraphManager:
         main_node = nodes[0]
         for idx, entity in enumerate(entities[:-1]):
             next_entity = entities[idx+1]
-            if entity.is_event() and next_entity.is_node() and next_entity != main_node:
+            if entity.is_event() and next_entity.is_node() or next_entity.is_property() and next_entity != main_node:
                 self.add_labeled_edge(main_node,next_entity,entity)
 
         for node in nodes[1:]:
