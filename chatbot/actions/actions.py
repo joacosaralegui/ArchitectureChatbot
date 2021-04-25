@@ -51,7 +51,7 @@ req_index = {
 RESET_CONVERSATION = [SlotSet("user_id", None), SlotSet(
     "project_id", None), FollowupAction("utter_greeting")]
 SUCCESS_CODE = 200
-API_URL = "http://fastapi-training1.herokuapp.com"
+API_URL = "http://fastapi-testing1.herokuapp.com"
 
 
 class ActionLoginUser(Action):
@@ -74,19 +74,11 @@ def login(self, dispatcher, tracker, create_if_not_found=True):
     """
     Attempts login, returns user_data dict if found or created, otherwise returns None
     """
-    email = tracker.get_slot('email')
+    sender_id = tracker.sender_id
+    print(sender_id)
 
-    # Si no esta cargado el slot de email entonces no podemos continuar
-    if email == None:
-        dispatcher.utter_message(
-            "No se pudo reconocer el email. Por favor, ingresalo de nuevo.")
-        return None
-        # return [UserUttered("/greeting",intent={'name': 'greeting', 'confidence': 1.0})]
-        # TODO: forzar que la intent que sigue se marque como email?? reenviar el form (followupAction)
-        # return [FollowupAction("action_login")]
-
-    # Lo busco por email a ver si existe
-    response_get_user = requests.get(API_URL+'/users/get/email/'+email)
+    # Lo busco por sender_id a ver si existe
+    response_get_user = requests.get(API_URL+'/users/get/id_virtual/'+sender_id)
 
     # Si no lo encuentra
     if response_get_user.status_code != SUCCESS_CODE:
@@ -94,15 +86,16 @@ def login(self, dispatcher, tracker, create_if_not_found=True):
             dispatcher.utter_message(text="El usuario no existe, lo voy a crear!")
             # Intento crear usuario
             response_create_user = requests.post(
-                API_URL+'/users/create', data='{"email": "'+email+'"}')
+                API_URL+'/users/create', data='{"id_virtual_world": "'+sender_id+'", "nombre": "'+sender_id+'"}')
+
 
             # Si falla la creación,
             if response_create_user.status_code != SUCCESS_CODE:
                 dispatcher.utter_message(
-                    "Error al crear el usuario "+email+", por favor intente nuevamente!")
+                    "Error al crear el usuario "+sender_id+", por favor intente nuevamente!")
                 return None
         else:
-            dispatcher.utter_message("No se encontro el usuario: " + email)
+            dispatcher.utter_message("No se encontro el usuario: " + sender_id)
             return None
 
     # Se que la info esta en alguno de los dos response porque la ejecucion llego hasta aca. Elijo de cual lo agarro.
@@ -494,6 +487,7 @@ class ActionAddRequirement(Action):
             if response.status_code == SUCCESS_CODE:
                 dispatcher.utter_message(
                     "Requerimiento agregado exitosamente!")
+                print(response.json())
             else:
                 dispatcher.utter_message(
                     "Error al agregar atributo: " + str(response.json()['detail']))

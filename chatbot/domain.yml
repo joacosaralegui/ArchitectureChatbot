@@ -59,19 +59,15 @@ slots:
 
   email:
     type: text
-    influence_conversation: false
   
   project:
     type: text
-    influence_conversation: true
 
   project_id:
     type: text
-    influence_conversation: true
 
   user_id:
     type: text
-    influence_conversation: true
 
   project_data:
     type: any
@@ -81,7 +77,6 @@ slots:
   
   pattern_id_slot:
     type: text
-    influence_conversation: true
 
   graph:
     type: text
