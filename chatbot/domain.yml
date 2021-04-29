@@ -18,30 +18,173 @@ intents:
   - ask_project_info
   - ask_project_pattern
   - ask_project_attributes
-  - usability
+  - usability:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
   - get_recomendation
-  - availability
-  - fault_tolerance
-  - maintainability
-  - performance
-  - scalability
-  - security
-  - portability
-  - interoperability
+  - availability:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - fault_tolerance:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - maintainability:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - performance:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - scalability:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - security:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - portability:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
+  - interoperability:
+      use_entities: []
+      ignore_entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
   - nlu_fallback
-  - double_chain_and_star
-  - double_chain
-  - simple_chain_and_star
-  - simple_chain
-  - star_and_double_chain
-  - star
+  - double_chain_and_star:
+      use_entities:
+          - ACTION
+          - EVENT
+          - MODEL
+          - MODULE
+          - PROPERTY
+          - SYSTEM
+          - PROVIDER
+          - CONNECTOR
+  - double_chain:
+      use_entities:
+          - ACTION
+          - EVENT
+          - MODEL
+          - MODULE
+          - PROPERTY
+          - SYSTEM
+          - PROVIDER
+          - CONNECTOR
+  - simple_chain_and_star:
+      use_entities:
+          - ACTION
+          - EVENT
+          - MODEL
+          - MODULE
+          - PROPERTY
+          - SYSTEM
+          - PROVIDER
+          - CONNECTOR
+  - simple_chain:
+      use_entities:
+          - ACTION
+          - EVENT
+          - MODEL
+          - MODULE
+          - PROPERTY
+          - SYSTEM
+          - PROVIDER
+          - CONNECTOR
+  - star_and_double_chain:
+      use_entities:
+          - ACTION
+          - EVENT
+          - MODEL
+          - MODULE
+          - PROPERTY
+          - SYSTEM
+          - PROVIDER
+          - CONNECTOR
+  - star:
+      use_entities:
+          - ACTION
+          - EVENT
+          - MODEL
+          - MODULE
+          - PROPERTY
+          - SYSTEM
+          - PROVIDER
+          - CONNECTOR
   - specs
   - misc
   - add_functional_requirements
 
 entities:
   - started_project
-  - email
   - project
   - project_id
   - ACTION
@@ -56,9 +199,6 @@ entities:
 slots:
   requirements:
     type: any
-
-  email:
-    type: text
   
   project:
     type: text
@@ -82,11 +222,6 @@ slots:
     type: text
 
 forms:
-  login_form:
-    email:
-    - type: from_entity
-      entity: email
-      intent: login
   create_form:
     project:
     - type: from_entity
@@ -100,22 +235,6 @@ forms:
     project_id:
     - type: from_entity
       entity: project_id
-#  requirements_form:
-#    req1:
-#    - type: from_intent
-#    - intent: 
-
-#- rule: mostrar los proyectos si no sabe id
-#  condition:
-#  # Condition that form is active.
-#  - active_loop: continue_form
-#  steps:
-#  # This unhappy path handles the case of an intent `chitchat`.
-#  - intent: list_projects
-#  - action: action_list_projects
-#  # Return to form after handling the `chitchat` intent
-#  - action: continue_form
-#  - active_loop: continue_form
 
 
 responses:
@@ -129,7 +248,7 @@ responses:
   - text: Adiós! Suerte 
   - text: Nos vemos che!
   utter_greeting:
-  - text: Qué te gustaría hacer hoy?
+  - text: Qué te gustaría hacer ahora?
     buttons:
       - title: "Crear un proyecto nuevo"
         payload: "/register_project"

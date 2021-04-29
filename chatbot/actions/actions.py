@@ -75,7 +75,7 @@ def login(self, dispatcher, tracker, create_if_not_found=True):
     Attempts login, returns user_data dict if found or created, otherwise returns None
     """
     sender_id = tracker.sender_id
-    print(sender_id)
+  
 
     # Lo busco por sender_id a ver si existe
     response_get_user = requests.get(API_URL+'/users/get/id_virtual/'+sender_id)
@@ -254,9 +254,9 @@ class ActionListProjects(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # Obtengo el email del usuario actual y busco en la api su lista de proyectos
-        email = tracker.get_slot('email')
-        user_data = requests.get(API_URL+'/users/get/email/'+email).json()
+        # Obtengo el id del usuario actual y busco en la api su lista de proyectos
+        id = tracker.get_slot('user_id')
+        user_data = requests.get(API_URL+'/users/get/id/'+id).json()
         projects_match = user_data['projects']
 
         if not projects_match:  # Si la lista esta vacia
@@ -288,6 +288,7 @@ class ActionListProjectsOptions(Action):
 
             if len(projects_match) == 0:  # Si la lista esta vacia
                 dispatcher.utter_message(text="El usuario no tiene proyectos.")
+                dispatcher.utter_message(response="utter_greeting")
             else:
                 # Muestro todos los patrones y le pido que elija
                 message = "Elegí que proyecto querés continuar:"
@@ -359,7 +360,6 @@ class ActionRegisterProject(Action):
         # Muestro al usuario el id para la proxima vez
         dispatcher.utter_message(
             f"Proyecto creado exitosamente! Guarda este ID para poder acceder más adelante: {project_id}")
-        dispatcher.utter_message(template="utter_work_with_project")
 
         # Actualizo el project_data
         #project_data = requests.get(API_URL + '/projects/get')

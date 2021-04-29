@@ -7,6 +7,7 @@ stories:
   - action: action_login_user
   - slot_was_set:
     - user_id: 1
+    - user_data: 1
   - action: utter_greeting
 
 - story: arrancar proyecto
@@ -16,20 +17,22 @@ stories:
   - active_loop: null
   - slot_was_set:
     - project: "nombre"
-  - action: action_register_project 
+  - action: action_register_project
+  - action: utter_work_with_project
 
 - story: continuar proyecto
   steps:
   - intent: continue_project
-#  - action: continue_form
-#  - active_loop: null
-#  - slot_was_set:
-#    - project_id: 1
   - action: action_list_projects_options
   - intent: accept_suggestion
   - slot_was_set:
     - project_id: 1
   - action: action_continue_project
+
+- story: continuar proyecto pero no tiene
+  steps:
+  - intent: continue_project
+  - action: action_list_projects_options # Queda ahi porque al usuario se le mostro el menu inicial nuevamente
 
 - story: unirte a proyecto
   steps:
@@ -107,11 +110,65 @@ stories:
   - checkpoint: agregar_requerimiento_funcional
   - or:
     - intent: double_chain_and_star
+      entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
     - intent: double_chain
+      entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
     - intent: simple_chain_and_star
+      entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
     - intent: simple_chain
+      entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
     - intent: star_and_double_chain
+      entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
     - intent: star
+      entities:
+        - ACTION
+        - EVENT
+        - MODEL
+        - MODULE
+        - PROPERTY
+        - SYSTEM
+        - PROVIDER
+        - CONNECTOR
     - intent: specs
     - intent: misc
   - action: action_show_entities
